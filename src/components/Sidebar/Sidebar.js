@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import { useLocation, NavLink } from "react-router-dom";
+// import { useLocation, NavLink } from "react-router-dom";
 
-import { Nav } from "react-bootstrap";
+import { Nav, NavLink } from "react-bootstrap";
 
-import logo from "assets/img/reactlogo.png";
-
+// import logo from "assets/img/reactlogo.png";
+// import routes from "routes.js";
 function Sidebar({ color, image, routes }) {
-    const location = useLocation();
-    const activeRoute = (routeName) => {
-        return location.pathname.indexOf(routeName) > -1 ? "active" : "";
-    };
+    // const location = useLocation();
+    // const activeRoute = (routeName) => {
+    //     return location.pathname.indexOf(routeName) > -1 ? "active" : "";
+    // };
     return (
         <div className="sidebar" data-image={image} data-color={color}>
             <div
@@ -25,10 +25,7 @@ function Sidebar({ color, image, routes }) {
                         className="simple-text logo-mini mx-1"
                     >
                         <div className="logo-img">
-                            <img
-                                src={require("assets/img/reactlogo.png")}
-                                alt="..."
-                            />
+                            <img src="" alt="..." />
                         </div>
                     </a>
                     <a
@@ -43,13 +40,13 @@ function Sidebar({ color, image, routes }) {
                         if (!prop.redirect)
                             return (
                                 <li
-                                    className={
-                                        prop.upgrade
-                                            ? "active active-pro"
-                                            : activeRoute(
-                                                  prop.layout + prop.path
-                                              )
-                                    }
+                                    // className={
+                                    //     // prop.upgrade
+                                    //     //     ? "active active-pro"
+                                    //     //     : activeRoute(
+                                    //     //           prop.layout + prop.path
+                                    //     //       )
+                                    // }
                                     key={key}
                                 >
                                     <NavLink

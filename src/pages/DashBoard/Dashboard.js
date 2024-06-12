@@ -20,14 +20,14 @@ function Dashboard() {
     return (
         <>
             <Container fluid>
-                <Row>
+                <Row style={{ marginTop: "20px" }}>
                     <Col lg="3" sm="6">
                         <Card className="card-stats">
                             <Card.Body>
                                 <Row>
                                     <Col xs="5">
                                         <div className="icon-big text-center icon-warning">
-                                            <i className="nc-icon nc-chart text-warning"></i>
+                                            <i class="bi bi-browser-chrome"></i>
                                         </div>
                                     </Col>
                                     <Col xs="7">
@@ -57,16 +57,16 @@ function Dashboard() {
                                 <Row>
                                     <Col xs="5">
                                         <div className="icon-big text-center icon-warning">
-                                            <i className="nc-icon nc-light-3 text-success"></i>
+                                            <i class="bi bi-dribbble"></i>
                                         </div>
                                     </Col>
                                     <Col xs="7">
                                         <div className="numbers">
                                             <p className="card-category">
-                                                Revenue
+                                                Walking Steps
                                             </p>
                                             <Card.Title as="h4">
-                                                $ 1,345
+                                                1,345
                                             </Card.Title>
                                         </div>
                                     </Col>
@@ -76,34 +76,6 @@ function Dashboard() {
                                 <hr></hr>
                                 <div className="stats">
                                     <i className="far fa-calendar-alt mr-1"></i>
-                                    Last day
-                                </div>
-                            </Card.Footer>
-                        </Card>
-                    </Col>
-                    <Col lg="3" sm="6">
-                        <Card className="card-stats">
-                            <Card.Body>
-                                <Row>
-                                    <Col xs="5">
-                                        <div className="icon-big text-center icon-warning">
-                                            <i className="nc-icon nc-vector text-danger"></i>
-                                        </div>
-                                    </Col>
-                                    <Col xs="7">
-                                        <div className="numbers">
-                                            <p className="card-category">
-                                                Errors
-                                            </p>
-                                            <Card.Title as="h4">23</Card.Title>
-                                        </div>
-                                    </Col>
-                                </Row>
-                            </Card.Body>
-                            <Card.Footer>
-                                <hr></hr>
-                                <div className="stats">
-                                    <i className="far fa-clock-o mr-1"></i>
                                     In the last hour
                                 </div>
                             </Card.Footer>
@@ -115,16 +87,44 @@ function Dashboard() {
                                 <Row>
                                     <Col xs="5">
                                         <div className="icon-big text-center icon-warning">
-                                            <i className="nc-icon nc-favourite-28 text-primary"></i>
+                                            <i class="bi bi-clipboard2-x-fill"></i>
                                         </div>
                                     </Col>
                                     <Col xs="7">
                                         <div className="numbers">
                                             <p className="card-category">
-                                                Followers
+                                                Task Uncomplete
+                                            </p>
+                                            <Card.Title as="h4">10</Card.Title>
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </Card.Body>
+                            <Card.Footer>
+                                <hr></hr>
+                                <div className="stats">
+                                    <i className="far fa-clock-o mr-1"></i>
+                                    Last day
+                                </div>
+                            </Card.Footer>
+                        </Card>
+                    </Col>
+                    <Col lg="3" sm="6">
+                        <Card className="card-stats">
+                            <Card.Body>
+                                <Row>
+                                    <Col xs="5">
+                                        <div className="icon-big text-center icon-warning">
+                                            <i class="bi bi-calendar2-week"></i>
+                                        </div>
+                                    </Col>
+                                    <Col xs="7">
+                                        <div className="numbers">
+                                            <p className="card-category">
+                                                Hang out
                                             </p>
                                             <Card.Title as="h4">
-                                                +45K
+                                                15:00
                                             </Card.Title>
                                         </div>
                                     </Col>
@@ -213,7 +213,7 @@ function Dashboard() {
                             </Card.Body>
                             <Card.Footer>
                                 <div className="legend">
-                                    <i className="fas fa-circle text-info"></i>
+                                    <i class="bi bi-circle-fill"></i>
                                     Open{" "}
                                     <i className="fas fa-circle text-danger"></i>
                                     Click{" "}

@@ -16,13 +16,13 @@
 
 */
 import React, { Component } from "react";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import { Navbar, Container, Nav, Dropdown, Button } from "react-bootstrap";
 
-import routes from "routes.js";
+// import routes from "routes.js";
 
 function Header() {
-    const location = useLocation();
+    // const location = useLocation();
     const mobileSidebarToggle = (e) => {
         e.preventDefault();
         document.documentElement.classList.toggle("nav-open");
@@ -35,17 +35,17 @@ function Header() {
         document.body.appendChild(node);
     };
 
-    const getBrandText = () => {
-        for (let i = 0; i < routes.length; i++) {
-            if (
-                location.pathname.indexOf(routes[i].layout + routes[i].path) !==
-                -1
-            ) {
-                return routes[i].name;
-            }
-        }
-        return "Brand";
-    };
+    // const getBrandText = () => {
+    //     for (let i = 0; i < routes.length; i++) {
+    //         if (
+    //             location.pathname.indexOf(routes[i].layout + routes[i].path) !==
+    //             -1
+    //         ) {
+    //             return routes[i].name;
+    //         }
+    //     }
+    //     return "Brand";
+    // };
     return (
         <Navbar bg="light" expand="lg">
             <Container fluid>
@@ -61,9 +61,7 @@ function Header() {
                         href="#home"
                         onClick={(e) => e.preventDefault()}
                         className="mr-2"
-                    >
-                        {getBrandText()}
-                    </Navbar.Brand>
+                    ></Navbar.Brand>
                 </div>
                 <Navbar.Toggle
                     aria-controls="basic-navbar-nav"
@@ -82,8 +80,8 @@ function Header() {
                                 onClick={(e) => e.preventDefault()}
                                 className="m-0"
                             >
-                                <i className="nc-icon nc-palette"></i>
-                                <span className="d-lg-none ml-1">
+                                <i class="bi bi-house-fill"></i>
+                                <span style={{ fontSize: "20px" }}>
                                     Dashboard
                                 </span>
                             </Nav.Link>
@@ -96,7 +94,7 @@ function Header() {
                                 variant="default"
                                 className="m-0"
                             >
-                                <i className="nc-icon nc-planet"></i>
+                                <i class="bi bi-bell"></i>
                                 <span className="notification">5</span>
                                 <span className="d-lg-none ml-1">
                                     Notification
@@ -141,7 +139,7 @@ function Header() {
                                 href="#pablo"
                                 onClick={(e) => e.preventDefault()}
                             >
-                                <i className="nc-icon nc-zoom-split"></i>
+                                <i class="bi bi-search"></i>
                                 <span className="d-lg-block"> Search</span>
                             </Nav.Link>
                         </Nav.Item>
