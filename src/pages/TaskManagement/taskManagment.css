@@ -1,0 +1,23 @@
+/* ./ */
+.workout-item {
+    background-color: navajowhite;
+    padding: 5px;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 14px;
+}
+
+table th,
+table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: 0.5rem;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
