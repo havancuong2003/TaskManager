@@ -9,17 +9,22 @@ import GoalTracking from "./pages/GoalTracking/GoalTracking";
 import TaskManagment from "./pages/TaskManagement/TaskManagment";
 
 import DailyPlanning from "./pages/DailyPlanning/DailyPlanning";
+import Login from "./pages/Login/Login.js";
+import SignUpForm from "./pages/SignUp/SignUp.js";
 
 function App() {
     const [color, setColor] = React.useState("black");
     return (
         <>
+            <Login />
+            <SignUpForm />
             <div className="wrapper">
                 <Sidebar color={color} routes={routes} />
                 <div className="main-panel">
                     <Header />
                     <Dashboard />
                     <Footer />
+
                     {/* <div className="content">
                         <Switch>{getRoutes(routes)}</Switch>
                     </div> */}
