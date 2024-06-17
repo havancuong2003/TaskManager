@@ -1,15 +1,10 @@
-import React, { Component } from "react";
-// import { useLocation, NavLink } from "react-router-dom";
+import React from "react";
+import { Nav } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
-import { Nav, NavLink } from "react-bootstrap";
-
-// import logo from "assets/img/reactlogo.png";
-// import routes from "routes.js";
 function Sidebar({ color, image, routes }) {
-    // const location = useLocation();
-    // const activeRoute = (routeName) => {
-    //     return location.pathname.indexOf(routeName) > -1 ? "active" : "";
-    // };
+    const navigate = useNavigate();
+
     return (
         <div className="sidebar" data-image={image} data-color={color}>
             <div
@@ -35,30 +30,20 @@ function Sidebar({ color, image, routes }) {
                         Creative Tim
                     </a>
                 </div>
-                <Nav>
+                <Nav className="flex-column">
                     {routes.map((prop, key) => {
-                        if (!prop.redirect)
+                        if (!prop.redirect) {
                             return (
-                                <li
-                                    // className={
-                                    //     // prop.upgrade
-                                    //     //     ? "active active-pro"
-                                    //     //     : activeRoute(
-                                    //     //           prop.layout + prop.path
-                                    //     //       )
-                                    // }
-                                    key={key}
-                                >
-                                    <NavLink
-                                        to={prop.layout + prop.path}
-                                        className="nav-link"
-                                        activeClassName="active"
+                                <Nav.Item key={key} className="nav-item">
+                                    <Nav.Link
+                                        onClick={() => navigate(prop.path)}
                                     >
                                         <i className={prop.icon} />
                                         <p>{prop.name}</p>
-                                    </NavLink>
-                                </li>
+                                    </Nav.Link>
+                                </Nav.Item>
                             );
+                        }
                         return null;
                     })}
                 </Nav>

@@ -13,7 +13,7 @@ const SideBar = () => {
                     >
                         <Container fluid>
                             <Row>
-                                <Col md={11}>
+                                <Col md={10}>
                                     <InputGroup>
                                         <InputGroup.Text>
                                             <BiSearch />
@@ -24,7 +24,7 @@ const SideBar = () => {
                                         />
                                     </InputGroup>
                                 </Col>
-                                <Col md={1}>
+                                <Col md={2}>
                                     <i className="bi bi-chevron-double-left"></i>
                                 </Col>
                             </Row>

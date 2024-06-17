@@ -1,21 +1,4 @@
-/*!
-
-=========================================================
-* Light Bootstrap Dashboard React - v2.0.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-import React, { Component } from "react";
+import React from "react";
 // import { useLocation } from "react-router-dom";
 import { Navbar, Container, Nav, Dropdown, Button } from "react-bootstrap";
 
@@ -80,7 +63,7 @@ function Header() {
                                 onClick={(e) => e.preventDefault()}
                                 className="m-0"
                             >
-                                <i class="bi bi-house-fill"></i>
+                                <i className="bi bi-house-fill"></i>
                                 <span style={{ fontSize: "20px" }}>
                                     Dashboard
                                 </span>
@@ -94,7 +77,7 @@ function Header() {
                                 variant="default"
                                 className="m-0"
                             >
-                                <i class="bi bi-bell"></i>
+                                <i className="bi bi-bell"></i>
                                 <span className="notification">5</span>
                                 <span className="d-lg-none ml-1">
                                     Notification
@@ -139,7 +122,7 @@ function Header() {
                                 href="#pablo"
                                 onClick={(e) => e.preventDefault()}
                             >
-                                <i class="bi bi-search"></i>
+                                <i className="bi bi-search"></i>
                                 <span className="d-lg-block"> Search</span>
                             </Nav.Link>
                         </Nav.Item>
