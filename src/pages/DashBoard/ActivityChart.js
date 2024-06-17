@@ -2,25 +2,7 @@ import React from "react";
 import { Bar } from "react-chartjs-2";
 import { Container, Row, Col } from "react-bootstrap";
 import "./ActivityChart.css";
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
-    Tooltip,
-    Legend,
-} from "chart.js";
-
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
-    Tooltip,
-    Legend
-);
-
+import "./ChartSetup";
 const ActivityChart = ({ data }) => {
     const chartData = {
         labels: [

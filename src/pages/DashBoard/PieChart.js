@@ -2,6 +2,8 @@ import React from "react";
 import { Pie } from "react-chartjs-2";
 import { Container } from "react-bootstrap";
 import "./PieChart.css";
+import "./ChartSetup"; // Import ChartSetup
+
 const PieChart = ({ data, labels }) => {
     const chartData = {
         labels: labels,

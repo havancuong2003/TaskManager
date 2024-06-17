@@ -2,13 +2,11 @@ import React from "react";
 import ChartistGraph from "react-chartist";
 import "chartist/dist/chartist.min.css";
 import { Bar } from "react-chartjs-2";
+
 // react-bootstrap components
 import {
-    Badge,
     Button,
     Card,
-    Navbar,
-    Nav,
     Table,
     Container,
     Row,
@@ -44,7 +42,7 @@ function Dashboard() {
                                 <Row>
                                     <Col xs="5">
                                         <div className="icon-big text-center icon-warning">
-                                            <i class="bi bi-browser-chrome"></i>
+                                            <i className="bi bi-browser-chrome"></i>
                                         </div>
                                     </Col>
                                     <Col xs="7">
@@ -74,7 +72,7 @@ function Dashboard() {
                                 <Row>
                                     <Col xs="5">
                                         <div className="icon-big text-center icon-warning">
-                                            <i class="bi bi-dribbble"></i>
+                                            <i className="bi bi-dribbble"></i>
                                         </div>
                                     </Col>
                                     <Col xs="7">
@@ -104,7 +102,7 @@ function Dashboard() {
                                 <Row>
                                     <Col xs="5">
                                         <div className="icon-big text-center icon-warning">
-                                            <i class="bi bi-clipboard2-x-fill"></i>
+                                            <i className="bi bi-clipboard2-x-fill"></i>
                                         </div>
                                     </Col>
                                     <Col xs="7">
@@ -132,7 +130,7 @@ function Dashboard() {
                                 <Row>
                                     <Col xs="5">
                                         <div className="icon-big text-center icon-warning">
-                                            <i class="bi bi-calendar2-week"></i>
+                                            <i className="bi bi-calendar2-week"></i>
                                         </div>
                                     </Col>
                                     <Col xs="7">
@@ -158,7 +156,7 @@ function Dashboard() {
                     </Col>
                 </Row>
                 <Row>
-                    <Col md="8">
+                    <Col md="8" key="barChart">
                         <Card>
                             <Card.Header>
                                 <Card.Title as="h4">Users Behavior</Card.Title>
@@ -169,7 +167,10 @@ function Dashboard() {
                             <Card.Body>
                                 <div className="ct-chart" id="chartHours">
                                     <Container>
-                                        <ActivityChart data={activityData} />
+                                        <ActivityChart
+                                            key="barChart" // Đảm bảo key là duy nhất cho ActivityChart
+                                            data={activityData}
+                                        />
                                     </Container>
                                 </div>
                             </Card.Body>
@@ -182,7 +183,7 @@ function Dashboard() {
                             </Card.Footer>
                         </Card>
                     </Col>
-                    <Col md="4">
+                    <Col md="4" key="pieChart">
                         <Card>
                             <Card.Header>
                                 <Card.Title as="h4">
@@ -199,6 +200,7 @@ function Dashboard() {
                                 >
                                     <Container>
                                         <PieChart
+                                            key="pieChart" // Đảm bảo key là duy nhất cho PieChart
                                             data={pieChartData}
                                             labels={pieChartLabels}
                                         />
