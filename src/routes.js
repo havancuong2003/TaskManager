@@ -61,7 +61,7 @@ const dashboardRoutes = [
     },
     {
         path: "/taskmanagement",
-        name: "Task Management",
+        name: "Work Management",
         icon: "nc-icon nc-pin-3",
         component: TaskManagment,
         layout: "/admin",

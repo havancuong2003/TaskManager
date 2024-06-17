@@ -1,6 +1,7 @@
 import React from "react";
 import { Nav } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import logo from "../../assets/images/logo.jpg";
 
 function Sidebar({ color, image, routes }) {
     const navigate = useNavigate();
@@ -20,11 +21,11 @@ function Sidebar({ color, image, routes }) {
                         className="simple-text logo-mini mx-1"
                     >
                         <div className="logo-img">
-                            <img src="" alt="..." />
+                            <img src={logo} alt="..." />
                         </div>
                     </a>
                     <a className="simple-text" href="http://www.google.com">
-                        LoGo Here
+                        Task manager
                     </a>
                 </div>
                 <Nav className="flex-column">
@@ -35,7 +36,7 @@ function Sidebar({ color, image, routes }) {
                                     <Nav.Link
                                         onClick={() => navigate(prop.path)}
                                     >
-                                        <i className={prop.icon} />
+                                        {/* <i className={prop.icon} /> */}
                                         <p>{prop.name}</p>
                                     </Nav.Link>
                                 </Nav.Item>
