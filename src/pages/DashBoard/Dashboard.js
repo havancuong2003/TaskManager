@@ -2,11 +2,8 @@ import React from "react";
 import ChartistGraph from "react-chartist";
 // react-bootstrap components
 import {
-    Badge,
     Button,
     Card,
-    Navbar,
-    Nav,
     Table,
     Container,
     Row,
@@ -27,7 +24,7 @@ function Dashboard() {
                                 <Row>
                                     <Col xs="5">
                                         <div className="icon-big text-center icon-warning">
-                                            <i class="bi bi-browser-chrome"></i>
+                                            <i className="bi bi-browser-chrome"></i>
                                         </div>
                                     </Col>
                                     <Col xs="7">
@@ -57,7 +54,7 @@ function Dashboard() {
                                 <Row>
                                     <Col xs="5">
                                         <div className="icon-big text-center icon-warning">
-                                            <i class="bi bi-dribbble"></i>
+                                            <i className="bi bi-dribbble"></i>
                                         </div>
                                     </Col>
                                     <Col xs="7">
@@ -87,7 +84,7 @@ function Dashboard() {
                                 <Row>
                                     <Col xs="5">
                                         <div className="icon-big text-center icon-warning">
-                                            <i class="bi bi-clipboard2-x-fill"></i>
+                                            <i className="bi bi-clipboard2-x-fill"></i>
                                         </div>
                                     </Col>
                                     <Col xs="7">
@@ -115,7 +112,7 @@ function Dashboard() {
                                 <Row>
                                     <Col xs="5">
                                         <div className="icon-big text-center icon-warning">
-                                            <i class="bi bi-calendar2-week"></i>
+                                            <i className="bi bi-calendar2-week"></i>
                                         </div>
                                     </Col>
                                     <Col xs="7">
@@ -213,7 +210,7 @@ function Dashboard() {
                             </Card.Body>
                             <Card.Footer>
                                 <div className="legend">
-                                    <i class="bi bi-circle-fill"></i>
+                                    <i className="bi bi-circle-fill"></i>
                                     Open{" "}
                                     <i className="fas fa-circle text-danger"></i>
                                     Click{" "}
