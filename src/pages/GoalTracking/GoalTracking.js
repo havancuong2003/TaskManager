@@ -6,7 +6,7 @@ import { Container } from "react-bootstrap";
 const GoalTracking = () => {
     return (
         <Container fluid>
-            <Sidebar />
+            {/* <Sidebar /> */}
             <Main />
         </Container>
     );
