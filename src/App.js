@@ -13,8 +13,12 @@ import SignUpForm from "./pages/SignUp/SignUp.js";
 import Setting from "./pages/Settings/Setting";
 // import SignUp from "./pages/SignUp/SignUp";
 import "./pages/DailyPlanning/daily.css";
+import LineChart from "./pages/ChartistGraph.js";
+import ActivityChart from "./pages/DashBoard/ActivityChart.js";
 
 function App() {
+    const [color, setColor] = React.useState("black");
+
     return (
         <>
             {" "}

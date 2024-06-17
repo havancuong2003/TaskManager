@@ -1,5 +1,8 @@
 import React from "react";
 import ChartistGraph from "react-chartist";
+import "chartist/dist/chartist.min.css";
+import { Bar } from "react-chartjs-2";
+
 // react-bootstrap components
 import {
     Button,
@@ -12,8 +15,23 @@ import {
     OverlayTrigger,
     Tooltip,
 } from "react-bootstrap";
+import ActivityChart from "./ActivityChart";
+import PieChart from "./PieChart";
 
 function Dashboard() {
+    const pieChartData = [20, 30, 10, 25, 5, 10];
+    const pieChartLabels = [
+        "Sleep",
+        "Work",
+        "Exercise",
+        "Leisure",
+        "Eating",
+        "Other",
+    ];
+    const activityData = [
+        5, 3, 4, 2, 6, 7, 8, 5, 6, 4, 3, 2, 7, 6, 5, 8, 4, 6, 7, 5, 4, 3, 2, 1,
+    ];
+
     return (
         <>
             <Container fluid>
@@ -138,7 +156,7 @@ function Dashboard() {
                     </Col>
                 </Row>
                 <Row>
-                    <Col md="8">
+                    <Col md="8" key="barChart">
                         <Card>
                             <Card.Header>
                                 <Card.Title as="h4">Users Behavior</Card.Title>
@@ -148,75 +166,15 @@ function Dashboard() {
                             </Card.Header>
                             <Card.Body>
                                 <div className="ct-chart" id="chartHours">
-                                    <ChartistGraph
-                                        data={{
-                                            labels: [
-                                                "9:00AM",
-                                                "12:00AM",
-                                                "3:00PM",
-                                                "6:00PM",
-                                                "9:00PM",
-                                                "12:00PM",
-                                                "3:00AM",
-                                                "6:00AM",
-                                            ],
-                                            series: [
-                                                [
-                                                    287, 385, 490, 492, 554,
-                                                    586, 698, 695,
-                                                ],
-                                                [
-                                                    67, 152, 143, 240, 287, 335,
-                                                    435, 437,
-                                                ],
-                                                [
-                                                    23, 113, 67, 108, 190, 239,
-                                                    307, 308,
-                                                ],
-                                            ],
-                                        }}
-                                        type="Line"
-                                        options={{
-                                            low: 0,
-                                            high: 800,
-                                            showArea: false,
-                                            height: "245px",
-                                            axisX: {
-                                                showGrid: false,
-                                            },
-                                            lineSmooth: true,
-                                            showLine: true,
-                                            showPoint: true,
-                                            fullWidth: true,
-                                            chartPadding: {
-                                                right: 50,
-                                            },
-                                        }}
-                                        responsiveOptions={[
-                                            [
-                                                "screen and (max-width: 640px)",
-                                                {
-                                                    axisX: {
-                                                        labelInterpolationFnc:
-                                                            function (value) {
-                                                                return value[0];
-                                                            },
-                                                    },
-                                                },
-                                            ],
-                                        ]}
-                                    />
+                                    <Container>
+                                        <ActivityChart
+                                            key="barChart" // Đảm bảo key là duy nhất cho ActivityChart
+                                            data={activityData}
+                                        />
+                                    </Container>
                                 </div>
                             </Card.Body>
                             <Card.Footer>
-                                <div className="legend">
-                                    <i className="bi bi-circle-fill"></i>
-                                    Open{" "}
-                                    <i className="fas fa-circle text-danger"></i>
-                                    Click{" "}
-                                    <i className="fas fa-circle text-warning"></i>
-                                    Click Second Time
-                                </div>
                                 <hr></hr>
                                 <div className="stats">
                                     <i className="fas fa-history"></i>
@@ -225,14 +183,14 @@ function Dashboard() {
                             </Card.Footer>
                         </Card>
                     </Col>
-                    <Col md="4">
+                    <Col md="4" key="pieChart">
                         <Card>
                             <Card.Header>
                                 <Card.Title as="h4">
-                                    Email Statistics
+                                    Activity Percentage
                                 </Card.Title>
                                 <p className="card-category">
-                                    Last Campaign Performance
+                                    Throughout the day
                                 </p>
                             </Card.Header>
                             <Card.Body>
@@ -240,26 +198,16 @@ function Dashboard() {
                                     className="ct-chart ct-perfect-fourth"
                                     id="chartPreferences"
                                 >
-                                    <ChartistGraph
-                                        data={{
-                                            labels: ["40%", "20%", "40%"],
-                                            series: [40, 20, 40],
-                                        }}
-                                        type="Pie"
-                                    />
+                                    <Container>
+                                        <PieChart
+                                            key="pieChart" // Đảm bảo key là duy nhất cho PieChart
+                                            data={pieChartData}
+                                            labels={pieChartLabels}
+                                        />
+                                    </Container>
                                 </div>
-                                <div className="legend">
-                                    <i className="fas fa-circle text-info"></i>
-                                    Open{" "}
-                                    <i className="fas fa-circle text-danger"></i>
-                                    Bounce{" "}
-                                    <i className="fas fa-circle text-warning"></i>
-                                    Unsubscribe
-                                </div>
-                                <hr></hr>
                                 <div className="stats">
-                                    <i className="far fa-clock"></i>
-                                    Campaign sent 2 days ago
+                                    <i className="far fa-clock">Yesterday</i>
                                 </div>
                             </Card.Body>
                         </Card>
