@@ -3,8 +3,14 @@ import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import "./Login.css"; // Create this file for custom styles
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+    const navigate = useNavigate();
+
+    const handleSignUpClick = () => {
+        navigate("/signup"); // Điều hướng đến đường dẫn "/signup"
+    };
     return (
         <section className="ftco-section">
             <Container>
@@ -91,6 +97,7 @@ export default function Login() {
                                         href="#signup2"
                                         data-toggle="tab"
                                         style={{ textDecoration: "none" }}
+                                        onClick={handleSignUpClick}
                                     >
                                         Sign Up
                                     </a>

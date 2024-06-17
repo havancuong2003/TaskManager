@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import "./daily.css"; // import file CSS của bạn
 import SideBar from "./SideBar";
 import Main from "./Main";
