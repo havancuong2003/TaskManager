@@ -9,9 +9,9 @@ import TaskManagment from "./pages/TaskManagement/TaskManagment";
 import DailyPlanning from "./pages/DailyPlanning/DailyPlanning";
 import Login from "./pages/Login/Login.js";
 import SignUpForm from "./pages/SignUp/SignUp.js";
-import { Login } from "@mui/icons-material";
+// import { Login } from "@mui/icons-material";
 import Setting from "./pages/Settings/Setting";
-import SignUp from "./pages/SignUp/SignUp";
+// import SignUp from "./pages/SignUp/SignUp";
 import "./pages/DailyPlanning/daily.css";
 
 function App() {
@@ -65,7 +65,7 @@ function App() {
                             </Layout>
                         }
                     />
-                    <Route path="/signup" exact element={<SignUp />} />
+                    <Route path="/signup" exact element={<SignUpForm />} />
                     <Route
                         path="/taskmanagement"
                         exact
