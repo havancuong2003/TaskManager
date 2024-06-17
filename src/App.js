@@ -9,9 +9,12 @@ import GoalTracking from "./pages/GoalTracking/GoalTracking";
 import TaskManagment from "./pages/TaskManagement/TaskManagment";
 
 import DailyPlanning from "./pages/DailyPlanning/DailyPlanning";
+import LineChart from "./pages/ChartistGraph.js";
+import ActivityChart from "./pages/DashBoard/ActivityChart.js";
 
 function App() {
     const [color, setColor] = React.useState("black");
+
     return (
         <>
             <div className="wrapper">
@@ -20,11 +23,9 @@ function App() {
                     <Header />
                     <Dashboard />
                     <Footer />
-                    {/* <div className="content">
-                        <Switch>{getRoutes(routes)}</Switch>
-                    </div> */}
                 </div>
             </div>
+            <LineChart />
         </>
     );
 }
