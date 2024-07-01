@@ -1,0 +1,84 @@
+{
+    "schedule": [
+        {
+            "id": 1,
+            "time": "07:00 - 08:00",
+            "activity": "Tập Thể Dục Buổi Sáng",
+            "location": "Công Viên",
+            "description": "Yoga và thiền để bắt đầu ngày mới năng động",
+            "person": "Bản Thân"
+        },
+        {
+            "id": 2,
+            "time": "08:15-09:00",
+            "activity": "Ăn Sáng",
+            "location": "Nhà",
+            "description": "Bữa sáng lành mạnh với gia đình",
+            "person": "Bản Thân và Vợ/Chồng"
+        },
+        {
+            "id": 3,
+            "time": "09:30 - 11:00",
+            "activity": "Cuộc Họp Công Việc",
+            "location": "Văn Phòng",
+            "description": "Thảo luận mục tiêu quý 2 và kế hoạch hành động",
+            "person": "Nhóm Tiếp Thị"
+        },
+        {
+            "id": 4,
+            "time": "11:15-12:00",
+            "activity": "Thư Từ Email",
+            "location": "Văn Phòng",
+            "description": "Theo kịp email từ khách hàng, phản hồi nhanh chóng",
+            "person": "Bản Thân"
+        },
+        {
+            "id": 5,
+            "time": "13:00 - 14:00",
+            "activity": "Giải Lao Ăn Trưa",
+            "location": "Nhà Hàng",
+            "description": "Ăn trưa nhanh tại cửa hàng gần văn phòng",
+            "person": "Bản Thân"
+        },
+        {
+            "id": 6,
+            "time": "14:30 - 15:30",
+            "activity": "Dự Án Công Việc",
+            "location": "Văn Phòng",
+            "description": "Tập trung vào chiến dịch tiếp thị mới",
+            "person": "Bản Thân và Nhóm"
+        },
+        {
+            "id": 7,
+            "time": "16:00 - 17:00",
+            "activity": "Cuộc Gọi với Khách Hàng",
+            "location": "Văn Phòng",
+            "description": "Cập nhật tiến độ dự án và trao đổi với khách hàng",
+            "person": "Bản Thân"
+        },
+        {
+            "id": 8,
+            "time": "17:30 - 18:30",
+            "activity": "Chạy Buổi Tối",
+            "location": "Khu Vực Lân Cận",
+            "description": "Chạy bộ 30 phút để tăng cường sức khỏe",
+            "person": "Bản Thân"
+        },
+        {
+            "id": 9,
+            "time": "19:00 - 20:00",
+            "activity": "Dọn Dẹp Nhà Cửa",
+            "location": "Nhà",
+            "description": "Dọn dẹp nhà cửa và chuẩn bị cho ngày mai",
+            "person": "Bản Thân và Gia Đình"
+        },
+        {
+            "id": 10,
+            "time": "20:30 - 21:30",
+            "activity": "Thư Giãn và Đọc Sách",
+            "location": "Phòng Ngủ",
+            "description": "Đọc sách và thư giãn trước khi đi ngủ",
+            "person": "Bản Thân"
+        }
+    ]
+}
