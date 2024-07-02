@@ -15,6 +15,12 @@ import {
     TableHead,
     TableRow,
     Paper,
+    Modal,
+    TextField,
+    Button,
+    FormControl,
+    FormLabel,
+    FormGroup,
 } from "@mui/material";
 import {
     CalendarToday,
@@ -31,10 +37,21 @@ import {
     ArrowDownward,
     ArrowUpward,
 } from "@mui/icons-material";
-import { Button } from "react-bootstrap";
+import { checkTimeConflict } from "../../utils/timeUtil"; // Import hàm kiểm tra thời gian trùng lặp
+import { v4 as uuidv4 } from "uuid";
 
 const Main = () => {
     const [anchorEl, setAnchorEl] = useState(null);
+    const [data, setData] = useState([]);
+    const [openModal, setOpenModal] = useState(false);
+    const [newTask, setNewTask] = useState({
+        timeStart: "",
+        timeEnd: "",
+        activity: "",
+        location: "",
+        description: "",
+        person: "",
+    });
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -43,12 +60,6 @@ const Main = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
-
-    const [data, setData] = useState([]);
-
-    useEffect(() => {
-        fetchData();
-    }, []);
 
     const fetchData = async () => {
         try {
@@ -60,6 +71,78 @@ const Main = () => {
             setData(jsonData);
         } catch (error) {
             console.error("Error fetching data: ", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const handleOpenModal = () => {
+        setOpenModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setOpenModal(false);
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setNewTask((prevTask) => ({
+            ...prevTask,
+            [name]: value,
+        }));
+    };
+    console.log("task", newTask);
+
+    const handleAddTask = async () => {
+        try {
+            const timeStart = new Date(`1970-01-01T${newTask.timeStart}:00`);
+            const timeEnd = new Date(`1970-01-01T${newTask.timeEnd}:00`);
+
+            console.log("timeStart", timeStart);
+            console.log("timeEnd", timeEnd);
+
+            // Check if newTask conflicts with existing tasks
+            const hasConflict = checkTimeConflict(
+                {
+                    ...newTask,
+                    timeStart: newTask.timeStart,
+                    timeEnd: newTask.timeEnd,
+                },
+                data
+            );
+
+            if (hasConflict) {
+                alert("Thời gian bị trùng lặp với công việc khác.");
+            } else {
+                const newTaskWithId = {
+                    ...newTask,
+                    id: uuidv4(),
+                    start: newTask.timeStart,
+                    end: newTask.timeEnd,
+                };
+
+                const response = await fetch("http://localhost:9999/schedule", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(newTaskWithId),
+                });
+
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+
+                const addedTask = await response.json();
+
+                // Add new task to data
+                setData((prevData) => [...prevData, addedTask]);
+                handleCloseModal();
+            }
+        } catch (error) {
+            console.error("Error adding new task: ", error);
         }
     };
 
@@ -103,7 +186,7 @@ const Main = () => {
                                 Something else
                             </MenuItem>
                         </Menu>
-                        <IconButton color="inherit">
+                        <IconButton color="inherit" onClick={handleOpenModal}>
                             <AddCircle />
                         </IconButton>
                         <IconButton color="inherit">
@@ -162,7 +245,9 @@ const Main = () => {
                         <TableBody>
                             {data.map((row) => (
                                 <TableRow key={row.id}>
-                                    <TableCell>{row.time}</TableCell>
+                                    <TableCell>
+                                        {row.start} - {row.end}
+                                    </TableCell>
                                     <TableCell>{row.activity}</TableCell>
                                     <TableCell>{row.location}</TableCell>
                                     <TableCell>{row.description}</TableCell>
@@ -170,20 +255,20 @@ const Main = () => {
                                     <TableCell>
                                         <Button
                                             color="primary"
-                                            //   onClick={() => handleEdit(row.id)}
+                                            // onClick={() => handleEdit(row.id)}
                                             style={{ marginRight: 10 }}
                                         >
                                             <i
-                                                class="bi bi-pencil-square"
+                                                className="bi bi-pencil-square"
                                                 title="Edit"
                                             ></i>
                                         </Button>
                                         <Button
                                             color="secondary"
-                                            //   onClick={() => handleDelete(row.id)}
+                                            // onClick={() => handleDelete(row.id)}
                                         >
                                             <i
-                                                class="bi bi-trash3"
+                                                className="bi bi-trash3"
                                                 title="Delete"
                                             ></i>
                                         </Button>
@@ -194,6 +279,82 @@ const Main = () => {
                     </Table>
                 </TableContainer>
             </Box>
+            <Modal open={openModal} onClose={handleCloseModal}>
+                <Box
+                    sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        width: 400,
+                        bgcolor: "background.paper",
+                        boxShadow: 24,
+                        p: 4,
+                    }}
+                >
+                    <Typography variant="h6" component="h2">
+                        Thêm Công Việc Mới
+                    </Typography>
+                    <FormGroup>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            label="Thời Gian Bắt Đầu"
+                            name="timeStart"
+                            type="time"
+                            value={newTask.timeStart}
+                            onChange={handleChange}
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            label="Thời Gian Kết Thúc"
+                            name="timeEnd"
+                            type="time"
+                            value={newTask.timeEnd}
+                            onChange={handleChange}
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            label="Hoạt Động"
+                            name="activity"
+                            value={newTask.activity}
+                            onChange={handleChange}
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            label="Địa Điểm"
+                            name="location"
+                            value={newTask.location}
+                            onChange={handleChange}
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            label="Mô Tả"
+                            name="description"
+                            value={newTask.description}
+                            onChange={handleChange}
+                        />
+
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            onClick={handleAddTask}
+                        >
+                            Thêm
+                        </Button>
+                    </FormGroup>
+                </Box>
+            </Modal>
         </div>
     );
 };
