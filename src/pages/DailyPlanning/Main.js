@@ -4,8 +4,6 @@ import {
     Toolbar,
     Typography,
     IconButton,
-    Menu,
-    MenuItem,
     InputBase,
     Box,
     Table,
@@ -18,30 +16,13 @@ import {
     Modal,
     TextField,
     Button,
-    FormControl,
-    FormLabel,
     FormGroup,
 } from "@mui/material";
-import {
-    CalendarToday,
-    GridOn,
-    AddCircle,
-    Settings,
-    Description,
-    FilterList,
-    List,
-    Chat,
-    SwapHoriz,
-    ArrowBack,
-    Search,
-    ArrowDownward,
-    ArrowUpward,
-} from "@mui/icons-material";
-import { checkTimeConflict } from "../../utils/timeUtil"; // Import hàm kiểm tra thời gian trùng lặp
+import { AddCircle, Search } from "@mui/icons-material";
+import { checkTimeConflict } from "../../utils/timeUtil";
 import { v4 as uuidv4 } from "uuid";
 
 const Main = () => {
-    const [anchorEl, setAnchorEl] = useState(null);
     const [data, setData] = useState([]);
     const [openModal, setOpenModal] = useState(false);
     const [newTask, setNewTask] = useState({
@@ -50,16 +31,12 @@ const Main = () => {
         activity: "",
         location: "",
         description: "",
-        person: "",
     });
-
-    const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    const [sortConfig, setSortConfig] = useState({
+        key: "start",
+        direction: "asc",
+    });
+    const [searchTerm, setSearchTerm] = useState("");
 
     const fetchData = async () => {
         try {
@@ -68,10 +45,32 @@ const Main = () => {
                 throw new Error("Network response was not ok");
             }
             const jsonData = await response.json();
-            setData(jsonData);
+            sortData(jsonData, sortConfig);
         } catch (error) {
             console.error("Error fetching data: ", error);
         }
+    };
+
+    const sortData = (data, config) => {
+        const sortedData = data.sort((a, b) => {
+            if (a[config.key] < b[config.key]) {
+                return config.direction === "asc" ? -1 : 1;
+            }
+            if (a[config.key] > b[config.key]) {
+                return config.direction === "asc" ? 1 : -1;
+            }
+            return 0;
+        });
+        setData(sortedData);
+    };
+
+    const handleSort = (key) => {
+        let direction = "asc";
+        if (sortConfig.key === key && sortConfig.direction === "asc") {
+            direction = "desc";
+        }
+        setSortConfig({ key, direction });
+        sortData(data, { key, direction });
     };
 
     useEffect(() => {
@@ -93,22 +92,14 @@ const Main = () => {
             [name]: value,
         }));
     };
-    console.log("task", newTask);
 
     const handleAddTask = async () => {
         try {
-            const timeStart = new Date(`1970-01-01T${newTask.timeStart}:00`);
-            const timeEnd = new Date(`1970-01-01T${newTask.timeEnd}:00`);
-
-            console.log("timeStart", timeStart);
-            console.log("timeEnd", timeEnd);
-
-            // Check if newTask conflicts with existing tasks
             const hasConflict = checkTimeConflict(
                 {
                     ...newTask,
-                    timeStart: newTask.timeStart,
-                    timeEnd: newTask.timeEnd,
+                    start: newTask.timeStart,
+                    end: newTask.timeEnd,
                 },
                 data
             );
@@ -117,10 +108,12 @@ const Main = () => {
                 alert("Thời gian bị trùng lặp với công việc khác.");
             } else {
                 const newTaskWithId = {
-                    ...newTask,
                     id: uuidv4(),
                     start: newTask.timeStart,
                     end: newTask.timeEnd,
+                    activity: newTask.activity,
+                    location: newTask.location,
+                    description: newTask.description,
                 };
 
                 const response = await fetch("http://localhost:9999/schedule", {
@@ -137,8 +130,9 @@ const Main = () => {
 
                 const addedTask = await response.json();
 
-                // Add new task to data
                 setData((prevData) => [...prevData, addedTask]);
+                sortData([...data, addedTask], sortConfig); // Sort data after adding new task
+
                 handleCloseModal();
             }
         } catch (error) {
@@ -146,67 +140,51 @@ const Main = () => {
         }
     };
 
+    const handleDeleteTask = async (id) => {
+        if (window.confirm("Bạn có chắc chắn muốn xóa công việc này?")) {
+            try {
+                const response = await fetch(
+                    `http://localhost:9999/schedule/${id}`,
+                    {
+                        method: "DELETE",
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+
+                setData((prevData) =>
+                    prevData.filter((task) => task.id !== id)
+                );
+            } catch (error) {
+                console.error("Error deleting task: ", error);
+            }
+        }
+    };
+
+    const handleSearch = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
+    const filteredData = data.filter(
+        (task) =>
+            task.activity.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            task.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            task.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <div>
             <AppBar position="static">
                 <Toolbar className="flex justify-between">
                     <div className="flex items-center">
-                        <IconButton
-                            edge="start"
-                            color="inherit"
-                            aria-label="menu"
-                        >
-                            <CalendarToday />
-                        </IconButton>
                         <Typography variant="h6" noWrap>
-                            Lịch Trình Hàng Ngày
+                            Lịch Trình Hàng Ngày ( cần làm thêm theo dõi hàng
+                            ngày xem có thực hiện đủ hay không)
                         </Typography>
-                        <IconButton color="inherit" onClick={handleMenu}>
-                            <GridOn />
-                        </IconButton>
-                        <Menu
-                            anchorEl={anchorEl}
-                            anchorOrigin={{
-                                vertical: "top",
-                                horizontal: "right",
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: "top",
-                                horizontal: "right",
-                            }}
-                            open={Boolean(anchorEl)}
-                            onClose={handleClose}
-                        >
-                            <MenuItem onClick={handleClose}>Grid</MenuItem>
-                            <MenuItem onClick={handleClose}>
-                                Another action
-                            </MenuItem>
-                            <MenuItem onClick={handleClose}>
-                                Something else
-                            </MenuItem>
-                        </Menu>
                         <IconButton color="inherit" onClick={handleOpenModal}>
                             <AddCircle />
-                        </IconButton>
-                        <IconButton color="inherit">
-                            <Settings />
-                        </IconButton>
-                        <IconButton color="inherit">
-                            <Description />
-                        </IconButton>
-                        <IconButton color="inherit">
-                            <FilterList />
-                        </IconButton>
-                        <IconButton color="inherit">
-                            <List />
-                        </IconButton>
-                        <IconButton color="inherit">
-                            <ArrowDownward />
-                            <ArrowUpward />
-                        </IconButton>
-                        <IconButton color="inherit">
-                            <Chat />
                         </IconButton>
                     </div>
                     <div className="relative mr-2">
@@ -217,15 +195,9 @@ const Main = () => {
                             placeholder="Search…"
                             className="pl-10 pr-4 py-2 rounded-full bg-gray-100"
                             inputProps={{ "aria-label": "search" }}
+                            onChange={handleSearch}
+                            value={searchTerm}
                         />
-                    </div>
-                    <div className="flex items-center">
-                        <IconButton color="inherit">
-                            <SwapHoriz />
-                        </IconButton>
-                        <IconButton color="inherit">
-                            <ArrowBack />
-                        </IconButton>
                     </div>
                 </Toolbar>
             </AppBar>
@@ -234,16 +206,45 @@ const Main = () => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Thời Gian</TableCell>
-                                <TableCell>Hoạt Động</TableCell>
-                                <TableCell>Địa Điểm</TableCell>
-                                <TableCell>Mô Tả</TableCell>
-                                <TableCell>Người Tham Gia</TableCell>
+                                <TableCell>
+                                    <span
+                                        className="cursor-pointer"
+                                        onClick={() => handleSort("start")}
+                                    >
+                                        Thời Gian
+                                    </span>
+                                </TableCell>
+                                <TableCell>
+                                    <span
+                                        className="cursor-pointer"
+                                        onClick={() => handleSort("activity")}
+                                    >
+                                        Hoạt Động
+                                    </span>
+                                </TableCell>
+                                <TableCell>
+                                    <span
+                                        className="cursor-pointer"
+                                        onClick={() => handleSort("location")}
+                                    >
+                                        Địa Điểm
+                                    </span>
+                                </TableCell>
+                                <TableCell>
+                                    <span
+                                        className="cursor-pointer"
+                                        onClick={() =>
+                                            handleSort("description")
+                                        }
+                                    >
+                                        Mô Tả
+                                    </span>
+                                </TableCell>
                                 <TableCell>Thao Tác</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {data.map((row) => (
+                            {filteredData.map((row) => (
                                 <TableRow key={row.id}>
                                     <TableCell>
                                         {row.start} - {row.end}
@@ -251,11 +252,9 @@ const Main = () => {
                                     <TableCell>{row.activity}</TableCell>
                                     <TableCell>{row.location}</TableCell>
                                     <TableCell>{row.description}</TableCell>
-                                    <TableCell>{row.person}</TableCell>
                                     <TableCell>
                                         <Button
                                             color="primary"
-                                            // onClick={() => handleEdit(row.id)}
                                             style={{ marginRight: 10 }}
                                         >
                                             <i
@@ -265,7 +264,9 @@ const Main = () => {
                                         </Button>
                                         <Button
                                             color="secondary"
-                                            // onClick={() => handleDelete(row.id)}
+                                            onClick={() =>
+                                                handleDeleteTask(row.id)
+                                            }
                                         >
                                             <i
                                                 className="bi bi-trash3"
@@ -343,7 +344,6 @@ const Main = () => {
                             value={newTask.description}
                             onChange={handleChange}
                         />
-
                         <Button
                             type="submit"
                             variant="contained"
