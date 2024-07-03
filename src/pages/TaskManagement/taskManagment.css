@@ -21,3 +21,8 @@ table td {
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
+.button1 {
+    text-align: right;
+    padding-right: 50px;
+    margin-bottom: 5px;
+}
