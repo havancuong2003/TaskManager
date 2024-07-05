@@ -3,8 +3,6 @@ import {
     AppBar,
     Toolbar,
     Typography,
-    IconButton,
-    InputBase,
     Box,
     Table,
     TableBody,
@@ -13,30 +11,22 @@ import {
     TableHead,
     TableRow,
     Paper,
-    Modal,
-    TextField,
-    Button,
-    FormGroup,
+    Checkbox,
+    MenuItem,
+    Select,
+    FormControl,
+    InputLabel,
 } from "@mui/material";
-import { AddCircle, Search } from "@mui/icons-material";
-import { checkTimeConflict } from "../../utils/timeUtil";
-import { v4 as uuidv4 } from "uuid";
 
 const Main = () => {
     const [data, setData] = useState([]);
-    const [openModal, setOpenModal] = useState(false);
-    const [newTask, setNewTask] = useState({
-        timeStart: "",
-        timeEnd: "",
-        activity: "",
-        location: "",
-        description: "",
-    });
-    const [sortConfig, setSortConfig] = useState({
-        key: "start",
-        direction: "asc",
-    });
-    const [searchTerm, setSearchTerm] = useState("");
+    const [template, setTemplate] = useState([]);
+    const [selectedDate, setSelectedDate] = useState(
+        new Date().toISOString().slice(0, 10)
+    );
+    const [dates, setDates] = useState([]);
+    const [currentTime, setCurrentTime] = useState(new Date());
+    const [tasksCreated, setTasksCreated] = useState(false); // State to track if tasks are created for the current date
 
     const fetchData = async () => {
         try {
@@ -45,316 +35,216 @@ const Main = () => {
                 throw new Error("Network response was not ok");
             }
             const jsonData = await response.json();
-            sortData(jsonData, sortConfig);
+            const uniqueDates = [...new Set(jsonData.map((task) => task.date))];
+            setDates(uniqueDates);
+            const filteredData = jsonData.filter(
+                (task) => task.date === selectedDate
+            );
+            setData(filteredData);
         } catch (error) {
             console.error("Error fetching data: ", error);
         }
     };
 
-    const sortData = (data, config) => {
-        const sortedData = data.sort((a, b) => {
-            if (a[config.key] < b[config.key]) {
-                return config.direction === "asc" ? -1 : 1;
-            }
-            if (a[config.key] > b[config.key]) {
-                return config.direction === "asc" ? 1 : -1;
-            }
-            return 0;
-        });
-        setData(sortedData);
-    };
-
-    const handleSort = (key) => {
-        let direction = "asc";
-        if (sortConfig.key === key && sortConfig.direction === "asc") {
-            direction = "desc";
-        }
-        setSortConfig({ key, direction });
-        sortData(data, { key, direction });
-    };
-
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-    const handleOpenModal = () => {
-        setOpenModal(true);
-    };
-
-    const handleCloseModal = () => {
-        setOpenModal(false);
-    };
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setNewTask((prevTask) => ({
-            ...prevTask,
-            [name]: value,
-        }));
-    };
-
-    const handleAddTask = async () => {
+    const fetchTemplate = async () => {
         try {
-            const hasConflict = checkTimeConflict(
-                {
-                    ...newTask,
-                    start: newTask.timeStart,
-                    end: newTask.timeEnd,
-                },
-                data
-            );
+            const response = await fetch("http://localhost:9999/template");
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            const jsonData = await response.json();
+            setTemplate(jsonData);
+        } catch (error) {
+            console.error("Error fetching template: ", error);
+        }
+    };
 
-            if (hasConflict) {
-                alert("Thời gian bị trùng lặp với công việc khác.");
-            } else {
-                const newTaskWithId = {
-                    id: uuidv4(),
-                    start: newTask.timeStart,
-                    end: newTask.timeEnd,
-                    activity: newTask.activity,
-                    location: newTask.location,
-                    description: newTask.description,
-                };
+    const createTasksFromTemplate = async () => {
+        const currentDate = new Date().toISOString().slice(0, 10);
+        const tasksForToday = template.map((task) => ({
+            ...task,
+            id: task.id.toString(),
+            date: currentDate,
+            completed: false,
+        }));
 
-                const response = await fetch("http://localhost:9999/schedule", {
+        try {
+            for (let task of tasksForToday) {
+                await fetch("http://localhost:9999/schedule", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(newTaskWithId),
+                    body: JSON.stringify(task),
                 });
-
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-
-                const addedTask = await response.json();
-
-                setData((prevData) => [...prevData, addedTask]);
-                sortData([...data, addedTask], sortConfig); // Sort data after adding new task
-
-                handleCloseModal();
             }
+            setTasksCreated(true); // Mark tasks as created for today
+            fetchData(); // Refresh data after creating tasks
         } catch (error) {
-            console.error("Error adding new task: ", error);
+            console.error("Error creating tasks from template: ", error);
         }
     };
 
-    const handleDeleteTask = async (id) => {
-        if (window.confirm("Bạn có chắc chắn muốn xóa công việc này?")) {
-            try {
-                const response = await fetch(
-                    `http://localhost:9999/schedule/${id}`,
-                    {
-                        method: "DELETE",
-                    }
-                );
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentTime(new Date());
+        }, 1000);
 
-                if (!response.ok) {
+        return () => clearInterval(interval);
+    }, []);
+
+    const isTaskDisabled = (endTime) => {
+        const taskEndTime = new Date(currentTime);
+        const [hours, minutes] = endTime.split(":");
+        taskEndTime.setHours(hours, minutes, 0, 0);
+        return taskEndTime < currentTime;
+    };
+
+    useEffect(() => {
+        fetchTemplate();
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        const fetchInitialData = async () => {
+            try {
+                const currentDate = new Date().toISOString().slice(0, 10);
+
+                // Check if there are tasks for today in the schedule
+                const response = await fetch(
+                    `http://localhost:9999/schedule?date=${currentDate}`
+                );
+                if (response.ok) {
+                    const jsonData = await response.json();
+
+                    if (jsonData.length > 0) {
+                        // Tasks for today already exist, mark as created
+                        setTasksCreated(true);
+                        fetchData(); // Fetch data for the selected date
+                    } else {
+                        // No tasks for today, create tasks from template
+                        createTasksFromTemplate();
+                    }
+                } else {
                     throw new Error("Network response was not ok");
                 }
-
-                setData((prevData) =>
-                    prevData.filter((task) => task.id !== id)
-                );
             } catch (error) {
-                console.error("Error deleting task: ", error);
+                console.error("Error checking tasks for today: ", error);
             }
+        };
+
+        fetchInitialData();
+
+        const interval = setInterval(() => {
+            setCurrentTime(new Date());
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [selectedDate]);
+
+    const handleDateChange = (event) => {
+        setSelectedDate(event.target.value);
+    };
+
+    const handleTaskComplete = async (taskId) => {
+        try {
+            const taskToUpdate = data.find((task) => task.id === taskId);
+            if (!taskToUpdate) {
+                throw new Error("Task not found");
+            }
+
+            const updatedTask = {
+                ...taskToUpdate,
+                completed: !taskToUpdate.completed,
+            };
+
+            const response = await fetch(
+                `http://localhost:9999/schedule/${taskId}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(updatedTask),
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+
+            const updatedTaskFromServer = await response.json();
+
+            setData((prevData) =>
+                prevData.map((task) =>
+                    task.id === updatedTaskFromServer.id
+                        ? updatedTaskFromServer
+                        : task
+                )
+            );
+        } catch (error) {
+            console.error("Error updating task completion: ", error);
         }
     };
-
-    const handleSearch = (e) => {
-        setSearchTerm(e.target.value);
-    };
-
-    const filteredData = data.filter(
-        (task) =>
-            task.activity.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            task.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            task.description.toLowerCase().includes(searchTerm.toLowerCase())
-    );
 
     return (
         <div>
             <AppBar position="static">
-                <Toolbar className="flex justify-between">
-                    <div className="flex items-center">
-                        <Typography variant="h6" noWrap>
-                            Lịch Trình Hàng Ngày ( cần làm thêm theo dõi hàng
-                            ngày xem có thực hiện đủ hay không)
-                        </Typography>
-                        <IconButton color="inherit" onClick={handleOpenModal}>
-                            <AddCircle />
-                        </IconButton>
-                    </div>
-                    <div className="relative mr-2">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <Search />
-                        </div>
-                        <InputBase
-                            placeholder="Search…"
-                            className="pl-10 pr-4 py-2 rounded-full bg-gray-100"
-                            inputProps={{ "aria-label": "search" }}
-                            onChange={handleSearch}
-                            value={searchTerm}
-                        />
-                    </div>
+                <Toolbar>
+                    <Typography variant="h6">Daily Task Manager</Typography>
                 </Toolbar>
             </AppBar>
             <Box m={2}>
-                <TableContainer component={Paper}>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>
-                                    <span
-                                        className="cursor-pointer"
-                                        onClick={() => handleSort("start")}
-                                    >
-                                        Thời Gian
-                                    </span>
-                                </TableCell>
-                                <TableCell>
-                                    <span
-                                        className="cursor-pointer"
-                                        onClick={() => handleSort("activity")}
-                                    >
-                                        Hoạt Động
-                                    </span>
-                                </TableCell>
-                                <TableCell>
-                                    <span
-                                        className="cursor-pointer"
-                                        onClick={() => handleSort("location")}
-                                    >
-                                        Địa Điểm
-                                    </span>
-                                </TableCell>
-                                <TableCell>
-                                    <span
-                                        className="cursor-pointer"
-                                        onClick={() =>
-                                            handleSort("description")
-                                        }
-                                    >
-                                        Mô Tả
-                                    </span>
-                                </TableCell>
-                                <TableCell>Thao Tác</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {filteredData.map((row) => (
-                                <TableRow key={row.id}>
-                                    <TableCell>
-                                        {row.start} - {row.end}
-                                    </TableCell>
-                                    <TableCell>{row.activity}</TableCell>
-                                    <TableCell>{row.location}</TableCell>
-                                    <TableCell>{row.description}</TableCell>
-                                    <TableCell>
-                                        <Button
-                                            color="primary"
-                                            style={{ marginRight: 10 }}
-                                        >
-                                            <i
-                                                className="bi bi-pencil-square"
-                                                title="Edit"
-                                            ></i>
-                                        </Button>
-                                        <Button
-                                            color="secondary"
-                                            onClick={() =>
-                                                handleDeleteTask(row.id)
-                                            }
-                                        >
-                                            <i
-                                                className="bi bi-trash3"
-                                                title="Delete"
-                                            ></i>
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                <FormControl fullWidth>
+                    <InputLabel id="date-select-label">Select Date</InputLabel>
+                    <Select
+                        labelId="date-select-label"
+                        value={selectedDate}
+                        label="Select Date"
+                        onChange={handleDateChange}
+                    >
+                        {dates.map((date) => (
+                            <MenuItem key={date} value={date}>
+                                {date}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
             </Box>
-            <Modal open={openModal} onClose={handleCloseModal}>
-                <Box
-                    sx={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
-                        width: 400,
-                        bgcolor: "background.paper",
-                        boxShadow: 24,
-                        p: 4,
-                    }}
-                >
-                    <Typography variant="h6" component="h2">
-                        Thêm Công Việc Mới
-                    </Typography>
-                    <FormGroup>
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            label="Thời Gian Bắt Đầu"
-                            name="timeStart"
-                            type="time"
-                            value={newTask.timeStart}
-                            onChange={handleChange}
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            label="Thời Gian Kết Thúc"
-                            name="timeEnd"
-                            type="time"
-                            value={newTask.timeEnd}
-                            onChange={handleChange}
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            label="Hoạt Động"
-                            name="activity"
-                            value={newTask.activity}
-                            onChange={handleChange}
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            label="Địa Điểm"
-                            name="location"
-                            value={newTask.location}
-                            onChange={handleChange}
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            label="Mô Tả"
-                            name="description"
-                            value={newTask.description}
-                            onChange={handleChange}
-                        />
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                            onClick={handleAddTask}
-                        >
-                            Thêm
-                        </Button>
-                    </FormGroup>
-                </Box>
-            </Modal>
+            <TableContainer component={Paper}>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Time</TableCell>
+                            <TableCell>Activity</TableCell>
+                            <TableCell>Location</TableCell>
+                            <TableCell>Description</TableCell>
+                            <TableCell>Completed</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {data.map((row) => (
+                            <TableRow key={row.id}>
+                                <TableCell>
+                                    {row.start} - {row.end}
+                                </TableCell>
+                                <TableCell>{row.activity}</TableCell>
+                                <TableCell>{row.location}</TableCell>
+                                <TableCell>{row.description}</TableCell>
+                                <TableCell>
+                                    <Checkbox
+                                        checked={row.completed}
+                                        onChange={() =>
+                                            handleTaskComplete(row.id)
+                                        }
+                                        disabled={isTaskDisabled(row.end)} // Disable checkbox if task end time is in the past
+                                    />
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
         </div>
     );
 };
