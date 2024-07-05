@@ -1,6 +1,28 @@
+/* styles.css */
+.row-color-0 {
+    background-color: #ffddc1 !important;
+}
+.row-color-1 {
+    background-color: #ffabab !important;
+}
+.row-color-2 {
+    background-color: #ffc3a0 !important;
+}
+.row-color-3 {
+    background-color: #ff677d !important;
+}
+.row-color-4 {
+    background-color: #d4a5a5 !important;
+}
+.row-color-5 {
+    background-color: #392f5a !important;
+}
+.row-color-6 {
+    background-color: #31a2ac !important;
+}
 /* ./ */
 .workout-item {
-    background-color: navajowhite;
+    background-color: rgb(227, 147, 27);
     padding: 5px;
     border-radius: 4px;
     text-align: center;
