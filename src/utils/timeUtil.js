@@ -31,17 +31,14 @@ export const generateRandomTime = () => {
 // Hàm kiểm tra xung đột thời gian
 export const checkTimeConflict = (newTask, existingTasks) => {
     // Đảm bảo rằng newTask.timeStart và newTask.timeEnd là chuỗi hợp lệ
-    if (
-        typeof newTask.timeStart !== "string" ||
-        typeof newTask.timeEnd !== "string"
-    ) {
+    if (typeof newTask.start !== "string" || typeof newTask.end !== "string") {
         throw new Error(
             "timeStart and timeEnd should be strings in the format HH:mm"
         );
     }
 
-    const newStart = parse(newTask.timeStart, TIME_FORMAT, new Date());
-    const newEnd = parse(newTask.timeEnd, TIME_FORMAT, new Date());
+    const newStart = parse(newTask.start, TIME_FORMAT, new Date());
+    const newEnd = parse(newTask.end, TIME_FORMAT, new Date());
 
     return existingTasks.some((task) => {
         // Đảm bảo rằng task.timeStart và task.timeEnd là chuỗi hợp lệ
@@ -60,8 +57,8 @@ export const checkTimeConflict = (newTask, existingTasks) => {
 // Hàm sắp xếp các task theo thời gian
 export const sortTasksByTime = (tasks) => {
     return tasks.sort((a, b) => {
-        const timeA = parse(a.timeStart, TIME_FORMAT, new Date());
-        const timeB = parse(b.timeStart, TIME_FORMAT, new Date());
+        const timeA = parse(a.start, TIME_FORMAT, new Date());
+        const timeB = parse(b.start, TIME_FORMAT, new Date());
         return timeA - timeB;
     });
 };

@@ -1,153 +1,271 @@
 {
-  "schedule": [
-    {
-      "id": 1,
-      "start": "07:00",
-      "end": "08:00",
-      "activity": "Tập Thể Dục Buổi Sáng",
-      "location": "Công Viên",
-      "description": "Yoga và thiền để bắt đầu ngày mới năng động"
-    },
-    {
-      "id": 2,
-      "start": "08:15",
-      "end": "09:00",
-      "activity": "Ăn Sáng",
-      "location": "Nhà",
-      "description": "Bữa sáng lành mạnh với gia đình"
-    },
-    {
-      "id": 3,
-      "start": "09:30",
-      "end": "11:00",
-      "activity": "Cuộc Họp Công Việc",
-      "location": "Văn Phòng",
-      "description": "Thảo luận mục tiêu quý 2 và kế hoạch hành động"
-    },
-    {
-      "id": 4,
-      "start": "11:15",
-      "end": "12:00",
-      "activity": "Thư Từ Email",
-      "location": "Văn Phòng",
-      "description": "Theo kịp email từ khách hàng, phản hồi nhanh chóng"
-    },
-    {
-      "id": 5,
-      "start": "13:00",
-      "end": "14:00",
-      "activity": "Giải Lao Ăn Trưa",
-      "location": "Nhà Hàng",
-      "description": "Ăn trưa nhanh tại cửa hàng gần văn phòng"
-    },
-    {
-      "id": 6,
-      "start": "14:30",
-      "end": "15:30",
-      "activity": "Dự Án Công Việc",
-      "location": "Văn Phòng",
-      "description": "Tập trung vào chiến dịch tiếp thị mới"
-    },
-    {
-      "id": 7,
-      "start": "16:00",
-      "end": "17:00",
-      "activity": "Cuộc Gọi với Khách Hàng",
-      "location": "Văn Phòng",
-      "description": "Cập nhật tiến độ dự án và trao đổi với khách hàng"
-    },
-    {
-      "id": 8,
-      "start": "17:30",
-      "end": "18:30",
-      "activity": "Chạy Buổi Tối",
-      "location": "Khu Vực Lân Cận",
-      "description": "Chạy bộ 30 phút để tăng cường sức khỏe"
-    },
-    {
-      "id": 9,
-      "start": "19:00",
-      "end": "20:00",
-      "activity": "Dọn Dẹp Nhà Cửa",
-      "location": "Nhà",
-      "description": "Dọn dẹp nhà cửa và chuẩn bị cho ngày mai"
-    },
-    {
-      "id": 10,
-      "start": "20:30",
-      "end": "21:30",
-      "activity": "Thư Giãn và Đọc Sách",
-      "location": "Phòng Ngủ",
-      "description": "Đọc sách và thư giãn trước khi đi ngủ"
-    },
-    {
-      "id": "e66d630c-5f63-4675-93b8-fd23bea621ad",
-      "timeStart": "12:35",
-      "timeEnd": "12:36",
-      "activity": "Magic Billards",
-      "location": "Sugoi Dương Khuê",
-      "description": "Giảm giá cho sinh viên",
-      "person": "",
-      "start": "12:35",
-      "end": "12:36"
-    },
-    {
-      "id": "a53e9cf7-28b7-46e5-b3d7-ef3b663e52e8",
-      "timeStart": "12:37",
-      "timeEnd": "12:38",
-      "activity": "Magic Billards",
-      "location": "Sugoi Dương Khuê",
-      "description": "Giảm giá cho sinh viên",
-      "start": "12:37",
-      "end": "12:38"
-    },
-    {
-      "id": "a62d13d4-3eb3-4302-bd10-cbe20f06914f",
-      "timeStart": "03:11",
-      "timeEnd": "03:12",
-      "activity": "Magic Billards",
-      "location": "Sugoi Dương Khuê 2.0",
-      "description": "Giảm giá cho sinh viên",
-      "start": "03:11",
-      "end": "03:12"
-    },
-    {
-      "id": "b8ff599c-d46c-45dd-834a-7e5d4efad486",
-      "timeStart": "11:11",
-      "timeEnd": "11:12",
-      "activity": "Magic Billards",
-      "location": "Sugoi Dương Khuê 3",
-      "description": "Giảm giá cho sinh viên",
-      "start": "11:11",
-      "end": "11:12"
-    },
-    {
-      "id": "2b60828f-e480-45d3-bd18-1af059351c8d",
-      "start": "02:22",
-      "end": "02:23",
-      "activity": "Magic Billards",
-      "location": "Sugoi Dương Khuê 2.1",
-      "description": "Giảm giá cho sinh viên",
-      "timeStart": "02:22",
-      "timeEnd": "02:23"
-    },
-    {
-      "id": "61034e7b-f27b-4c3e-bc4b-17a5a78d96c5",
-      "timeStart": "01:02",
-      "timeEnd": "01:02",
-      "activity": "Magic Billards",
-      "location": "Sugoi Dương Khuê 2.02",
-      "description": "Giảm giá cho sinh viên",
-      "start": "01:02",
-      "end": "01:02"
-    },
-    {
-      "id": "1a35ccc8-9f00-4ad0-b338-98fa066a7220",
-      "start": "20:10",
-      "end": "20:20",
-      "activity": "Magic Billards",
-      "location": "Sugoi Dương Khuê 22",
-      "description": "Giảm giá cho sinh viên"
-    }
-  ]
+    "template": [
+        {
+            "id": "1",
+            "start": "07:00",
+            "end": "08:00",
+            "activity": "Tập Thể Dục Buổi Sáng",
+            "location": "Công Viên",
+            "description": "Yoga và thiền để bắt đầu ngày mới năng động"
+        },
+        {
+            "id": "2",
+            "start": "08:15",
+            "end": "09:00",
+            "activity": "Ăn Sáng",
+            "location": "Nhà",
+            "description": "Bữa sáng lành mạnh với gia đình"
+        },
+        {
+            "id": "3",
+            "start": "09:30",
+            "end": "11:00",
+            "activity": "Cuộc Họp Công Việc",
+            "location": "Văn Phòng",
+            "description": "Thảo luận mục tiêu quý 2 và kế hoạch hành động"
+        },
+        {
+            "id": "4",
+            "start": "11:15",
+            "end": "12:00",
+            "activity": "Thư Từ Email",
+            "location": "Văn Phòng",
+            "description": "Theo kịp email từ khách hàng, phản hồi nhanh chóng"
+        },
+        {
+            "id": "5",
+            "start": "13:00",
+            "end": "14:00",
+            "activity": "Giải Lao Ăn Trưa",
+            "location": "Nhà Hàng",
+            "description": "Ăn trưa nhanh tại cửa hàng gần văn phòng"
+        },
+        {
+            "id": "6",
+            "start": "14:30",
+            "end": "15:30",
+            "activity": "Dự Án Công Việc",
+            "location": "Văn Phòng",
+            "description": "Tập trung vào chiến dịch tiếp thị mới"
+        },
+        {
+            "id": "7",
+            "start": "16:00",
+            "end": "17:00",
+            "activity": "Cuộc Gọi với Khách Hàng",
+            "location": "Văn Phòng",
+            "description": "Cập nhật tiến độ dự án và trao đổi với khách hàng"
+        },
+        {
+            "id": "8",
+            "start": "17:30",
+            "end": "18:30",
+            "activity": "Chạy Buổi Tối",
+            "location": "Khu Vực Lân Cận",
+            "description": "Chạy bộ 30 phút để tăng cường sức khỏe"
+        },
+        {
+            "id": "9",
+            "start": "19:00",
+            "end": "20:00",
+            "activity": "Dọn Dẹp Nhà Cửa",
+            "location": "Nhà",
+            "description": "Dọn dẹp nhà cửa và chuẩn bị cho ngày mai"
+        },
+        {
+            "id": "10",
+            "start": "20:30",
+            "end": "21:30",
+            "activity": "Thư Giãn và Đọc Sách",
+            "location": "Phòng Ngủ",
+            "description": "Đọc sách và thư giãn trước khi đi ngủ"
+        }
+    ],
+    "schedule": [
+        {
+            "id": "2",
+            "start": "08:15",
+            "end": "09:00",
+            "activity": "Ăn Sáng",
+            "location": "Nhà",
+            "description": "Bữa sáng lành mạnh với gia đình",
+            "date": "2024-07-04",
+            "completed": false
+        },
+        {
+            "id": "3",
+            "start": "09:30",
+            "end": "11:00",
+            "activity": "Cuộc Họp Công Việc",
+            "location": "Văn Phòng",
+            "description": "Thảo luận mục tiêu quý 2 và kế hoạch hành động",
+            "date": "2024-07-04",
+            "completed": false
+        },
+        {
+            "id": "4",
+            "start": "11:15",
+            "end": "12:00",
+            "activity": "Thư Từ Email",
+            "location": "Văn Phòng",
+            "description": "Theo kịp email từ khách hàng, phản hồi nhanh chóng",
+            "date": "2024-07-04",
+            "completed": false
+        },
+        {
+            "id": "5",
+            "start": "13:00",
+            "end": "14:00",
+            "activity": "Giải Lao Ăn Trưa",
+            "location": "Nhà Hàng",
+            "description": "Ăn trưa nhanh tại cửa hàng gần văn phòng",
+            "date": "2024-07-04",
+            "completed": false
+        },
+        {
+            "id": "6",
+            "start": "14:30",
+            "end": "15:56",
+            "activity": "Dự Án Công Việc",
+            "location": "Văn Phòng",
+            "description": "Tập trung vào chiến dịch tiếp thị mới",
+            "date": "2024-07-04",
+            "completed": false
+        },
+        {
+            "id": "e66d630c-5f63-4675-93b8-fd23bea621ad",
+            "timeStart": "12:35",
+            "timeEnd": "12:36",
+            "activity": "Magic Billards",
+            "location": "Sugoi Dương Khuê",
+            "description": "Giảm giá cho sinh viên",
+            "person": "",
+            "start": "12:35",
+            "end": "12:36",
+            "date": "2024-07-04",
+            "completed": true
+        },
+        {
+            "id": "a53e9cf7-28b7-46e5-b3d7-ef3b663e52e8",
+            "timeStart": "12:37",
+            "timeEnd": "12:38",
+            "activity": "Magic Billards",
+            "location": "Sugoi Dương Khuê",
+            "description": "Giảm giá cho sinh viên",
+            "start": "12:37",
+            "end": "12:38",
+            "date": "2024-07-04",
+            "completed": false
+        },
+        {
+            "id": "6c450d28-697e-4598-8dd2-6dfc979d7ad9",
+            "date": "2024-07-04",
+            "start": "03:25",
+            "end": "03:28",
+            "activity": "s",
+            "location": "d",
+            "description": "sda",
+            "completed": false
+        },
+        {
+            "id": "1",
+            "start": "07:00",
+            "end": "08:00",
+            "activity": "Tập Thể Dục Buổi Sáng",
+            "location": "Công Viên",
+            "description": "Yoga và thiền để bắt đầu ngày mới năng động",
+            "date": "2024-07-05",
+            "completed": false
+        },
+        {
+            "id": "2",
+            "start": "08:15",
+            "end": "09:00",
+            "activity": "Ăn Sáng",
+            "location": "Nhà",
+            "description": "Bữa sáng lành mạnh với gia đình",
+            "date": "2024-07-05",
+            "completed": false
+        },
+        {
+            "id": "3",
+            "start": "09:30",
+            "end": "11:00",
+            "activity": "Cuộc Họp Công Việc",
+            "location": "Văn Phòng",
+            "description": "Thảo luận mục tiêu quý 2 và kế hoạch hành động",
+            "date": "2024-07-05",
+            "completed": false
+        },
+        {
+            "id": "4",
+            "start": "11:15",
+            "end": "12:00",
+            "activity": "Thư Từ Email",
+            "location": "Văn Phòng",
+            "description": "Theo kịp email từ khách hàng, phản hồi nhanh chóng",
+            "date": "2024-07-05",
+            "completed": false
+        },
+        {
+            "id": "5",
+            "start": "13:00",
+            "end": "14:00",
+            "activity": "Giải Lao Ăn Trưa",
+            "location": "Nhà Hàng",
+            "description": "Ăn trưa nhanh tại cửa hàng gần văn phòng",
+            "date": "2024-07-05",
+            "completed": false
+        },
+        {
+            "id": "6",
+            "start": "14:30",
+            "end": "15:30",
+            "activity": "Dự Án Công Việc",
+            "location": "Văn Phòng",
+            "description": "Tập trung vào chiến dịch tiếp thị mới",
+            "date": "2024-07-05",
+            "completed": false
+        },
+        {
+            "id": "7",
+            "start": "16:00",
+            "end": "17:00",
+            "activity": "Cuộc Gọi với Khách Hàng",
+            "location": "Văn Phòng",
+            "description": "Cập nhật tiến độ dự án và trao đổi với khách hàng",
+            "date": "2024-07-05",
+            "completed": false
+        },
+        {
+            "id": "8",
+            "start": "17:30",
+            "end": "18:30",
+            "activity": "Chạy Buổi Tối",
+            "location": "Khu Vực Lân Cận",
+            "description": "Chạy bộ 30 phút để tăng cường sức khỏe",
+            "date": "2024-07-05",
+            "completed": false
+        },
+        {
+            "id": "9",
+            "start": "19:00",
+            "end": "20:00",
+            "activity": "Dọn Dẹp Nhà Cửa",
+            "location": "Nhà",
+            "description": "Dọn dẹp nhà cửa và chuẩn bị cho ngày mai",
+            "date": "2024-07-05",
+            "completed": false
+        },
+        {
+            "id": "10",
+            "start": "20:30",
+            "end": "21:30",
+            "activity": "Thư Giãn và Đọc Sách",
+            "location": "Phòng Ngủ",
+            "description": "Đọc sách và thư giãn trước khi đi ngủ",
+            "date": "2024-07-05",
+            "completed": false
+        }
+    ]
 }
