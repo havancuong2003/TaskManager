@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import "./Login.css"; // Create this file for custom styles
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -6,10 +6,32 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
     const handleSignUpClick = () => {
-        navigate("/signup"); // Điều hướng đến đường dẫn "/signup"
+        navigate("/signup");
+    };
+
+    const handleCheckUserAndPassword = () => {
+        fetch("http://localhost:9999/accounts")
+            .then((response) => response.json())
+            .then((data) => {
+                const user = data.find(
+                    (user) =>
+                        user.username === username && user.password === password
+                );
+                if (user) {
+                    sessionStorage.setItem("id", user.id);
+                    navigate("/dashboard/" + user.id);
+                } else {
+                    alert("Login failed");
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error);
+            });
     };
     return (
         <section className="ftco-section">
@@ -33,13 +55,13 @@ export default function Login() {
                                                 href="#"
                                                 className="social-icon d-flex align-items-center justify-content-center"
                                             >
-                                                <i class="bi bi-facebook"></i>
+                                                <i className="bi bi-facebook"></i>
                                             </a>
                                             <a
                                                 href="#"
                                                 className="social-icon d-flex align-items-center justify-content-center"
                                             >
-                                                <i class="bi bi-twitter"></i>
+                                                <i className="bi bi-twitter"></i>
                                             </a>
                                         </p>
                                     </div>
@@ -50,6 +72,9 @@ export default function Login() {
                                             type="text"
                                             required
                                             placeholder="Username"
+                                            onChange={(e) =>
+                                                setUsername(e.target.value)
+                                            }
                                         />
                                         <Form.Label className="form-control-placeholder">
                                             Username
@@ -61,6 +86,9 @@ export default function Login() {
                                             required
                                             placeholder="Password"
                                             id="password-field"
+                                            onChange={(e) =>
+                                                setPassword(e.target.value)
+                                            }
                                         />
                                         <Form.Label className="form-control-placeholder">
                                             Password
@@ -74,6 +102,10 @@ export default function Login() {
                                         <Button
                                             type="submit"
                                             className="form-control btn btn-primary rounded submit px-3"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                handleCheckUserAndPassword();
+                                            }}
                                         >
                                             Sign In
                                         </Button>

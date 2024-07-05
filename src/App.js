@@ -3,7 +3,7 @@ import React from "react";
 import "./assets/css/assignmentbody.css";
 import Layout from "./layout/Layout";
 import Dashboard from "./pages/DashBoard/Dashboard";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
 import GoalTracking from "./pages/GoalTracking/GoalTracking";
 import TaskManagment from "./pages/TaskManagement/TaskManagment";
 import DailyPlanning from "./pages/DailyPlanning/DailyPlanning";
@@ -15,10 +15,11 @@ import Setting from "./pages/Settings/Setting";
 import "./pages/DailyPlanning/daily.css";
 import LineChart from "./pages/ChartistGraph.js";
 import ActivityChart from "./pages/DashBoard/ActivityChart.js";
+import UpdateProfile from "./pages/Settings/UpdateProfile.js";
 
 function App() {
     const [color, setColor] = React.useState("black");
-
+    const { pId } = useParams();
     return (
         <>
             {" "}
@@ -26,6 +27,15 @@ function App() {
                 <Routes>
                     <Route
                         path="/"
+                        exact
+                        element={
+                            <Layout>
+                                <Dashboard />
+                            </Layout>
+                        }
+                    />
+                    <Route
+                        path="/dashboard/:id"
                         exact
                         element={
                             <Layout>
@@ -78,6 +88,21 @@ function App() {
                                 <TaskManagment />
                             </Layout>
                         }
+                    />
+                    <Route
+                        path="/profile/changepassword"
+                        exact
+                        element={<Setting />}
+                    />
+                    <Route
+                        path="/profile/updateprofile/:id"
+                        exact
+                        element={<UpdateProfile />}
+                    />
+                    <Route
+                        path="/dashboard/:id"
+                        exact
+                        element={<Dashboard />}
                     />
                 </Routes>
             </BrowserRouter>{" "}
