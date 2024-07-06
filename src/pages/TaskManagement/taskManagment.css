@@ -1,50 +1,166 @@
-/* styles.css */
-.row-color-0 {
-    background-color: #ffddc1 !important;
-}
-.row-color-1 {
-    background-color: #ffabab !important;
-}
-.row-color-2 {
-    background-color: #ffc3a0 !important;
-}
-.row-color-3 {
-    background-color: #ff677d !important;
-}
-.row-color-4 {
-    background-color: #d4a5a5 !important;
-}
-.row-color-5 {
-    background-color: #392f5a !important;
-}
-.row-color-6 {
-    background-color: #31a2ac !important;
-}
-/* ./ */
-.workout-item {
-    background-color: rgb(227, 147, 27);
-    padding: 5px;
-    border-radius: 4px;
-    text-align: center;
-    font-size: 14px;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    /* margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; */
 }
 
-table th,
-table td {
+h1 {
     text-align: center;
-    vertical-align: middle;
+    color: #333;
 }
 
-.sidebar-sticky {
-    position: relative;
-    top: 0;
-    height: calc(100vh - 48px);
-    padding-top: 0.5rem;
-    overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-.button1 {
-    text-align: right;
-    padding-right: 50px;
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+form label {
+    font-weight: bold;
     margin-bottom: 5px;
+}
+
+form input,
+form textarea,
+form select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-button {
+    background-color: #007bff;
+}
+
+.add-button:hover {
+    background-color: #034f9f;
+}
+
+.update-button {
+    background-color: #28a745;
+}
+
+.update-button:hover {
+    background-color: #218838;
+}
+
+.delete-button {
+    background-color: #dc3545;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+.react-big-calendar {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.rbc-toolbar {
+    margin-bottom: 20px;
+}
+
+.rbc-toolbar button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.rbc-toolbar button:hover {
+    background-color: #0056b3;
+}
+
+.rbc-event {
+    background-color: #007bff !important;
+    border: none !important;
+    color: #fff !important;
+    border-radius: 5px;
+    padding: 5px;
+    opacity: 0.9;
+}
+
+.rbc-event:hover {
+    opacity: 1;
+}
+
+.rbc-selected {
+    background-color: #0056b3 !important;
+}
+
+/* Custom styles for the calendar */
+.rbc-event {
+    border: none; /* Remove default border */
+    color: white; /* Text color for the event */
+    padding: 2px 5px; /* Padding inside events */
+}
+
+.rbc-event-content {
+    text-align: center; /* Center text inside events */
+}
+
+/* Adjust specific view styles if needed */
+.rbc-month-view .rbc-event {
+    border: none;
+    color: white;
+}
+
+.rbc-week-view .rbc-event {
+    border: none;
+    color: white;
+}
+
+.rbc-day-view .rbc-event {
+    border: none;
+    color: white;
+}
+
+.rbc-toolbar .rbc-toolbar-label {
+    font-size: 24px;
+    font-weight: bold;
+}
+.rbc-agenda-view table.rbc-agenda-table {
+    text-align: right;
 }
