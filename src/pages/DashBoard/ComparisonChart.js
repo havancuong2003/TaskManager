@@ -15,8 +15,8 @@ const ComparisonChart = () => {
         const today = new Date();
         const yesterday = new Date(today);
         const dayBeforeYesterday = new Date(today);
-        yesterday.setDate(yesterday.getDate() - 2);
-        dayBeforeYesterday.setDate(dayBeforeYesterday.getDate() - 3);
+        yesterday.setDate(yesterday.getDate());
+        dayBeforeYesterday.setDate(dayBeforeYesterday.getDate() - 1);
 
         const yyyy = today.getFullYear();
         const mm = String(today.getMonth() + 1).padStart(2, "0"); // Months are zero-based
@@ -127,7 +127,7 @@ const ComparisonChart = () => {
         ],
         datasets: [
             {
-                label: "Activity Level - Day Before Yesterday",
+                label: "Activity Level - Yesterday",
                 data: activityData.day1,
                 backgroundColor: "rgba(255, 99, 132, 0.5)",
                 borderColor: "rgba(255, 99, 132, 1)",
@@ -135,7 +135,7 @@ const ComparisonChart = () => {
                 stack: "day",
             },
             {
-                label: "Activity Level - Yesterday",
+                label: "Activity Level - Today",
                 data: activityData.day2,
                 backgroundColor: "rgba(54, 162, 235, 0.5)",
                 borderColor: "rgba(54, 162, 235, 1)",

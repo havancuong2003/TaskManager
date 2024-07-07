@@ -11,7 +11,7 @@ const ActivityChart = () => {
         // Calculate yesterday's date
         const today = new Date();
         const yesterday = new Date(today);
-        yesterday.setDate(yesterday.getDate() - 2);
+        yesterday.setDate(yesterday.getDate());
         const yyyy = yesterday.getFullYear();
         const mm = String(yesterday.getMonth() + 1).padStart(2, "0"); // Months are zero-based
         const dd = String(yesterday.getDate()).padStart(2, "0");
