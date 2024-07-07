@@ -1,10 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
 import { Container } from "react-bootstrap";
 import "./PieChart.css";
 import "./ChartSetup"; // Import ChartSetup
 
-const PieChart = ({ data, labels }) => {
+const PieChart = () => {
+    const [data, setData] = useState([]);
+    const [labels, setLabels] = useState([]);
+
+    useEffect(() => {
+        // Fetch data from API
+        const fetchData = async () => {
+            const response = await fetch("http://localhost:9999/schedule");
+            const json = await response.json();
+            console.log("Fetched data:", json);
+
+            // Process data
+            const activityCategories = {
+                Sleep: 0,
+                Work: 0,
+                Exercise: 0,
+                Leisure: 0,
+                Eating: 0,
+                Other: 0,
+            };
+
+            json.forEach((item) => {
+                const start = new Date(`1970-01-01T${item.start}:00Z`);
+                const end = new Date(`1970-01-01T${item.end}:00Z`);
+                const duration = (end - start) / 1000 / 60; // duration in minutes
+
+                if (item.activity.includes("Ngủ")) {
+                    activityCategories.Sleep += duration;
+                } else if (
+                    item.activity.includes("Công Việc") ||
+                    item.activity.includes("Email")
+                ) {
+                    activityCategories.Work += duration;
+                } else if (
+                    item.activity.includes("Tập Thể Dục") ||
+                    item.activity.includes("Chạy")
+                ) {
+                    activityCategories.Exercise += duration;
+                } else if (
+                    item.activity.includes("Giải Lao") ||
+                    item.activity.includes("Leisure")
+                ) {
+                    activityCategories.Leisure += duration;
+                } else if (item.activity.includes("Ăn")) {
+                    activityCategories.Eating += duration;
+                } else {
+                    activityCategories.Other += duration;
+                }
+            });
+
+            setData(Object.values(activityCategories));
+            setLabels(Object.keys(activityCategories));
+        };
+
+        fetchData();
+    }, []);
+
     const chartData = {
         labels: labels,
         datasets: [
@@ -41,9 +97,9 @@ const PieChart = ({ data, labels }) => {
             tooltip: {
                 callbacks: {
                     label: function (tooltipItem) {
-                        return `${labels[tooltipItem.index]}: ${
-                            data[tooltipItem.index]
-                        }%`;
+                        return `${labels[tooltipItem.dataIndex]}: ${
+                            data[tooltipItem.dataIndex]
+                        } phút`;
                     },
                 },
             },
