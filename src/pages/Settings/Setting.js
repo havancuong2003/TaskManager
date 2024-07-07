@@ -22,6 +22,7 @@ export default function ProfilePage() {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
+    const [job, setJob] = useState("");
     useEffect(() => {
         axios
             .get("http://localhost:9999/image")
@@ -30,12 +31,13 @@ export default function ProfilePage() {
             })
             .catch((error) => console.log(error));
 
-        fetch("http://localhost:9999/profile/1").then((response) => {
+        fetch("http://localhost:9999/profile/" + id).then((response) => {
             response.json().then((data) => {
                 setUsername(data.name);
                 setEmail(data.email);
                 setPhone(data.phone);
                 setAddress(data.address);
+                setJob(data.job);
             });
         });
     }, []);
@@ -52,7 +54,7 @@ export default function ProfilePage() {
                     setUploadedImage(reader.result);
 
                     axios
-                        .patch("http://localhost:9999/image/1", {
+                        .patch("http://localhost:9999/image/" + id, {
                             src: reader.result,
                         })
                         .then((response) => {
@@ -101,24 +103,21 @@ export default function ProfilePage() {
                                         "../images/pizaa.jpg"
                                     }
                                     alt="avatar"
-                                    roundedCircle
-                                    style={{ width: "150px" }}
+                                    className="rounded-circle mb-3"
+                                    style={{
+                                        width: "150px",
+                                        marginLeft: "100px",
+                                    }}
                                     fluid
                                 />
-                                <p className="text-muted mb-1">Dev</p>
-                                <p className="text-muted mb-4">Nghệ An</p>
+                                <p className="text-muted mb-1">{job}</p>
+                                <p className="text-muted mb-4">{address}</p>
                                 <div className="d-flex justify-content-center mb-2">
                                     <Button
                                         variant="primary"
                                         onClick={() => setShowUpload(true)}
                                     >
                                         Update Image
-                                    </Button>
-                                    <Button
-                                        variant="outline-primary"
-                                        className="ms-1"
-                                    >
-                                        Change Image
                                     </Button>
                                 </div>
                                 {showUpload && <UploadImage />}
@@ -133,29 +132,45 @@ export default function ProfilePage() {
                                         <Card.Text>
                                             <Link
                                                 to={`/profile/changepassword/${id}`}
+                                                style={{
+                                                    textDecoration: "none",
+                                                    color: "blue",
+                                                }}
                                             >
                                                 Change Password
                                             </Link>
                                         </Card.Text>
                                     </ListGroup.Item>
                                     <ListGroup.Item className="d-flex justify-content-between align-items-center p-3">
-                                        <i className="bi bi-translate"></i>
-                                        <Card.Text>Language</Card.Text>
-                                    </ListGroup.Item>
-                                    <ListGroup.Item className="d-flex justify-content-between align-items-center p-3">
-                                        <i className="bi bi-bell"></i>
-                                        <Card.Text>Notifications</Card.Text>
-                                    </ListGroup.Item>
-                                    <ListGroup.Item className="d-flex justify-content-between align-items-center p-3">
                                         <i className="bi bi-instagram"></i>
                                         <Card.Text>
                                             <Link
-                                                to={"/profile/updateprofile/"}
+                                                to={
+                                                    "/profile/updateprofile/" +
+                                                    id
+                                                }
+                                                style={{
+                                                    textDecoration: "none",
+                                                    color: "blue",
+                                                }}
                                             >
                                                 Update Profile
                                             </Link>
                                         </Card.Text>
                                     </ListGroup.Item>
+                                    <ListGroup.Item className="d-flex justify-content-between align-items-center p-3">
+                                        <i className="bi bi-translate"></i>
+                                        <Card.Text>
+                                            <Link to="/profile/language">
+                                                Language
+                                            </Link>
+                                        </Card.Text>
+                                    </ListGroup.Item>
+                                    <ListGroup.Item className="d-flex justify-content-between align-items-center p-3">
+                                        <i className="bi bi-bell"></i>
+                                        <Card.Text>Notifications</Card.Text>
+                                    </ListGroup.Item>
+
                                     <ListGroup.Item className="d-flex justify-content-between align-items-center p-3">
                                         <i className="bi bi-boxes"></i>
                                         <Card.Text>User Interface</Card.Text>

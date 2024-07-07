@@ -16,6 +16,7 @@ import "./pages/DailyPlanning/daily.css";
 import LineChart from "./pages/ChartistGraph.js";
 import ActivityChart from "./pages/DashBoard/ActivityChart.js";
 import UpdateProfile from "./pages/Settings/UpdateProfile.js";
+import ChangePassWord from "./pages/Settings/ChangePassword.js";
 
 function App() {
     const [color, setColor] = React.useState("black");
@@ -90,9 +91,9 @@ function App() {
                         }
                     />
                     <Route
-                        path="/profile/changepassword"
+                        path="/profile/changepassword/:id"
                         exact
-                        element={<Setting />}
+                        element={<ChangePassWord />}
                     />
                     <Route
                         path="/profile/updateprofile/:id"
