@@ -27,7 +27,7 @@ const Main = () => {
     const [dates, setDates] = useState([]);
     const [currentTime, setCurrentTime] = useState(new Date());
     const [tasksCreated, setTasksCreated] = useState(false); // State to track if tasks are created for the current date
-
+    console.log(selectedDate);
     const fetchData = async () => {
         try {
             const response = await fetch("http://localhost:9999/schedule");
@@ -36,6 +36,13 @@ const Main = () => {
             }
             const jsonData = await response.json();
             const uniqueDates = [...new Set(jsonData.map((task) => task.date))];
+            const currentDate = new Date().toISOString().slice(0, 10);
+
+            // Thêm ngày hiện tại vào mảng uniqueDates nếu chưa có
+            if (!uniqueDates.includes(currentDate)) {
+                uniqueDates.push(currentDate);
+            }
+
             setDates(uniqueDates);
             const filteredData = jsonData.filter(
                 (task) => task.date === selectedDate
@@ -116,7 +123,7 @@ const Main = () => {
                 );
                 if (response.ok) {
                     const jsonData = await response.json();
-
+                    console.log("jsonData", jsonData);
                     if (jsonData.length > 0) {
                         // Tasks for today already exist, mark as created
                         setTasksCreated(true);

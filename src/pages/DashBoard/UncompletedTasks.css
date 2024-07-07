@@ -1,0 +1,49 @@
+.tasks-container {
+    margin-top: 20px;
+    background-color: #f9f9f9; /* Light grey background for the container */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tasks-container h3 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #007bff; /* Primary color for the title */
+}
+
+.tasks-table {
+    background-color: #ffffff; /* White background for the table */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.tasks-table thead {
+    background-color: #007bff; /* Blue background for the table header */
+    color: #ffffff;
+}
+
+.tasks-table th,
+.tasks-table td {
+    text-align: center;
+}
+
+.task-row {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.task-row:hover {
+    background-color: #e9ecef; /* Slightly darker grey background on row hover */
+}
+
+.task-details {
+    padding: 10px;
+    background-color: #f1f1f1; /* Light grey background for task details */
+    border-top: 1px solid #ddd; /* Border to separate details from the row */
+}
+
+.task-details p {
+    margin: 5px 0;
+    color: #333; /* Darker text for readability */
+}
