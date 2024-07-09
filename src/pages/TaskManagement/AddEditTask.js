@@ -8,7 +8,7 @@ const AddEditTask = ({ task, onClose, selectedDate, events, onSave }) => {
         startTime: "",
         endTime: "",
     });
-    //
+
     useEffect(() => {
         if (task) {
             setTaskData({
@@ -16,7 +16,7 @@ const AddEditTask = ({ task, onClose, selectedDate, events, onSave }) => {
                 dueDate: moment(task.start).format("YYYY-MM-DD"),
                 startTime: moment(task.start).format("HH:mm"),
                 endTime: moment(task.end).format("HH:mm"),
-                id: task.id, // Ensure ID is set correctly
+                id: task.id,
             });
         } else {
             setTaskData({
@@ -45,16 +45,33 @@ const AddEditTask = ({ task, onClose, selectedDate, events, onSave }) => {
             `${taskData.dueDate}T${taskData.endTime}`
         ).toISOString();
 
+        // Kiểm tra xem nhiệm vụ kết thúc vào lúc 11:59 PM
+        const endOfDay = moment(taskData.dueDate).endOf("day").toISOString();
+        if (moment(end).isSame(endOfDay)) {
+            alert("Tasks ending at 11:59 PM cannot be edited or deleted.");
+            return;
+        }
+
+        // Kiểm tra xem Start Time có trước End Time không
+        if (moment(start).isSameOrAfter(end)) {
+            alert("Start Time should be before End Time.");
+            return;
+        }
+
         // Kiểm tra trùng lặp thời gian
         const overlappingTask = events.find((event) => {
+            const eventStart = moment(event.start).toISOString();
+            const eventEnd = moment(event.end).toISOString();
             return (
-                moment(start).isBefore(event.end) &&
-                moment(end).isAfter(event.start) &&
+                ((start >= eventStart && start < eventEnd) ||
+                    (end > eventStart && end <= eventEnd) ||
+                    (start <= eventStart && end >= eventEnd)) &&
                 (!task || task.id !== event.id)
             );
         });
 
         if (overlappingTask) {
+            // Thời gian đã chọn trùng với nhiệm vụ khác
             alert("The selected time overlaps with another task.");
             return;
         }
@@ -66,13 +83,21 @@ const AddEditTask = ({ task, onClose, selectedDate, events, onSave }) => {
             color: task ? task.color : getRandomColor(),
         };
 
-        console.log("Prepared task data for saving:", updatedTaskData); // Debug log
+        console.log(updatedTaskData); // Debug log
 
         // Call onSave with correct parameters
         onSave(updatedTaskData, !!task);
     };
 
     const handleDelete = () => {
+        if (
+            task &&
+            moment(task.end).isSame(moment(task.dueDate).endOf("day"))
+        ) {
+            alert("Tasks ending at 11:59 PM cannot be edited or deleted.");
+            return;
+        }
+
         fetch(`http://localhost:9999/tasks/${task.id}`, {
             method: "DELETE",
         })
@@ -91,6 +116,9 @@ const AddEditTask = ({ task, onClose, selectedDate, events, onSave }) => {
         return colors[Math.floor(Math.random() * colors.length)];
     };
 
+    const isTaskEndOfDay =
+        task && moment(task.end).isSame(moment(task.dueDate).endOf("day"));
+
     return (
         <form onSubmit={handleSubmit}>
             <div>
@@ -100,6 +128,7 @@ const AddEditTask = ({ task, onClose, selectedDate, events, onSave }) => {
                     name="title"
                     value={taskData.title}
                     onChange={handleChange}
+                    disabled={isTaskEndOfDay}
                 />
             </div>
             <div>
@@ -109,6 +138,7 @@ const AddEditTask = ({ task, onClose, selectedDate, events, onSave }) => {
                     name="dueDate"
                     value={taskData.dueDate}
                     onChange={handleChange}
+                    disabled={isTaskEndOfDay}
                 />
             </div>
             <div>
@@ -118,6 +148,7 @@ const AddEditTask = ({ task, onClose, selectedDate, events, onSave }) => {
                     name="startTime"
                     value={taskData.startTime}
                     onChange={handleChange}
+                    disabled={isTaskEndOfDay}
                 />
             </div>
             <div>
@@ -127,12 +158,14 @@ const AddEditTask = ({ task, onClose, selectedDate, events, onSave }) => {
                     name="endTime"
                     value={taskData.endTime}
                     onChange={handleChange}
+                    disabled={isTaskEndOfDay}
                 />
             </div>
             <div className="form-buttons">
                 <button
                     type="submit"
                     className={task ? "update-button" : "add-button"}
+                    disabled={isTaskEndOfDay}
                 >
                     {task ? "Update Task" : "Add Task"}
                 </button>
@@ -141,6 +174,7 @@ const AddEditTask = ({ task, onClose, selectedDate, events, onSave }) => {
                         type="button"
                         onClick={handleDelete}
                         className="delete-button"
+                        disabled={isTaskEndOfDay}
                     >
                         Delete Task
                     </button>

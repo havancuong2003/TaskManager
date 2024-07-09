@@ -238,16 +238,6 @@
             "completed": false
         },
         {
-            "id": "8",
-            "start": "17:30",
-            "end": "18:30",
-            "activity": "Chạy Buổi Tối",
-            "location": "Khu Vực Lân Cận",
-            "description": "Chạy bộ 30 phút để tăng cường sức khỏe",
-            "date": "2024-07-07",
-            "completed": false
-        },
-        {
             "id": "9",
             "start": "19:00",
             "end": "20:00",
@@ -400,17 +390,17 @@
             "color": "#e76f51"
         },
         {
-            "title": "Sleep",
+            "title": "Check email inbox.",
             "dueDate": "2024-07-01",
             "startTime": "07:55",
-            "endTime": "08:07",
+            "endTime": "09:07",
             "id": "4eae",
             "start": "2024-07-01T00:55:00.000Z",
-            "end": "2024-07-01T01:07:00.000Z",
+            "end": "2024-07-01T02:07:00.000Z",
             "color": "#e9c46a"
         },
         {
-            "title": "Gym",
+            "title": "Play soccer ",
             "dueDate": "2024-07-10",
             "startTime": "02:22",
             "endTime": "04:44",
@@ -448,6 +438,56 @@
             "start": "2024-07-11T21:00:00.000Z",
             "end": "2024-07-11T22:00:00.000Z",
             "color": "#264653"
+        },
+        {
+            "id": "7953",
+            "title": "sleep",
+            "dueDate": "2024-07-08",
+            "startTime": "",
+            "endTime": "",
+            "start": null,
+            "end": null,
+            "color": "#f4a261"
+        },
+        {
+            "title": "Update project timeline",
+            "dueDate": "2024-07-08",
+            "startTime": "11:12",
+            "endTime": "11:46",
+            "id": "6c12",
+            "start": "2024-07-08T04:12:00.000Z",
+            "end": "2024-07-08T04:46:00.000Z",
+            "color": "#e9c46a"
+        },
+        {
+            "title": "Learn English",
+            "dueDate": "2024-07-02",
+            "startTime": "11:11",
+            "endTime": "11:45",
+            "id": "9180",
+            "start": "2024-07-02T04:11:00.000Z",
+            "end": "2024-07-02T04:45:00.000Z",
+            "color": "#2a9d8f"
+        },
+        {
+            "id": "6128",
+            "title": "Prepare weekly sales report",
+            "dueDate": "2024-07-08",
+            "startTime": "13:01",
+            "endTime": "14:22",
+            "start": "2024-07-08T06:01:00.000Z",
+            "end": "2024-07-08T07:22:00.000Z",
+            "color": "#264653"
+        },
+        {
+            "id": "172d",
+            "title": "Tour ",
+            "dueDate": "2024-07-01",
+            "startTime": "13:00",
+            "endTime": "21:00",
+            "start": "2024-07-01T06:00:00.000Z",
+            "end": "2024-07-01T14:00:00.000Z",
+            "color": "#f4a261"
         }
     ]
 }
