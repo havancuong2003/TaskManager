@@ -2,8 +2,10 @@ import React from "react";
 import { Nav } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo.jpg";
-
+import { useTranslation } from "react-i18next";
+import i18n from "i18next";
 function Sidebar({ color, image, routes }) {
+    const { t } = useTranslation("translation");
     const navigate = useNavigate();
 
     return (
@@ -25,7 +27,7 @@ function Sidebar({ color, image, routes }) {
                         </div>
                     </a>
                     <a className="simple-text" href="http://www.google.com">
-                        Task manager
+                        {t("taskmanager")}
                     </a>
                 </div>
                 <Nav className="flex-column">
@@ -37,7 +39,7 @@ function Sidebar({ color, image, routes }) {
                                         onClick={() => navigate(prop.path)}
                                     >
                                         {/* <i className={prop.icon} /> */}
-                                        <p>{prop.name}</p>
+                                        <p>{t(prop.name)}</p>
                                     </Nav.Link>
                                 </Nav.Item>
                             );
