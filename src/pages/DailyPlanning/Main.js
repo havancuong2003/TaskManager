@@ -17,6 +17,7 @@ import {
     FormControl,
     InputLabel,
 } from "@mui/material";
+import { v4 as uuidv4 } from "uuid";
 
 const Main = () => {
     const [data, setData] = useState([]);
@@ -28,6 +29,7 @@ const Main = () => {
     const [currentTime, setCurrentTime] = useState(new Date());
     const [tasksCreated, setTasksCreated] = useState(false); // State to track if tasks are created for the current date
     console.log(selectedDate);
+
     const fetchData = async () => {
         try {
             const response = await fetch("http://localhost:9999/schedule");
@@ -70,7 +72,7 @@ const Main = () => {
         const currentDate = new Date().toISOString().slice(0, 10);
         const tasksForToday = template.map((task) => ({
             ...task,
-            id: task.id.toString(),
+            id: uuidv4(),
             date: currentDate,
             completed: false,
         }));
@@ -153,9 +155,11 @@ const Main = () => {
         setSelectedDate(event.target.value);
     };
 
-    const handleTaskComplete = async (taskId) => {
+    const handleTaskComplete = async (taskId, taskDate) => {
         try {
-            const taskToUpdate = data.find((task) => task.id === taskId);
+            const taskToUpdate = data.find(
+                (task) => task.id === taskId && task.date === taskDate
+            );
             if (!taskToUpdate) {
                 throw new Error("Task not found");
             }
@@ -166,7 +170,7 @@ const Main = () => {
             };
 
             const response = await fetch(
-                `http://localhost:9999/schedule/${taskId}`,
+                `http://localhost:9999/schedule/${taskId}?date=${taskDate}`,
                 {
                     method: "PUT",
                     headers: {
@@ -184,7 +188,8 @@ const Main = () => {
 
             setData((prevData) =>
                 prevData.map((task) =>
-                    task.id === updatedTaskFromServer.id
+                    task.id === updatedTaskFromServer.id &&
+                    task.date === updatedTaskFromServer.date
                         ? updatedTaskFromServer
                         : task
                 )
@@ -242,7 +247,7 @@ const Main = () => {
                                     <Checkbox
                                         checked={row.completed}
                                         onChange={() =>
-                                            handleTaskComplete(row.id)
+                                            handleTaskComplete(row.id, row.date)
                                         }
                                         disabled={isTaskDisabled(row.end)} // Disable checkbox if task end time is in the past
                                     />
