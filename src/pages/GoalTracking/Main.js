@@ -7,26 +7,33 @@ import {
     Form,
     Container,
     Modal,
+    DropdownButton,
+    Dropdown,
 } from "react-bootstrap";
 
 const Main = () => {
     const [goals, setGoals] = useState([]);
+    const id = localStorage.getItem("id");
     const [showModal, setShowModal] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [currentGoal, setCurrentGoal] = useState(null);
     const [newGoal, setNewGoal] = useState({
+        userID: "1",
         startdate: "",
         enddate: "",
         activity: "",
         description: "",
-        progress: "",
+        progress: false,
     });
 
     useEffect(() => {
         fetch("http://localhost:9999/GoalTracking")
             .then((res) => res.json())
-            .then((result) => setGoals(result))
-            .catch((err) => console.log(err));
+            .then((result) => {
+                const userGoals = result.filter((goal) => goal.userID === "1");
+                setGoals(userGoals);
+            })
+            .catch((err) => console.error("Failed to fetch goals:", err));
     }, []);
 
     const handleChange = (e) => {
@@ -35,6 +42,22 @@ const Main = () => {
             ...newGoal,
             [name]: value,
         });
+    };
+
+    const handleProgressChange = (goal, progress) => {
+        const updatedGoal = { ...goal, progress: progress === "Completed" };
+        fetch(`http://localhost:9999/GoalTracking/${goal.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedGoal),
+        })
+            .then((res) => res.json())
+            .then((result) => {
+                setGoals(goals.map((g) => (g.id === goal.id ? result : g)));
+            })
+            .catch((err) => console.log(err));
     };
 
     const handleSubmit = (e) => {
@@ -78,7 +101,7 @@ const Main = () => {
             enddate: "",
             activity: "",
             description: "",
-            progress: "",
+            progress: false,
         });
     };
 
@@ -118,7 +141,7 @@ const Main = () => {
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Activity</th>
-                                <th>Description</th>
+                                <th>Goal</th>
                                 <th>Progress</th>
                                 <th>Actions</th>
                             </tr>
@@ -130,10 +153,37 @@ const Main = () => {
                                     <td>{g.enddate}</td>
                                     <td>{g.activity}</td>
                                     <td>{g.description}</td>
-                                    <td>{g.progress}</td>
+                                    <td>
+                                        <DropdownButton
+                                            id="dropdown-basic-button"
+                                            title={
+                                                g.progress
+                                                    ? "Completed"
+                                                    : "InProgress"
+                                            }
+                                            variant={
+                                                g.progress
+                                                    ? "success"
+                                                    : "warning"
+                                            } // Change color based on progress
+                                            onSelect={(eventKey) =>
+                                                handleProgressChange(
+                                                    g,
+                                                    eventKey
+                                                )
+                                            }
+                                        >
+                                            <Dropdown.Item eventKey="Completed">
+                                                Completed
+                                            </Dropdown.Item>
+                                            <Dropdown.Item eventKey="InProgress">
+                                                InProgress
+                                            </Dropdown.Item>
+                                        </DropdownButton>
+                                    </td>
                                     <td>
                                         <Button
-                                            variant="warning"
+                                            variant="secondary"
                                             onClick={() => handleEdit(g)}
                                             className="mr-2"
                                         >
@@ -192,7 +242,7 @@ const Main = () => {
                             />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Description</Form.Label>
+                            <Form.Label>Goal</Form.Label>
                             <Form.Control
                                 type="text"
                                 name="description"
@@ -202,14 +252,30 @@ const Main = () => {
                             />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Progress</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="progress"
-                                value={newGoal.progress}
-                                onChange={handleChange}
-                                required
-                            />
+                            <DropdownButton
+                                id="dropdown-basic-button"
+                                title={
+                                    newGoal.progress
+                                        ? "Completed"
+                                        : "InProgress"
+                                }
+                                variant={
+                                    newGoal.progress ? "success" : "warning"
+                                } // Change color based on progress
+                                onSelect={(eventKey) =>
+                                    setNewGoal({
+                                        ...newGoal,
+                                        progress: eventKey === "Completed",
+                                    })
+                                }
+                            >
+                                <Dropdown.Item eventKey="Completed">
+                                    Completed
+                                </Dropdown.Item>
+                                <Dropdown.Item eventKey="InProgress">
+                                    InProgress
+                                </Dropdown.Item>
+                            </DropdownButton>
                         </Form.Group>
                         <Button
                             variant="primary"
