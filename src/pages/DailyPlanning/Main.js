@@ -17,6 +17,7 @@ import {
     FormControl,
     InputLabel,
 } from "@mui/material";
+import { v4 as uuidv4 } from "uuid";
 
 const Main = () => {
     const [data, setData] = useState([]);
@@ -27,10 +28,13 @@ const Main = () => {
     const [dates, setDates] = useState([]);
     const [currentTime, setCurrentTime] = useState(new Date());
     const [tasksCreated, setTasksCreated] = useState(false); // State to track if tasks are created for the current date
-    console.log(selectedDate);
+    const [userID, setUserID] = useState("user1");
+
     const fetchData = async () => {
         try {
-            const response = await fetch("http://localhost:9999/schedule");
+            const response = await fetch(
+                `http://localhost:9999/schedule?userId=${userID}`
+            );
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
@@ -55,7 +59,9 @@ const Main = () => {
 
     const fetchTemplate = async () => {
         try {
-            const response = await fetch("http://localhost:9999/template");
+            const response = await fetch(
+                `http://localhost:9999/template?userId=${userID}`
+            );
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
@@ -70,14 +76,15 @@ const Main = () => {
         const currentDate = new Date().toISOString().slice(0, 10);
         const tasksForToday = template.map((task) => ({
             ...task,
-            id: task.id.toString(),
+            id: uuidv4(),
             date: currentDate,
             completed: false,
+            userId: userID,
         }));
 
         try {
             for (let task of tasksForToday) {
-                await fetch("http://localhost:9999/schedule", {
+                await fetch(`http://localhost:9999/schedule`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -85,8 +92,8 @@ const Main = () => {
                     body: JSON.stringify(task),
                 });
             }
-            setTasksCreated(true); // Mark tasks as created for today
-            fetchData(); // Refresh data after creating tasks
+            setTasksCreated(true); // Đánh dấu các hoạt động đã được tạo cho ngày hôm nay
+            fetchData(); // Làm mới dữ liệu sau khi tạo các hoạt động
         } catch (error) {
             console.error("Error creating tasks from template: ", error);
         }
@@ -110,7 +117,7 @@ const Main = () => {
     useEffect(() => {
         fetchTemplate();
         fetchData();
-    }, []);
+    }, [userID]);
 
     useEffect(() => {
         const fetchInitialData = async () => {
@@ -119,11 +126,10 @@ const Main = () => {
 
                 // Check if there are tasks for today in the schedule
                 const response = await fetch(
-                    `http://localhost:9999/schedule?date=${currentDate}`
+                    `http://localhost:9999/schedule?date=${currentDate}&userId=${userID}`
                 );
                 if (response.ok) {
                     const jsonData = await response.json();
-                    console.log("jsonData", jsonData);
                     if (jsonData.length > 0) {
                         // Tasks for today already exist, mark as created
                         setTasksCreated(true);
@@ -147,15 +153,17 @@ const Main = () => {
         }, 1000);
 
         return () => clearInterval(interval);
-    }, [selectedDate]);
+    }, [selectedDate, userID]);
 
     const handleDateChange = (event) => {
         setSelectedDate(event.target.value);
     };
 
-    const handleTaskComplete = async (taskId) => {
+    const handleTaskComplete = async (taskId, taskDate) => {
         try {
-            const taskToUpdate = data.find((task) => task.id === taskId);
+            const taskToUpdate = data.find(
+                (task) => task.id === taskId && task.date === taskDate
+            );
             if (!taskToUpdate) {
                 throw new Error("Task not found");
             }
@@ -166,7 +174,7 @@ const Main = () => {
             };
 
             const response = await fetch(
-                `http://localhost:9999/schedule/${taskId}`,
+                `http://localhost:9999/schedule/${taskId}?date=${taskDate}`,
                 {
                     method: "PUT",
                     headers: {
@@ -184,7 +192,8 @@ const Main = () => {
 
             setData((prevData) =>
                 prevData.map((task) =>
-                    task.id === updatedTaskFromServer.id
+                    task.id === updatedTaskFromServer.id &&
+                    task.date === updatedTaskFromServer.date
                         ? updatedTaskFromServer
                         : task
                 )
@@ -242,7 +251,7 @@ const Main = () => {
                                     <Checkbox
                                         checked={row.completed}
                                         onChange={() =>
-                                            handleTaskComplete(row.id)
+                                            handleTaskComplete(row.id, row.date)
                                         }
                                         disabled={isTaskDisabled(row.end)} // Disable checkbox if task end time is in the past
                                     />
