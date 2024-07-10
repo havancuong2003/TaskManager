@@ -2,8 +2,10 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Form } from "react-bootstrap";
 import { useParams, Link, useNavigate } from "react-router-dom";
+import { isAuthenticated } from "../Login/Authenticated";
 
 export default function UpdateProfile() {
+    isAuthenticated();
     const navigate = useNavigate();
     const { id } = useParams();
     const [username, setUsername] = useState("");
@@ -11,6 +13,7 @@ export default function UpdateProfile() {
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
     const [job, setJob] = useState("");
+    let findId = false;
     useEffect(() => {
         fetch(`http://localhost:9999/profile/${id}`)
             .then((res) => res.json())
@@ -22,20 +25,41 @@ export default function UpdateProfile() {
                 setJob(result.job);
             })
             .catch((error) => console.log(error));
+
+        fetch(`http://localhost:9999/profile`)
+            .then((res) => res.json())
+            .then((result) => {
+                result?.map((p) => {
+                    p.id === id ? (findId = true) : (findId = false);
+                });
+            });
     }, [id]);
 
     function handleUpdate(e) {
         e.preventDefault();
         const updateProduct = {
-            id: id,
             name: username,
             email: email,
             phone: phone,
             address: address,
             job: job,
         };
-        fetch(`http://localhost:9999/profile/${id}`, {
-            method: "PUT",
+
+        let url;
+        let method;
+
+        if (findId === true) {
+            url = `http://localhost:9999/profile/${id}`;
+            method = "PUT";
+            updateProduct.id = id;
+        } else {
+            url = `http://localhost:9999/profile`;
+            method = "POST";
+            updateProduct.id = id;
+        }
+
+        fetch(url, {
+            method: method,
             headers: {
                 "Content-Type": "application/json",
             },

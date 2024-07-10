@@ -266,13 +266,313 @@
       "description": "Đọc sách và thư giãn trước khi đi ngủ",
       "date": "2024-07-05",
       "completed": false
+    },
+    {
+      "id": "1",
+      "start": "07:00",
+      "end": "08:00",
+      "activity": "Tập Thể Dục Buổi Sáng",
+      "location": "Công Viên",
+      "description": "Yoga và thiền để bắt đầu ngày mới năng động",
+      "date": "2024-07-07",
+      "completed": false
+    },
+    {
+      "id": "2",
+      "start": "08:15",
+      "end": "09:00",
+      "activity": "Ăn Sáng",
+      "location": "Nhà",
+      "description": "Bữa sáng lành mạnh với gia đình",
+      "date": "2024-07-07",
+      "completed": false
+    },
+    {
+      "id": "3",
+      "start": "09:30",
+      "end": "11:00",
+      "activity": "Cuộc Họp Công Việc",
+      "location": "Văn Phòng",
+      "description": "Thảo luận mục tiêu quý 2 và kế hoạch hành động",
+      "date": "2024-07-07",
+      "completed": false
+    },
+    {
+      "id": "4",
+      "start": "11:15",
+      "end": "12:00",
+      "activity": "Thư Từ Email",
+      "location": "Văn Phòng",
+      "description": "Theo kịp email từ khách hàng, phản hồi nhanh chóng",
+      "date": "2024-07-07",
+      "completed": false
+    },
+    {
+      "id": "5",
+      "start": "13:00",
+      "end": "14:00",
+      "activity": "Giải Lao Ăn Trưa",
+      "location": "Nhà Hàng",
+      "description": "Ăn trưa nhanh tại cửa hàng gần văn phòng",
+      "date": "2024-07-07",
+      "completed": false
+    },
+    {
+      "id": "6",
+      "start": "14:30",
+      "end": "15:30",
+      "activity": "Dự Án Công Việc",
+      "location": "Văn Phòng",
+      "description": "Tập trung vào chiến dịch tiếp thị mới",
+      "date": "2024-07-07",
+      "completed": false
+    },
+    {
+      "id": "7",
+      "start": "16:00",
+      "end": "17:00",
+      "activity": "Cuộc Gọi với Khách Hàng",
+      "location": "Văn Phòng",
+      "description": "Cập nhật tiến độ dự án và trao đổi với khách hàng",
+      "date": "2024-07-07",
+      "completed": false
+    },
+    {
+      "id": "8",
+      "start": "17:30",
+      "end": "18:30",
+      "activity": "Chạy Buổi Tối",
+      "location": "Khu Vực Lân Cận",
+      "description": "Chạy bộ 30 phút để tăng cường sức khỏe",
+      "date": "2024-07-07",
+      "completed": false
+    },
+    {
+      "id": "9",
+      "start": "19:00",
+      "end": "20:00",
+      "activity": "Dọn Dẹp Nhà Cửa",
+      "location": "Nhà",
+      "description": "Dọn dẹp nhà cửa và chuẩn bị cho ngày mai",
+      "date": "2024-07-07",
+      "completed": false
+    },
+    {
+      "id": "10",
+      "start": "20:30",
+      "end": "21:30",
+      "activity": "Thư Giãn và Đọc Sách",
+      "location": "Phòng Ngủ",
+      "description": "Đọc sách và thư giãn trước khi đi ngủ",
+      "date": "2024-07-07",
+      "completed": false
+    },
+    {
+      "id": "1",
+      "start": "07:00",
+      "end": "08:00",
+      "activity": "Tập Thể Dục Buổi Sáng",
+      "location": "Công Viên",
+      "description": "Yoga và thiền để bắt đầu ngày mới năng động",
+      "date": "2024-07-08",
+      "completed": false
+    },
+    {
+      "id": "2",
+      "start": "08:15",
+      "end": "09:00",
+      "activity": "Ăn Sáng",
+      "location": "Nhà",
+      "description": "Bữa sáng lành mạnh với gia đình",
+      "date": "2024-07-08",
+      "completed": false
+    },
+    {
+      "id": "3",
+      "start": "09:30",
+      "end": "11:00",
+      "activity": "Cuộc Họp Công Việc",
+      "location": "Văn Phòng",
+      "description": "Thảo luận mục tiêu quý 2 và kế hoạch hành động",
+      "date": "2024-07-08",
+      "completed": false
+    },
+    {
+      "id": "4",
+      "start": "11:15",
+      "end": "12:00",
+      "activity": "Thư Từ Email",
+      "location": "Văn Phòng",
+      "description": "Theo kịp email từ khách hàng, phản hồi nhanh chóng",
+      "date": "2024-07-08",
+      "completed": false
+    },
+    {
+      "id": "5",
+      "start": "13:00",
+      "end": "14:00",
+      "activity": "Giải Lao Ăn Trưa",
+      "location": "Nhà Hàng",
+      "description": "Ăn trưa nhanh tại cửa hàng gần văn phòng",
+      "date": "2024-07-08",
+      "completed": false
+    },
+    {
+      "id": "6",
+      "start": "14:30",
+      "end": "15:30",
+      "activity": "Dự Án Công Việc",
+      "location": "Văn Phòng",
+      "description": "Tập trung vào chiến dịch tiếp thị mới",
+      "date": "2024-07-08",
+      "completed": false
+    },
+    {
+      "id": "7",
+      "start": "16:00",
+      "end": "17:00",
+      "activity": "Cuộc Gọi với Khách Hàng",
+      "location": "Văn Phòng",
+      "description": "Cập nhật tiến độ dự án và trao đổi với khách hàng",
+      "date": "2024-07-08",
+      "completed": false
+    },
+    {
+      "id": "8",
+      "start": "17:30",
+      "end": "18:30",
+      "activity": "Chạy Buổi Tối",
+      "location": "Khu Vực Lân Cận",
+      "description": "Chạy bộ 30 phút để tăng cường sức khỏe",
+      "date": "2024-07-08",
+      "completed": false
+    },
+    {
+      "id": "9",
+      "start": "19:00",
+      "end": "20:00",
+      "activity": "Dọn Dẹp Nhà Cửa",
+      "location": "Nhà",
+      "description": "Dọn dẹp nhà cửa và chuẩn bị cho ngày mai",
+      "date": "2024-07-08",
+      "completed": false
+    },
+    {
+      "id": "10",
+      "start": "20:30",
+      "end": "21:30",
+      "activity": "Thư Giãn và Đọc Sách",
+      "location": "Phòng Ngủ",
+      "description": "Đọc sách và thư giãn trước khi đi ngủ",
+      "date": "2024-07-08",
+      "completed": false
+    },
+    {
+      "id": "1",
+      "start": "07:00",
+      "end": "08:00",
+      "activity": "Tập Thể Dục Buổi Sáng",
+      "location": "Công Viên",
+      "description": "Yoga và thiền để bắt đầu ngày mới năng động",
+      "date": "2024-07-09",
+      "completed": false
+    },
+    {
+      "id": "2",
+      "start": "08:15",
+      "end": "09:00",
+      "activity": "Ăn Sáng",
+      "location": "Nhà",
+      "description": "Bữa sáng lành mạnh với gia đình",
+      "date": "2024-07-09",
+      "completed": false
+    },
+    {
+      "id": "3",
+      "start": "09:30",
+      "end": "11:00",
+      "activity": "Cuộc Họp Công Việc",
+      "location": "Văn Phòng",
+      "description": "Thảo luận mục tiêu quý 2 và kế hoạch hành động",
+      "date": "2024-07-09",
+      "completed": false
+    },
+    {
+      "id": "4",
+      "start": "11:15",
+      "end": "12:00",
+      "activity": "Thư Từ Email",
+      "location": "Văn Phòng",
+      "description": "Theo kịp email từ khách hàng, phản hồi nhanh chóng",
+      "date": "2024-07-09",
+      "completed": false
+    },
+    {
+      "id": "5",
+      "start": "13:00",
+      "end": "14:00",
+      "activity": "Giải Lao Ăn Trưa",
+      "location": "Nhà Hàng",
+      "description": "Ăn trưa nhanh tại cửa hàng gần văn phòng",
+      "date": "2024-07-09",
+      "completed": false
+    },
+    {
+      "id": "6",
+      "start": "14:30",
+      "end": "15:30",
+      "activity": "Dự Án Công Việc",
+      "location": "Văn Phòng",
+      "description": "Tập trung vào chiến dịch tiếp thị mới",
+      "date": "2024-07-09",
+      "completed": false
+    },
+    {
+      "id": "7",
+      "start": "16:00",
+      "end": "17:00",
+      "activity": "Cuộc Gọi với Khách Hàng",
+      "location": "Văn Phòng",
+      "description": "Cập nhật tiến độ dự án và trao đổi với khách hàng",
+      "date": "2024-07-09",
+      "completed": false
+    },
+    {
+      "id": "8",
+      "start": "17:30",
+      "end": "18:30",
+      "activity": "Chạy Buổi Tối",
+      "location": "Khu Vực Lân Cận",
+      "description": "Chạy bộ 30 phút để tăng cường sức khỏe",
+      "date": "2024-07-09",
+      "completed": false
+    },
+    {
+      "id": "9",
+      "start": "19:00",
+      "end": "20:00",
+      "activity": "Dọn Dẹp Nhà Cửa",
+      "location": "Nhà",
+      "description": "Dọn dẹp nhà cửa và chuẩn bị cho ngày mai",
+      "date": "2024-07-09",
+      "completed": false
+    },
+    {
+      "id": "10",
+      "start": "20:30",
+      "end": "21:30",
+      "activity": "Thư Giãn và Đọc Sách",
+      "location": "Phòng Ngủ",
+      "description": "Đọc sách và thư giãn trước khi đi ngủ",
+      "date": "2024-07-09",
+      "completed": false
     }
   ],
   "accounts": [
     {
       "id": "1",
       "username": "admin",
-      "password": "Hieuql10@"
+      "password": "123"
     },
     {
       "id": "2",
@@ -283,12 +583,18 @@
       "id": "3",
       "username": "Hieudau911",
       "password": "hieu1122@H"
+    },
+    {
+      "id": "4",
+      "username": "thinh",
+      "password": "123"
     }
   ],
   "image": [
     {
-      "src": "",
-      "id": "4d7d"
+      "id": "4",
+      "src": "data:image/jpeg;base64,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",
+      "uploadedAt": "2024-07-09T01:44:09.424Z"
     }
   ],
   "profile": [
@@ -299,6 +605,14 @@
       "phone": "(097) 234-5678",
       "address": "Hà Nội",
       "job": "Developer"
+    },
+    {
+      "id": "4",
+      "name": "Trần Việt Thịnh",
+      "email": "thinhkesat@gmail.com",
+      "phone": "0923621700",
+      "address": "Hải Dương",
+      "job": "Dev"
     }
   ]
 }

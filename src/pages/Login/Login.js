@@ -4,8 +4,14 @@ import "./Login.css"; // Create this file for custom styles
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
+import i18n from "i18next";
+function changeLanguage(language) {
+    i18n.changeLanguage(language);
+    localStorage.setItem("language", JSON.stringify(language));
+}
 export default function Login() {
+    const { t } = useTranslation("translation");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
@@ -23,7 +29,11 @@ export default function Login() {
                         user.username === username && user.password === password
                 );
                 if (user) {
-                    sessionStorage.setItem("id", user.id);
+                    localStorage.setItem("id", user.id);
+                    setTimeout(() => {
+                        localStorage.removeItem("id");
+                    }, 60000);
+
                     navigate("/dashboard/" + user.id);
                 } else {
                     alert("Login failed");
@@ -47,7 +57,7 @@ export default function Login() {
                             <Card.Body className="login-wrap p-4 p-md-5">
                                 <div className="d-flex">
                                     <div className="w-100">
-                                        <h3 className="mb-4">Sign In</h3>
+                                        <h3 className="mb-4">{t("signin")}</h3>
                                     </div>
                                     <div className="w-100">
                                         <p className="social-media d-flex justify-content-end">
@@ -71,27 +81,27 @@ export default function Login() {
                                         <Form.Control
                                             type="text"
                                             required
-                                            placeholder="Username"
+                                            placeholder={t("username")}
                                             onChange={(e) =>
                                                 setUsername(e.target.value)
                                             }
                                         />
                                         <Form.Label className="form-control-placeholder">
-                                            Username
+                                            {t("username")}
                                         </Form.Label>
                                     </Form.Group>
                                     <Form.Group className="form-group">
                                         <Form.Control
                                             type="password"
                                             required
-                                            placeholder="Password"
+                                            placeholder={t("password")}
                                             id="password-field"
                                             onChange={(e) =>
                                                 setPassword(e.target.value)
                                             }
                                         />
                                         <Form.Label className="form-control-placeholder">
-                                            Password
+                                            {t("password")}
                                         </Form.Label>
                                         <span
                                             toggle="#password-field"
@@ -107,7 +117,7 @@ export default function Login() {
                                                 handleCheckUserAndPassword();
                                             }}
                                         >
-                                            Sign In
+                                            {t("login")}
                                         </Button>
                                     </Form.Group>
                                     <Form.Group className="d-md-flex">
@@ -124,14 +134,14 @@ export default function Login() {
                                     className="text-center"
                                     style={{ marginTop: "30px" }}
                                 >
-                                    Not a member?{" "}
+                                    {t("notamember")}{" "}
                                     <a
                                         href="#signup2"
                                         data-toggle="tab"
                                         style={{ textDecoration: "none" }}
                                         onClick={handleSignUpClick}
                                     >
-                                        Sign Up
+                                        {t("signup")}
                                     </a>
                                 </p>
                             </Card.Body>

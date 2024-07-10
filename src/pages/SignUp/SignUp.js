@@ -8,10 +8,13 @@ import {
     InputGroup,
     Alert,
 } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./SignUp.css";
+import { useTranslation } from "react-i18next";
+import i18n from "i18next";
 
 function SignUpForm() {
+    const { t } = useTranslation("translation");
     const navigate = useNavigate();
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -37,27 +40,25 @@ function SignUpForm() {
 
         // Validation checks
         if (username === "" || password === "") {
-            setError("Username and password cannot be empty.");
+            setError(t("isempty"));
             return;
         }
 
         const usernameRegex = /^[a-zA-Z0-9]+$/;
         if (!usernameRegex.test(username)) {
-            setError("Username must be alphanumeric.");
+            setError(t("alphanumeric"));
             return;
         }
 
         if (password !== confirmPassword) {
-            setError("Passwords do not match.");
+            setError(t("notmatch"));
             return;
         }
 
         const passwordRegex =
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         if (!passwordRegex.test(password)) {
-            setError(
-                "Password must contain uppercase, lowercase, number, and special character."
-            );
+            setError(t("contains"));
             return;
         }
 
@@ -76,15 +77,15 @@ function SignUpForm() {
         })
             .then((result) => {
                 if (result.ok) {
-                    console.log("Account created successfully");
-                    alert("Account created successfully");
+                    console.log(t("createaccountsuccess"));
+                    alert(t("createaccountsuccess"));
                     setError("");
 
                     navigate("/login");
                 } else {
                     return result.json().then((data) => {
                         throw new Error(
-                            data.message || "Failed to create account"
+                            data.message || t("createaccountfailed")
                         );
                     });
                 }
@@ -97,11 +98,19 @@ function SignUpForm() {
     }
 
     return (
-        <Container fluid style={{ marginTop: "100px" }}>
+        <Container>
             <Form onSubmit={handleCreate}>
+                <Button style={{ marginBottom: "40px", marginTop: "40px" }}>
+                    <Link
+                        to="/login"
+                        style={{ color: "white", textDecoration: "none" }}
+                    >
+                        Back to Login
+                    </Link>
+                </Button>
                 <Row>
                     <Col xs={12} md={6}>
-                        <h2 className="mb-4">Sign up</h2>
+                        <h2 className="mb-4">{t("signup")}</h2>
                         {error && <Alert variant="danger">{error}</Alert>}
                         <Form.Group controlId="formName">
                             <InputGroup>
@@ -110,7 +119,7 @@ function SignUpForm() {
                                 </InputGroup.Text>
                                 <Form.Control
                                     type="text"
-                                    placeholder="Your Name"
+                                    placeholder={t("username")}
                                     value={username}
                                     onChange={(e) =>
                                         setUsername(e.target.value)
@@ -125,7 +134,7 @@ function SignUpForm() {
                                 </InputGroup.Text>
                                 <Form.Control
                                     type="password"
-                                    placeholder="Password"
+                                    placeholder={t("password")}
                                     value={password}
                                     onChange={(e) =>
                                         setPassword(e.target.value)
@@ -140,7 +149,7 @@ function SignUpForm() {
                                 </InputGroup.Text>
                                 <Form.Control
                                     type="password"
-                                    placeholder="Repeat your password"
+                                    placeholder={t("confirmpassword")}
                                     value={confirmPassword}
                                     onChange={(e) =>
                                         setConfirmPassword(e.target.value)
@@ -148,24 +157,17 @@ function SignUpForm() {
                                 />
                             </InputGroup>
                         </Form.Group>
-                        <Form.Group controlId="formAgree">
-                            <Form.Check
-                                type="checkbox"
-                                label="I agree all statements in Terms of service"
-                                checked={agreeTerms}
-                                onChange={(e) =>
-                                    setAgreeTerms(e.target.checked)
-                                }
-                            />
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Button type="submit">Register</Button>
+
+                        <Form.Group
+                            className="mb-3"
+                            style={{ marginTop: "20px" }}
+                        >
+                            <Button type="submit">{t("signup")}</Button>
                         </Form.Group>
                     </Col>
                     <Col xs={12} md={6}>
                         <img
                             src="./images/bg-1.jpg"
-                            style={{ width: "100%", height: "100%" }}
                             alt="Sign up illustration"
                         />
                     </Col>

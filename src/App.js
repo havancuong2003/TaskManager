@@ -17,8 +17,11 @@ import LineChart from "./pages/ChartistGraph.js";
 import ActivityChart from "./pages/DashBoard/ActivityChart.js";
 import UpdateProfile from "./pages/Settings/UpdateProfile.js";
 import ChangePassWord from "./pages/Settings/ChangePassword.js";
+import { useTranslation } from "react-i18next";
+import i18n from "i18next";
 
 function App() {
+    const { t } = useTranslation("translation");
     const [color, setColor] = React.useState("black");
     const { pId } = useParams();
     return (
@@ -54,7 +57,6 @@ function App() {
                     />
                     <Route
                         path="/dailyplanning"
-                        exact
                         element={
                             <Layout>
                                 <DailyPlanning />

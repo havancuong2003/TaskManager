@@ -9,8 +9,10 @@ import {
     Alert,
 } from "react-bootstrap";
 import { useNavigate, useParams, Link } from "react-router-dom";
+import { isAuthenticated } from "../Login/Authenticated";
 
 function ChangePassWord() {
+    isAuthenticated();
     const { id } = useParams();
     const navigate = useNavigate();
     const [newPassword, setNewPassword] = useState("");
