@@ -1,23 +1,182 @@
-/* ./ */
-.workout-item {
-    background-color: navajowhite;
+/* custom.css */
+
+.rbc-event {
+    border-radius: 5px;
+    opacity: 0.8;
+    color: white;
+    border: 1px solid #ccc;
+    display: block;
+}
+
+.rbc-agenda-table td {
+    flex: 1;
+}
+
+.rbc-agenda-table td:first-child {
+    flex: 2;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    /* margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; */
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+form input,
+form textarea,
+form select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-button {
+    background-color: #007bff;
+}
+
+.add-button:hover {
+    background-color: #034f9f;
+}
+
+.update-button {
+    background-color: #28a745;
+}
+
+.update-button:hover {
+    background-color: #218838;
+}
+
+.delete-button {
+    background-color: #dc3545;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+.react-big-calendar {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.rbc-toolbar {
+    margin-bottom: 20px;
+}
+
+.rbc-toolbar button {
+    background-color: #00bbff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.rbc-toolbar button:hover {
+    background-color: #0056b3;
+}
+
+.rbc-event {
+    /* background-color: #ff9d00 !important; */
+    border: none !important;
+    color: #fff !important;
+    border-radius: 5px;
     padding: 5px;
-    border-radius: 4px;
-    text-align: center;
-    font-size: 14px;
+    opacity: 0.9;
 }
 
-table th,
-table td {
-    text-align: center;
-    vertical-align: middle;
+.rbc-event:hover {
+    opacity: 1;
 }
 
-.sidebar-sticky {
-    position: relative;
-    top: 0;
-    height: calc(100vh - 48px);
-    padding-top: 0.5rem;
-    overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+.rbc-selected {
+    background-color: #7e7971 !important;
+}
+
+.rbc-event {
+    border: none; /* Remove default border */
+    color: white; /* Text color for the event */
+    padding: 2px 5px; /* Padding inside events */
+}
+
+.rbc-month-view .rbc-event {
+    border: none;
+    color: white;
+}
+
+.rbc-week-view .rbc-event {
+    border: none;
+    color: white;
+}
+
+.rbc-day-view .rbc-event {
+    border: none;
+    color: white;
+}
+
+.rbc-toolbar .rbc-toolbar-label {
+    font-size: 24px;
+    font-weight: bold;
+}
+.rbc-agenda-view table.rbc-agenda-table {
+    text-align: left;
+    color: #f8fef9;
+}
+.rbc-header {
+    color: black;
 }
