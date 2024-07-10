@@ -45,20 +45,26 @@ const AddEditTask = ({ task, onClose, selectedDate, events, onSave }) => {
             `${taskData.dueDate}T${taskData.endTime}`
         ).toISOString();
 
-        // Kiểm tra xem nhiệm vụ kết thúc vào lúc 11:59 PM
+        // Check if the task ends at 11:59 PM
         const endOfDay = moment(taskData.dueDate).endOf("day").toISOString();
         if (moment(end).isSame(endOfDay)) {
             alert("Tasks ending at 11:59 PM cannot be edited or deleted.");
             return;
         }
 
-        // Kiểm tra xem Start Time có trước End Time không
+        // Check if the task is in the past
+        if (moment(start).isBefore(moment())) {
+            alert("Cannot add or edit tasks in the past.");
+            return;
+        }
+
+        // Check if Start Time is before End Time
         if (moment(start).isSameOrAfter(end)) {
             alert("Start Time should be before End Time.");
             return;
         }
 
-        // Kiểm tra trùng lặp thời gian
+        // Check for overlapping tasks
         const overlappingTask = events.find((event) => {
             const eventStart = moment(event.start).toISOString();
             const eventEnd = moment(event.end).toISOString();
@@ -71,7 +77,6 @@ const AddEditTask = ({ task, onClose, selectedDate, events, onSave }) => {
         });
 
         if (overlappingTask) {
-            // Thời gian đã chọn trùng với nhiệm vụ khác
             alert("The selected time overlaps with another task.");
             return;
         }
@@ -85,16 +90,22 @@ const AddEditTask = ({ task, onClose, selectedDate, events, onSave }) => {
 
         console.log(updatedTaskData); // Debug log
 
-        // Call onSave with correct parameters
         onSave(updatedTaskData, !!task);
     };
 
     const handleDelete = () => {
-        if (
-            task &&
-            moment(task.end).isSame(moment(task.dueDate).endOf("day"))
-        ) {
+        if (!task) return;
+
+        // Check if the task ends at 11:59 PM
+        const endOfDay = moment(task.start).endOf("day").toISOString();
+        if (moment(task.end).isSame(endOfDay)) {
             alert("Tasks ending at 11:59 PM cannot be edited or deleted.");
+            return;
+        }
+
+        // Check if the task is in the past
+        if (moment(task.start).isBefore(moment())) {
+            alert("Cannot delete tasks in the past.");
             return;
         }
 
@@ -117,7 +128,7 @@ const AddEditTask = ({ task, onClose, selectedDate, events, onSave }) => {
     };
 
     const isTaskEndOfDay =
-        task && moment(task.end).isSame(moment(task.dueDate).endOf("day"));
+        task && moment(task.end).isSame(moment(task.start).endOf("day"));
 
     return (
         <form onSubmit={handleSubmit}>

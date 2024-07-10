@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import "./taskManagment.css";
 import { Modal } from "react-bootstrap";
-import AddEditTask from "./AddEditTask"; // Điều chỉnh đường dẫn nếu cần thiết
+import AddEditTask from "./AddEditTask";
 
 const localizer = momentLocalizer(moment);
 
@@ -58,11 +59,6 @@ const Main = () => {
     const eventStyleGetter = (event) => {
         let style = {
             backgroundColor: event.color,
-            borderRadius: "5px",
-            opacity: 0.8,
-            color: "black",
-            border: "1px solid #ccc",
-            display: "block",
         };
         return {
             style,
@@ -103,7 +99,7 @@ const Main = () => {
                 events={events}
                 startAccessor="start"
                 endAccessor="end"
-                style={{ height: 700 }}
+                style={{ height: 600 }}
                 eventPropGetter={eventStyleGetter}
                 onSelectEvent={handleSelectEvent}
                 selectable
