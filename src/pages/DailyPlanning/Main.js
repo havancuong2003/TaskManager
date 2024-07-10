@@ -28,11 +28,13 @@ const Main = () => {
     const [dates, setDates] = useState([]);
     const [currentTime, setCurrentTime] = useState(new Date());
     const [tasksCreated, setTasksCreated] = useState(false); // State to track if tasks are created for the current date
-    console.log(selectedDate);
+    const [userID, setUserID] = useState("user1");
 
     const fetchData = async () => {
         try {
-            const response = await fetch("http://localhost:9999/schedule");
+            const response = await fetch(
+                `http://localhost:9999/schedule?userId=${userID}`
+            );
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
@@ -57,7 +59,9 @@ const Main = () => {
 
     const fetchTemplate = async () => {
         try {
-            const response = await fetch("http://localhost:9999/template");
+            const response = await fetch(
+                `http://localhost:9999/template?userId=${userID}`
+            );
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
@@ -75,11 +79,12 @@ const Main = () => {
             id: uuidv4(),
             date: currentDate,
             completed: false,
+            userId: userID,
         }));
 
         try {
             for (let task of tasksForToday) {
-                await fetch("http://localhost:9999/schedule", {
+                await fetch(`http://localhost:9999/schedule`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -87,8 +92,8 @@ const Main = () => {
                     body: JSON.stringify(task),
                 });
             }
-            setTasksCreated(true); // Mark tasks as created for today
-            fetchData(); // Refresh data after creating tasks
+            setTasksCreated(true); // Đánh dấu các hoạt động đã được tạo cho ngày hôm nay
+            fetchData(); // Làm mới dữ liệu sau khi tạo các hoạt động
         } catch (error) {
             console.error("Error creating tasks from template: ", error);
         }
@@ -112,7 +117,7 @@ const Main = () => {
     useEffect(() => {
         fetchTemplate();
         fetchData();
-    }, []);
+    }, [userID]);
 
     useEffect(() => {
         const fetchInitialData = async () => {
@@ -121,11 +126,10 @@ const Main = () => {
 
                 // Check if there are tasks for today in the schedule
                 const response = await fetch(
-                    `http://localhost:9999/schedule?date=${currentDate}`
+                    `http://localhost:9999/schedule?date=${currentDate}&userId=${userID}`
                 );
                 if (response.ok) {
                     const jsonData = await response.json();
-                    console.log("jsonData", jsonData);
                     if (jsonData.length > 0) {
                         // Tasks for today already exist, mark as created
                         setTasksCreated(true);
@@ -149,7 +153,7 @@ const Main = () => {
         }, 1000);
 
         return () => clearInterval(interval);
-    }, [selectedDate]);
+    }, [selectedDate, userID]);
 
     const handleDateChange = (event) => {
         setSelectedDate(event.target.value);
