@@ -13,12 +13,13 @@ import {
 
 const Main = () => {
     const [goals, setGoals] = useState([]);
-    const id = localStorage.getItem("id");
+    const userID = localStorage.getItem("id");
+    const [id, setId] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [currentGoal, setCurrentGoal] = useState(null);
     const [newGoal, setNewGoal] = useState({
-        userID: "1",
+        userID: id,
         startdate: "",
         enddate: "",
         activity: "",
@@ -30,11 +31,12 @@ const Main = () => {
         fetch("http://localhost:9999/GoalTracking")
             .then((res) => res.json())
             .then((result) => {
-                const userGoals = result.filter((goal) => goal.userID === "1");
+                const userGoals = result.filter((goal) => goal.userID === id);
                 setGoals(userGoals);
             })
             .catch((err) => console.error("Failed to fetch goals:", err));
-    }, []);
+        setId(userID);
+    }, [id]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -97,6 +99,7 @@ const Main = () => {
         }
         setShowModal(false);
         setNewGoal({
+            userID: id,
             startdate: "",
             enddate: "",
             activity: "",
