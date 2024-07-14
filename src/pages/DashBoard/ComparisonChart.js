@@ -9,8 +9,8 @@ const ComparisonChart = () => {
         day1: Array(24).fill(0),
         day2: Array(24).fill(0),
     });
-    // const id = localStorage.getItem("id");
-    const [id, setId] = useState("user1");
+    const id = localStorage.getItem("id");
+    // const [id, setId] = useState("user1");
     useEffect(() => {
         // Calculate the dates for the two days
         const today = new Date();

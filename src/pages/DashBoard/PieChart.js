@@ -7,8 +7,8 @@ import "./ChartSetup"; // Import ChartSetup
 const PieChart = () => {
     const [data, setData] = useState([]);
     const [labels, setLabels] = useState([]);
-    // const id = localStorage.getItem("id");
-    const [id, setId] = useState("user1");
+    const id = localStorage.getItem("id");
+    // const [id, setId] = useState("user1");
     useEffect(() => {
         // Fetch data from API
         const fetchData = async () => {

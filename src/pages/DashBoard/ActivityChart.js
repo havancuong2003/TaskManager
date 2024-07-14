@@ -6,8 +6,8 @@ import "./ChartSetup";
 
 const ActivityChart = () => {
     const [activityData, setActivityData] = useState(Array(24).fill(0));
-    // const id = localStorage.getItem("id");
-    const [id, setId] = useState("user1");
+    const id = localStorage.getItem("id");
+    // const [id, setId] = useState("user1");
     useEffect(() => {
         // Calculate yesterday's date
         const today = new Date();
