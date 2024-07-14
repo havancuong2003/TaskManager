@@ -13,13 +13,14 @@ const Main = () => {
     const [showAddEditModal, setShowAddEditModal] = useState(false);
     const [selectedTask, setSelectedTask] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
+    const [userID, setUserID] = useState("user2");
 
     useEffect(() => {
         fetchEvents();
-    }, []);
+    }, [userID]);
 
     const fetchEvents = () => {
-        fetch("http://localhost:9999/tasks")
+        fetch(`http://localhost:9999/tasks?userId=${userID}`)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -75,6 +76,7 @@ const Main = () => {
         const url = isUpdate
             ? `http://localhost:9999/tasks/${taskData.id}`
             : "http://localhost:9999/tasks";
+        taskData.userId = userID;
         fetch(url, {
             method,
             headers: { "Content-Type": "application/json" },
