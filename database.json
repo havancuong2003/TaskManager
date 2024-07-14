@@ -304,6 +304,39 @@
       "userId": "user1",
       "date": "2024-07-15",
       "completed": false
+    },
+    {
+      "id": "a3578cfa-5ab0-41f0-a7ff-fe9750d59f39",
+      "userId": "user2",
+      "start": "07:30",
+      "end": "08:30",
+      "activity": "Chạy bộ",
+      "location": "Sân chơi",
+      "description": "Chạy bộ để giữ sức khỏe",
+      "date": "2024-07-15",
+      "completed": false
+    },
+    {
+      "id": "93744f4b-33b8-4df9-b0bb-cff3a93a8500",
+      "userId": "user2",
+      "start": "12:30",
+      "end": "13:30",
+      "activity": "Học tập",
+      "location": "Thư viện",
+      "description": "Đọc sách và học bài tập",
+      "date": "2024-07-15",
+      "completed": false
+    },
+    {
+      "id": "c210caf6-b12a-4f3a-8120-5f1b1722dcef",
+      "userId": "user2",
+      "start": "14:00",
+      "end": "15:00",
+      "activity": "Nghỉ trưa",
+      "location": "Nhà",
+      "description": "Nghỉ trưa và chuẩn bị cho buổi học tiếp theo",
+      "date": "2024-07-15",
+      "completed": false
     }
   ],
   "tasks": [
@@ -487,7 +520,7 @@
   "GoalTracking": [
     {
       "id": "0d3e",
-      "userID": "1",
+      "userID": "user1",
       "startdate": "2024-05-10",
       "enddate": "2024-07-10",
       "activity": "Dự Án Công Việc",
@@ -496,7 +529,7 @@
     },
     {
       "id": "0b6d",
-      "userID": "1",
+      "userID": "user1",
       "startdate": "2024-07-10",
       "enddate": "2024-07-28",
       "activity": "Xem EURO",
@@ -505,122 +538,12 @@
     },
     {
       "id": "d2d5",
-      "userID": "2",
+      "userID": "user2",
       "startdate": "2024-07-09",
       "enddate": "2024-07-20",
       "activity": "Ăn Sáng",
       "description": "Ngủ 8 tiếng",
       "progress": false
-    },
-    {
-      "id": "a47d",
-      "startdate": "2024-07-09",
-      "enddate": "2024-07-17",
-      "activity": "Xem EURO",
-      "description": "Xem Hết Các Trận Euro",
-      "progress": true
-    },
-    {
-      "id": "c026",
-      "userID": "id",
-      "startdate": "2024-07-19",
-      "enddate": "2024-07-16",
-      "activity": "Đọc Sách",
-      "description": "Đọc hoàn thành 3 quyển sách trong 1 tháng.",
-      "progress": true
-    },
-    {
-      "id": "cb1f",
-      "startdate": "2024-07-10",
-      "enddate": "2024-07-16",
-      "activity": "Ăn Sáng",
-      "description": "Duy Trì Hoạt Động Ăn Sáng Hằng Ngày",
-      "progress": false
-    },
-    {
-      "id": "b4f0",
-      "startdate": "2024-06-10",
-      "enddate": "2024-07-09",
-      "activity": "Thư Từ Email",
-      "description": "Đã Trả Lời Hết Các Email Của 2 Ngày Trước",
-      "progress": true
-    },
-    {
-      "id": "7432",
-      "userID": "id",
-      "startdate": "2024-06-15",
-      "enddate": "2024-07-15",
-      "activity": "Xem EURO",
-      "description": "Xem Hết Các Trận Euro Không Bỏ Lỡ 1 Trận Nào",
-      "progress": false
-    },
-    {
-      "id": "0e47",
-      "startdate": "2024-06-14",
-      "enddate": "2024-07-30",
-      "activity": "Dự Án Công Việc",
-      "description": "Hoàn Thành 100% Dự Án Công Việc ",
-      "progress": false
-    },
-    {
-      "id": "dfd1",
-      "startdate": "2024-07-10",
-      "enddate": "2024-07-17",
-      "activity": "Thư Từ Email",
-      "description": "Đã Trả Lời Hết Các Email Của 2 Ngày Trước",
-      "progress": true
-    },
-    {
-      "id": "d7c8",
-      "userID": "",
-      "startdate": "2024-07-19",
-      "enddate": "2024-07-03",
-      "activity": "Đọc Sách",
-      "description": "Đọc hoàn thành 3 quyển sách trong 1 tháng.",
-      "progress": true
-    },
-    {
-      "id": "37b2",
-      "userID": "",
-      "startdate": "2024-07-03",
-      "enddate": "2024-07-02",
-      "activity": "Ăn Sáng",
-      "description": "Duy Trì Hoạt Động Ăn Sáng Trong 1 Tháng",
-      "progress": true
-    },
-    {
-      "id": "78d3",
-      "userID": "",
-      "startdate": "2024-07-05",
-      "enddate": "2024-07-05",
-      "activity": "Đọc Sách",
-      "description": "Đọc hoàn thành 3 quyển sách trong 1 tháng.",
-      "progress": true
-    },
-    {
-      "id": "480f",
-      "startdate": "2024-07-04",
-      "enddate": "2024-07-18",
-      "activity": "Thư Từ Email",
-      "description": "Đã Trả Lời Hết Các Email Của 2 Ngày Trước",
-      "progress": true
-    },
-    {
-      "id": "91cd",
-      "userID": "",
-      "startdate": "2024-07-17",
-      "enddate": "2024-07-18",
-      "activity": "Dự Án Công Việc",
-      "description": "Hoàn Thành 50% Dự Án Công Việc ",
-      "progress": false
-    },
-    {
-      "id": "415c",
-      "startdate": "2024-07-10",
-      "enddate": "2024-07-12",
-      "activity": "Thư Từ Email",
-      "description": "Đã Trả Lời Hết Các Email Của 2 Ngày Trước",
-      "progress": true
     },
     {
       "id": "6a1e",
@@ -642,7 +565,7 @@
     },
     {
       "id": "6cfa",
-      "userID": "4",
+      "userID": "user4",
       "startdate": "2024-07-10",
       "enddate": "2024-07-16",
       "activity": "Xem EURO",
@@ -651,7 +574,7 @@
     },
     {
       "id": "ba8e",
-      "userID": "3",
+      "userID": "user3",
       "startdate": "2024-07-11",
       "enddate": "2024-07-19",
       "activity": "Kiếm Người Yêu",
@@ -660,7 +583,7 @@
     },
     {
       "id": "73a5",
-      "userID": "4",
+      "userID": "user4",
       "startdate": "2024-07-04",
       "enddate": "2024-07-03",
       "activity": "Da bong",
@@ -669,7 +592,7 @@
     },
     {
       "id": "fd53",
-      "userID": "3",
+      "userID": "user3",
       "startdate": "2024-07-09",
       "enddate": "2024-07-10",
       "activity": "Xem Phim",
@@ -689,12 +612,12 @@
       "password": "091103Hieu@"
     },
     {
-      "id": "3",
+      "id": "user3",
       "username": "Hieudau911",
       "password": "hieu1122@H"
     },
     {
-      "id": "4",
+      "id": "user4",
       "username": "thinh",
       "password": "123"
     }
@@ -704,16 +627,11 @@
       "id": "4",
       "src": "",
       "uploadedAt": "2024-07-09T01:44:09.424Z"
-    },
-    {
-      "id": null,
-      "src": "",
-      "uploadedAt": "2024-07-10T09:14:17.205Z"
     }
   ],
   "profile": [
     {
-      "id": "1",
+      "id": "user1",
       "name": "Đậu Đình Hiếu",
       "email": "hieuadauj@gmail.com",
       "phone": "(097) 234-5678",
@@ -721,7 +639,7 @@
       "job": "Developer"
     },
     {
-      "id": "4",
+      "id": "user4",
       "name": "Trần Việt Thịnh",
       "email": "thinhkesat@gmail.com",
       "phone": "0923621700",
