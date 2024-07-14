@@ -7,7 +7,7 @@
             "end": "08:00",
             "activity": "Tập Thể Dục Buổi Sáng",
             "location": "Công Viên",
-            "description": "Yoga và thiền để bắt đầu ngày mới năng độnggggg"
+            "description": "Yoga và thiền để bắt đầu ngày mới năng độnggggg vaio"
         },
         {
             "userId": "user1",
@@ -29,7 +29,7 @@
         },
         {
             "userId": "user2",
-            "id": "1",
+            "id": "4",
             "start": "07:30",
             "end": "08:30",
             "activity": "Chạy bộ",
@@ -38,7 +38,7 @@
         },
         {
             "userId": "user2",
-            "id": "2",
+            "id": "5",
             "start": "12:30",
             "end": "13:30",
             "activity": "Học tập",
@@ -47,12 +47,30 @@
         },
         {
             "userId": "user2",
-            "id": "3",
+            "id": "6",
             "start": "14:00",
             "end": "15:00",
             "activity": "Nghỉ trưa",
             "location": "Nhà",
             "description": "Nghỉ trưa và chuẩn bị cho buổi học tiếp theo"
+        },
+        {
+            "id": "6d92",
+            "start": "08:30",
+            "end": "08:45",
+            "activity": "di tan gai",
+            "location": "dinh thon",
+            "description": "toan nguoi mau",
+            "userId": "user1"
+        },
+        {
+            "id": "fc16",
+            "start": "08:50",
+            "end": "08:55",
+            "activity": "Chay",
+            "location": "Cho duoi",
+            "description": "150km/h",
+            "userId": "user1"
         }
     ],
     "schedule": [
@@ -153,21 +171,32 @@
             "location": "Văn phòng",
             "description": "Cuộc họp với khách hàng để thảo luận dự án mới",
             "date": "2024-07-10",
-            "completed": false
+            "completed": true
         },
         {
-            "id": "b1958f1d-e2ef-457d-bbe0-c3b095a75f37",
+            "id": "a6d83a3c-6a18-4758-8f83-99c767a33e96",
+            "userId": "user1",
+            "start": "23:00",
+            "end": "23:59",
+            "activity": "Gặp khách hàng",
+            "location": "Văn phòng",
+            "description": "Cuộc họp với khách hàng để thảo luận dự án mới",
+            "date": "2024-07-10",
+            "completed": true
+        },
+        {
+            "id": "a896d9fd-3ab4-45ab-94df-0a3fffb32d64",
             "userId": "user1",
             "start": "07:00",
             "end": "08:00",
             "activity": "Tập Thể Dục Buổi Sáng",
             "location": "Công Viên",
-            "description": "Yoga và thiền để bắt đầu ngày mới năng độnggggg",
+            "description": "Yoga và thiền để bắt đầu ngày mới năng độnggggg vaio",
             "date": "2024-07-14",
             "completed": false
         },
         {
-            "id": "cee9b594-d4df-44f6-a682-1513589b7c19",
+            "id": "160dc74f-3722-4789-9b78-8ceac849f5d3",
             "userId": "user1",
             "start": "12:00",
             "end": "13:00",
@@ -178,7 +207,7 @@
             "completed": false
         },
         {
-            "id": "a3e4663b-99a1-4666-850c-8051b217776a",
+            "id": "488435e5-7821-4f8a-abba-e4afcd64ca5e",
             "userId": "user1",
             "start": "15:00",
             "end": "16:00",
@@ -187,6 +216,39 @@
             "description": "Cuộc họp với khách hàng để thảo luận dự án mới",
             "date": "2024-07-14",
             "completed": false
+        },
+        {
+            "id": "3c4b901d-88ab-4995-a5f6-4d21785e4112",
+            "start": "08:30",
+            "end": "08:45",
+            "activity": "di tan gai",
+            "location": "dinh thon",
+            "description": "toan nguoi mau",
+            "userId": "user1",
+            "date": "2024-07-14",
+            "completed": false
+        },
+        {
+            "id": "ccafae9b-5ce2-4c5c-9304-80f2246d0148",
+            "start": "08:50",
+            "end": "08:55",
+            "activity": "Chay",
+            "location": "Cho duoi",
+            "description": "150km/h",
+            "userId": "user1",
+            "date": "2024-07-14",
+            "completed": false
+        },
+        {
+            "id": "a6d83a3c-6a18-4758-8f83-99c767a33e97",
+            "userId": "user1",
+            "start": "23:00",
+            "end": "23:59",
+            "activity": "Gặp khách hàng",
+            "location": "Văn phòng",
+            "description": "Cuộc họp với khách hàng để thảo luận dự án mới",
+            "date": "2024-07-14",
+            "completed": true
         }
     ],
     "tasks": [
@@ -420,7 +482,7 @@
             "enddate": "2024-07-10",
             "activity": "Dự Án Công Việc",
             "description": "Hoàn Thành 50% Dự Án Công Việc ",
-            "progress": true
+            "progress": false
         },
         {
             "id": "0b6d",
@@ -429,7 +491,7 @@
             "enddate": "2024-07-28",
             "activity": "Xem EURO",
             "description": "Đọc hoàn thành 3 quyển sách trong 1 tháng.",
-            "progress": true
+            "progress": false
         },
         {
             "id": "d2d5",
