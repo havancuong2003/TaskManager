@@ -13,7 +13,8 @@ import {
 
 const Main = () => {
     const [goals, setGoals] = useState([]);
-    const id = localStorage.getItem("id");
+    const userID = localStorage.getItem("id");
+    const [id, setId] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [currentGoal, setCurrentGoal] = useState(null);
@@ -34,6 +35,7 @@ const Main = () => {
                 setGoals(userGoals);
             })
             .catch((err) => console.error("Failed to fetch goals:", err));
+        setId(userID);
     }, [id]);
 
     const handleChange = (e) => {
