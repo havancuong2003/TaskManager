@@ -5,7 +5,8 @@ import "./UncompletedTasks.css";
 const UncompletedTasks = () => {
     const [tasks, setTasks] = useState([]);
     const [openTaskId, setOpenTaskId] = useState(null);
-
+    const id = localStorage.getItem("id");
+    // const [id, setId] = useState("user1");
     useEffect(() => {
         // Fetch data from the API endpoint
         fetch("http://localhost:9999/schedule")
@@ -31,8 +32,12 @@ const UncompletedTasks = () => {
                 const uncompletedTasks = data.filter((task) => {
                     const taskDateTime = `${task.date}T${task.start}`;
                     const isUncompleted = !task.completed;
-
-                    return isUncompleted && taskDateTime <= currentDateTime;
+                    const isUser = task.userId == id;
+                    return (
+                        isUncompleted &&
+                        taskDateTime <= currentDateTime &&
+                        isUser
+                    );
                 });
 
                 // Sort tasks by date and time descending and take the 4 most recent

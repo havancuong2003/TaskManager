@@ -9,7 +9,8 @@ const ComparisonChart = () => {
         day1: Array(24).fill(0),
         day2: Array(24).fill(0),
     });
-
+    const id = localStorage.getItem("id");
+    // const [id, setId] = useState("user1");
     useEffect(() => {
         // Calculate the dates for the two days
         const today = new Date();
@@ -45,10 +46,13 @@ const ComparisonChart = () => {
 
                 // Filter data for each day
                 const scheduleDay1 = data.filter(
-                    (task) => task.date === dayBeforeYesterdayDateString
+                    (task) =>
+                        task.date === dayBeforeYesterdayDateString &&
+                        task.userId == id
                 );
                 const scheduleDay2 = data.filter(
-                    (task) => task.date === yesterdayDateString
+                    (task) =>
+                        task.date === yesterdayDateString && task.userId == id
                 );
                 console.log(
                     "Filtered schedule for day before yesterday:",
