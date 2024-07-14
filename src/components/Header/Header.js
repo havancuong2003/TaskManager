@@ -1,10 +1,13 @@
 import React from "react";
 // import { useLocation } from "react-router-dom";
 import { Navbar, Container, Nav, Dropdown, Button } from "react-bootstrap";
-
+import { useTranslation } from "react-i18next";
+import i18n from "i18next";
+import { Link } from "react-router-dom";
 // import routes from "routes.js";
 
 function Header() {
+    const { t } = useTranslation("translation");
     // const location = useLocation();
     const mobileSidebarToggle = (e) => {
         e.preventDefault();
@@ -65,7 +68,7 @@ function Header() {
                             >
                                 <i className="bi bi-house-fill"></i>
                                 <span style={{ fontSize: "20px" }}>
-                                    Dashboard
+                                    {t("dashboard")}
                                 </span>
                             </Nav.Link>
                         </Nav.Item>
@@ -123,7 +126,9 @@ function Header() {
                                 onClick={(e) => e.preventDefault()}
                             >
                                 <i className="bi bi-search"></i>
-                                <span className="d-lg-block"> Search</span>
+                                <span className="d-lg-block">
+                                    {t("search")}
+                                </span>
                             </Nav.Link>
                         </Nav.Item>
                     </Nav>
@@ -134,7 +139,7 @@ function Header() {
                                 href="#pablo"
                                 onClick={(e) => e.preventDefault()}
                             >
-                                <span className="no-icon">Account</span>
+                                <span className="no-icon">{t("account")}</span>
                             </Nav.Link>
                         </Nav.Item>
                         <Dropdown as={Nav.Item}>
@@ -189,7 +194,17 @@ function Header() {
                                 href="#pablo"
                                 onClick={(e) => e.preventDefault()}
                             >
-                                <span className="no-icon">Log out</span>
+                                <Link
+                                    to="/login"
+                                    style={{
+                                        textDecoration: "none",
+                                        color: "red",
+                                    }}
+                                >
+                                    <span className="no-icon">
+                                        {t("logout")}
+                                    </span>
+                                </Link>
                             </Nav.Link>
                         </Nav.Item>
                     </Nav>

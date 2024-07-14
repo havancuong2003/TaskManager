@@ -1,432 +1,296 @@
-import { MdDescription } from "react-icons/md";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Table,
+    Button,
     Row,
     Col,
-    Button,
     Form,
-    Dropdown,
+    Container,
+    Modal,
     DropdownButton,
-    ButtonGroup,
-    InputGroup,
-    FormControl,
-    Badge,
+    Dropdown,
 } from "react-bootstrap";
-import {
-    BiPlus,
-    BiChevronDown,
-    BiChevronRight,
-    BiCog,
-    BiFilter,
-    BiSort,
-    BiBarChartAlt2,
-    BiGridVertical,
-    BiGroup,
-    BiAlarm,
-    BiFile,
-} from "react-icons/bi";
 
 const Main = () => {
-    const [records, setRecords] = useState([
-        {
-            id: 1,
-            subject: "Exercise",
-            title: "Morning Exercise",
-            link: "#",
-            startDate: "2024/01/06",
-            endDate: "2024/01/06",
-            progress: "Completed",
-            summary: "Write a summary",
-        },
-        {
-            id: 2,
-            subject: "Breakfast",
-            title: "Have Breakfast",
-            link: "#",
-            startDate: "2024/03/01",
-            endDate: "2024/03/01",
-            progress: "Completed",
-            summary: "Write a summary",
-        },
-        {
-            id: 3,
-            subject: "Job",
-            title: "Work ",
-            link: "#",
-            startDate: "2024/04/04",
-            endDate: "2024/04/25",
-            progress: "In progress",
-            summary: "Write a summary",
-        },
-        {
-            id: 4,
-            subject: "Subject 4",
-            title: "Title 4",
-            link: "#",
-            startDate: "2022/04/20",
-            endDate: "2022/05/27",
-            progress: "In progress",
-            summary: "Write a summary",
-        },
-        {
-            id: 5,
-            subject: "Subject 5",
-            title: "Title 5",
-            link: "#",
-            startDate: "2022/05/28",
-            endDate: "2022/08/31",
-            progress: "In progress",
-            summary: "Write a summary",
-        },
-        {
-            id: 6,
-            subject: "Subject 6",
-            title: "Title 6",
-            link: "#",
-            startDate: "2021/12/08",
-            endDate: "2022/12/12",
-            progress: "In progress",
-            summary: "Write a summary",
-        },
-        {
-            id: 7,
-            subject: "Subject 7",
-            title: "Title 7",
-            link: "#",
-            startDate: "2022/12/07",
-            endDate: "2022/12/16",
-            progress: "Not started",
-            summary: "Write a summary",
-        },
-        {
-            id: 8,
-            subject: "Subject 8",
-            title: "Title 8",
-            link: "#",
-            startDate: "2022/12/15",
-            endDate: "2022/12/23",
-            progress: "Not started",
-            summary: "Write a summary",
-        },
-        {
-            id: 9,
-            subject: "Subject 9",
-            title: "Title 9",
-            link: "#",
-            startDate: "2022/12/19",
-            endDate: "2022/12/31",
-            progress: "Not started",
-            summary: "Write a summary",
-        },
-    ]);
+    const [goals, setGoals] = useState([]);
+    const userID = localStorage.getItem("id");
+    const [id, setId] = useState("");
+    const [showModal, setShowModal] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+    const [currentGoal, setCurrentGoal] = useState(null);
+    const [newGoal, setNewGoal] = useState({
+        userID: id,
+        startdate: "",
+        enddate: "",
+        activity: "",
+        description: "",
+        progress: false,
+    });
 
-    const [showAddRecordModal, setShowAddRecordModal] = useState(false);
-    const [showGenerateFormModal, setShowGenerateFormModal] = useState(false);
+    useEffect(() => {
+        fetch("http://localhost:9999/GoalTracking")
+            .then((res) => res.json())
+            .then((result) => {
+                const userGoals = result.filter((goal) => goal.userID === id);
+                setGoals(userGoals);
+            })
+            .catch((err) => console.error("Failed to fetch goals:", err));
+        setId(userID);
+    }, [id]);
 
-    const handleAddRecord = () => {
-        setShowAddRecordModal(true);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setNewGoal({
+            ...newGoal,
+            [name]: value,
+        });
     };
 
-    const handleGenerateForm = () => {
-        setShowGenerateFormModal(true);
+    const handleProgressChange = (goal, progress) => {
+        const updatedGoal = { ...goal, progress: progress === "Completed" };
+        fetch(`http://localhost:9999/GoalTracking/${goal.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedGoal),
+        })
+            .then((res) => res.json())
+            .then((result) => {
+                setGoals(goals.map((g) => (g.id === goal.id ? result : g)));
+            })
+            .catch((err) => console.log(err));
     };
 
-    const handleCloseModal = () => {
-        setShowAddRecordModal(false);
-        setShowGenerateFormModal(false);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (isEditing) {
+            fetch(`http://localhost:9999/GoalTracking/${currentGoal.id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newGoal),
+            })
+                .then((res) => res.json())
+                .then((updatedGoal) => {
+                    setGoals(
+                        goals.map((goal) =>
+                            goal.id === currentGoal.id ? updatedGoal : goal
+                        )
+                    );
+                })
+                .catch((err) => console.log(err));
+            setIsEditing(false);
+            setCurrentGoal(null);
+        } else {
+            fetch("http://localhost:9999/GoalTracking", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newGoal),
+            })
+                .then((res) => res.json())
+                .then((addedGoal) => {
+                    setGoals([...goals, addedGoal]);
+                })
+                .catch((err) => console.log(err));
+        }
+        setShowModal(false);
+        setNewGoal({
+            userID: id,
+            startdate: "",
+            enddate: "",
+            activity: "",
+            description: "",
+            progress: false,
+        });
+    };
+
+    const handleEdit = (goal) => {
+        setCurrentGoal(goal);
+        setNewGoal(goal);
+        setIsEditing(true);
+        setShowModal(true);
+    };
+
+    const handleDelete = (id) => {
+        fetch(`http://localhost:9999/GoalTracking/${id}`, {
+            method: "DELETE",
+        })
+            .then((res) => {
+                if (res.ok) {
+                    setGoals(goals.filter((goal) => goal.id !== id));
+                }
+            })
+            .catch((err) => console.log(err));
     };
 
     return (
-        <div className="container-fluid">
-            <Row className="mt-3">
-                <Col>
-                    <div className="d-flex justify-content-start">
-                        <ButtonGroup className="me-2">
-                            <Button
-                                variant="outline-secondary"
-                                className="me-1"
-                            >
-                                <BiChevronDown />
-                            </Button>
-                            <Button variant="outline-secondary">
-                                <BiChevronRight />
-                            </Button>
-                        </ButtonGroup>
-                        <DropdownButton
-                            variant="outline-secondary"
-                            title="My Notes"
-                            className="me-2"
-                        >
-                            <Dropdown.Item>Action</Dropdown.Item>
-                            <Dropdown.Item>Another action</Dropdown.Item>
-                            <Dropdown.Item>Something else</Dropdown.Item>
-                        </DropdownButton>
-                        <Button
-                            variant="outline-secondary"
-                            onClick={handleAddRecord}
-                            className="me-2"
-                        >
-                            <BiPlus />
-                            Add Record
-                        </Button>
-                        <DropdownButton
-                            variant="outline-secondary"
-                            title="Customize Field"
-                            className="me-2"
-                        >
-                            <Dropdown.Item>Action</Dropdown.Item>
-                            <Dropdown.Item>Another action</Dropdown.Item>
-                            <Dropdown.Item>Something else</Dropdown.Item>
-                        </DropdownButton>
-                        <DropdownButton
-                            variant="outline-secondary"
-                            title="View Settings"
-                            className="me-2"
-                        >
-                            <Dropdown.Item>Action</Dropdown.Item>
-                            <Dropdown.Item>Another action</Dropdown.Item>
-                            <Dropdown.Item>Something else</Dropdown.Item>
-                        </DropdownButton>
-                        <DropdownButton
-                            variant="outline-secondary"
-                            title="Filter"
-                            className="me-2"
-                        >
-                            <Dropdown.Item>Action</Dropdown.Item>
-                            <Dropdown.Item>Another action</Dropdown.Item>
-                            <Dropdown.Item>Something else</Dropdown.Item>
-                        </DropdownButton>
-                        <DropdownButton
-                            variant="outline-secondary"
-                            title="1 Group"
-                            className="me-2"
-                        >
-                            <Dropdown.Item>Action</Dropdown.Item>
-                            <Dropdown.Item>Another action</Dropdown.Item>
-                            <Dropdown.Item>Something else</Dropdown.Item>
-                        </DropdownButton>
-                        <ButtonGroup className="me-2">
-                            <DropdownButton
-                                variant="outline-secondary"
-                                title="Sort"
-                                className="me-1"
-                            >
-                                <Dropdown.Item>Action</Dropdown.Item>
-                                <Dropdown.Item>Another action</Dropdown.Item>
-                                <Dropdown.Item>Something else</Dropdown.Item>
-                            </DropdownButton>
-                            <DropdownButton
-                                variant="outline-secondary"
-                                title="Row Height"
-                                className="me-1"
-                            >
-                                <Dropdown.Item>Action</Dropdown.Item>
-                                <Dropdown.Item>Another action</Dropdown.Item>
-                                <Dropdown.Item>Something else</Dropdown.Item>
-                            </DropdownButton>
-                            <Button
-                                variant="outline-secondary"
-                                className="me-1"
-                            >
-                                <BiAlarm />
-                                Alert
-                            </Button>
-                            <Button
-                                variant="outline-secondary"
-                                onClick={handleGenerateForm}
-                                className="me-1"
-                            >
-                                <BiFile />
-                                Generate Form
-                            </Button>
-                        </ButtonGroup>
-                    </div>
-                </Col>
-            </Row>
-            <Row className="mt-3">
-                <Col className="d-flex align-items-center">
-                    <Form.Check
-                        type="switch"
-                        id="custom-switch"
-                        label="A Theme"
-                        className="me-2"
-                    />
-                    <InputGroup className="me-2">
-                        <InputGroup.Text id="basic-addon1">
-                            <BiCog />
-                        </InputGroup.Text>
-                        <FormControl
-                            placeholder="Subject Area"
-                            aria-label="Subject Area"
-                            aria-describedby="basic-addon1"
-                        />
-                    </InputGroup>
-                    <InputGroup className="me-2">
-                        <InputGroup.Text id="basic-addon1">
-                            <BiCog />
-                        </InputGroup.Text>
-                        <FormControl
-                            placeholder="A Link"
-                            aria-label="A Link"
-                            aria-describedby="basic-addon1"
-                        />
-                    </InputGroup>
-                    <InputGroup className="me-2">
-                        <InputGroup.Text id="basic-addon1">
-                            <BiFilter />
-                        </InputGroup.Text>
-                        <FormControl
-                            placeholder="Start Date"
-                            aria-label="Start Date"
-                            aria-describedby="basic-addon1"
-                        />
-                    </InputGroup>
-                    <InputGroup className="me-2">
-                        <InputGroup.Text id="basic-addon1">
-                            <BiFilter />
-                        </InputGroup.Text>
-                        <FormControl
-                            placeholder="End Date"
-                            aria-label="End Date"
-                            aria-describedby="basic-addon1"
-                        />
-                    </InputGroup>
-                    <InputGroup className="me-2">
-                        <InputGroup.Text id="basic-addon1">
-                            <BiSort />
-                        </InputGroup.Text>
-                        <FormControl
-                            placeholder="Progress"
-                            aria-label="Progress"
-                            aria-describedby="basic-addon1"
-                        />
-                    </InputGroup>
-                    <InputGroup className="me-2">
-                        <InputGroup.Text id="basic-addon1">
-                            <MdDescription />
-                        </InputGroup.Text>
-                        <FormControl
-                            placeholder="A Summary"
-                            aria-label="A Summary"
-                            aria-describedby="basic-addon1"
-                        />
-                    </InputGroup>
-                    <Button variant="outline-secondary">
-                        <BiPlus />
+        <Container>
+            <Row>
+                <Col xs={12}>
+                    <h1>Goal Tracking</h1>
+                    <Button
+                        variant="primary"
+                        onClick={() => setShowModal(true)}
+                    >
+                        Add
                     </Button>
-                </Col>
-            </Row>
-            <Row className="mt-3">
-                {records.map((record) => (
-                    <Col key={record.id} md={4}>
-                        <Table striped bordered hover>
-                            <thead>
-                                <tr>
-                                    <th colSpan={3}>
+                    <Table striped bordered hover className="mt-3">
+                        <thead>
+                            <tr>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Activity</th>
+                                <th>Goal</th>
+                                <th>Progress</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {goals.map((g) => (
+                                <tr key={g.id}>
+                                    <td>{g.startdate}</td>
+                                    <td>{g.enddate}</td>
+                                    <td>{g.activity}</td>
+                                    <td>{g.description}</td>
+                                    <td>
                                         <DropdownButton
-                                            variant="outline-secondary"
-                                            title={record.subject}
-                                            className="me-2"
-                                            drop="down"
-                                            size="sm"
+                                            id="dropdown-basic-button"
+                                            title={
+                                                g.progress
+                                                    ? "Completed"
+                                                    : "InProgress"
+                                            }
+                                            variant={
+                                                g.progress
+                                                    ? "success"
+                                                    : "warning"
+                                            } // Change color based on progress
+                                            onSelect={(eventKey) =>
+                                                handleProgressChange(
+                                                    g,
+                                                    eventKey
+                                                )
+                                            }
                                         >
-                                            <Dropdown.Item>
-                                                <BiChevronDown />
+                                            <Dropdown.Item eventKey="Completed">
+                                                Completed
                                             </Dropdown.Item>
-                                            <Dropdown.Item>
-                                                <BiBarChartAlt2 />
-                                            </Dropdown.Item>
-                                            <Dropdown.Item>
-                                                <BiGridVertical />
+                                            <Dropdown.Item eventKey="InProgress">
+                                                InProgress
                                             </Dropdown.Item>
                                         </DropdownButton>
-                                        <Badge bg="secondary" className="ms-2">
-                                            {record.subject.length > 12
-                                                ? record.subject.substring(
-                                                      0,
-                                                      12
-                                                  ) + "..."
-                                                : record.subject}
-                                        </Badge>
-                                        <span className="ms-2">
-                                            {record.subject === "Philosophy" ||
-                                            record.subject === "Psychology"
-                                                ? 2
-                                                : record.subject ===
-                                                  "Physical Exercise"
-                                                ? 1
-                                                : 3}{" "}
-                                            records
-                                        </span>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td colSpan={2}>{record.title}</td>
-                                    <td>
-                                        <Badge bg="secondary" className="ms-2">
-                                            {record.subject.length > 12
-                                                ? record.subject.substring(
-                                                      0,
-                                                      12
-                                                  ) + "..."
-                                                : record.subject}
-                                        </Badge>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td colSpan={2}>{record.link}</td>
                                     <td>
-                                        <Badge bg="secondary" className="ms-2">
-                                            {record.startDate}
-                                        </Badge>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colSpan={2}></td>
-                                    <td>
-                                        <Badge bg="secondary" className="ms-2">
-                                            {record.endDate}
-                                        </Badge>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colSpan={2}></td>
-                                    <td>
-                                        <Badge
-                                            bg={
-                                                record.progress === "Completed"
-                                                    ? "success"
-                                                    : record.progress ===
-                                                      "In progress"
-                                                    ? "warning"
-                                                    : "secondary"
-                                            }
-                                            className="ms-2"
+                                        <Button
+                                            variant="secondary"
+                                            onClick={() => handleEdit(g)}
+                                            className="mr-2"
                                         >
-                                            {record.progress}
-                                        </Badge>
+                                            Edit
+                                        </Button>
+                                        <Button
+                                            variant="danger"
+                                            onClick={() => handleDelete(g.id)}
+                                        >
+                                            Delete
+                                        </Button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td colSpan={3}>{record.summary}</td>
-                                </tr>
-                            </tbody>
-                        </Table>
-                    </Col>
-                ))}
-            </Row>
-            <Row className="mt-3">
-                <Col>
-                    <Button variant="outline-secondary" className="me-2">
-                        <BiGroup />
-                        New Group
-                    </Button>
+                            ))}
+                        </tbody>
+                    </Table>
                 </Col>
             </Row>
-        </div>
+
+            <Modal show={showModal} onHide={() => setShowModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>
+                        {isEditing ? "Edit Goal" : "Add New Goal"}
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group>
+                            <Form.Label>Start Date</Form.Label>
+                            <Form.Control
+                                type="date"
+                                name="startdate"
+                                value={newGoal.startdate}
+                                onChange={handleChange}
+                                required
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>End Date</Form.Label>
+                            <Form.Control
+                                type="date"
+                                name="enddate"
+                                value={newGoal.enddate}
+                                onChange={handleChange}
+                                required
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Activity</Form.Label>
+                            <Form.Control
+                                type="text"
+                                name="activity"
+                                value={newGoal.activity}
+                                onChange={handleChange}
+                                required
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Goal</Form.Label>
+                            <Form.Control
+                                type="text"
+                                name="description"
+                                value={newGoal.description}
+                                onChange={handleChange}
+                                required
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                            <DropdownButton
+                                id="dropdown-basic-button"
+                                title={
+                                    newGoal.progress
+                                        ? "Completed"
+                                        : "InProgress"
+                                }
+                                variant={
+                                    newGoal.progress ? "success" : "warning"
+                                } // Change color based on progress
+                                onSelect={(eventKey) =>
+                                    setNewGoal({
+                                        ...newGoal,
+                                        progress: eventKey === "Completed",
+                                    })
+                                }
+                            >
+                                <Dropdown.Item eventKey="Completed">
+                                    Completed
+                                </Dropdown.Item>
+                                <Dropdown.Item eventKey="InProgress">
+                                    InProgress
+                                </Dropdown.Item>
+                            </DropdownButton>
+                        </Form.Group>
+                        <Button
+                            variant="primary"
+                            type="submit"
+                            className="mt-3"
+                        >
+                            {isEditing ? "Update Goal" : "Add Goal"}
+                        </Button>
+                    </Form>
+                </Modal.Body>
+            </Modal>
+        </Container>
     );
 };
 
