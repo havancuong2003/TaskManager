@@ -13,7 +13,7 @@ const Main = () => {
     const [showAddEditModal, setShowAddEditModal] = useState(false);
     const [selectedTask, setSelectedTask] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
-    const [userID, setUserID] = useState("user2");
+    const [userID, setUserID] = useState(null);
     const id = localStorage.getItem("id");
 
     useEffect(() => {
