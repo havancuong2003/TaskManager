@@ -164,6 +164,39 @@
       "description": "Cuộc họp với khách hàng để thảo luận dự án mới",
       "date": "2024-07-10",
       "completed": false
+    },
+    {
+      "id": "dd652f75-3193-404a-981a-7797bc765a24",
+      "userId": "user1",
+      "start": "07:00",
+      "end": "08:00",
+      "activity": "Tập Thể Dục Buổi Sáng",
+      "location": "Công Viên",
+      "description": "Yoga và thiền để bắt đầu ngày mới năng độnggggg",
+      "date": "2024-07-14",
+      "completed": false
+    },
+    {
+      "id": "2a0ae30b-c402-42f4-b57e-3b3582f391d9",
+      "userId": "user1",
+      "start": "12:00",
+      "end": "13:00",
+      "activity": "Ăn trưa",
+      "location": "Nhà hàng",
+      "description": "Ăn trưa cùng đồng nghiệp",
+      "date": "2024-07-14",
+      "completed": false
+    },
+    {
+      "id": "8b805a66-06d3-4a36-a83a-57816e83c0b2",
+      "userId": "user1",
+      "start": "15:00",
+      "end": "16:00",
+      "activity": "Gặp khách hàng",
+      "location": "Văn phòng",
+      "description": "Cuộc họp với khách hàng để thảo luận dự án mới",
+      "date": "2024-07-14",
+      "completed": false
     }
   ],
   "tasks": [

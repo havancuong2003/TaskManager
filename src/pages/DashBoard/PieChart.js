@@ -7,7 +7,8 @@ import "./ChartSetup"; // Import ChartSetup
 const PieChart = () => {
     const [data, setData] = useState([]);
     const [labels, setLabels] = useState([]);
-
+    // const id = localStorage.getItem("id");
+    const [id, setId] = useState("user1");
     useEffect(() => {
         // Fetch data from API
         const fetchData = async () => {
@@ -30,26 +31,29 @@ const PieChart = () => {
                 const end = new Date(`1970-01-01T${item.end}:00Z`);
                 const duration = (end - start) / 1000 / 60; // duration in minutes
 
-                if (item.activity.includes("Ngủ")) {
+                if (item.activity.includes("Ngủ") && item.userId == id) {
                     activityCategories.Sleep += duration;
                 } else if (
-                    item.activity.includes("Công Việc") ||
-                    item.activity.includes("Email")
+                    (item.activity.includes("Công Việc") ||
+                        item.activity.includes("Email")) &&
+                    item.userId == id
                 ) {
                     activityCategories.Work += duration;
                 } else if (
-                    item.activity.includes("Tập Thể Dục") ||
-                    item.activity.includes("Chạy")
+                    (item.activity.includes("Tập Thể Dục") ||
+                        item.activity.includes("Chạy")) &&
+                    item.userId == id
                 ) {
                     activityCategories.Exercise += duration;
                 } else if (
-                    item.activity.includes("Giải Lao") ||
-                    item.activity.includes("Leisure")
+                    (item.activity.includes("Giải Lao") ||
+                        item.activity.includes("Leisure")) &&
+                    item.userId == id
                 ) {
                     activityCategories.Leisure += duration;
-                } else if (item.activity.includes("Ăn")) {
+                } else if (item.activity.includes("Ăn") && item.userId == id) {
                     activityCategories.Eating += duration;
-                } else {
+                } else if (item.userId == id) {
                     activityCategories.Other += duration;
                 }
             });
@@ -106,11 +110,7 @@ const PieChart = () => {
         },
     };
 
-    return (
-        <Container>
-            <Pie data={chartData} options={options} />
-        </Container>
-    );
+    return <Pie data={chartData} options={options} />;
 };
 
 export default PieChart;
