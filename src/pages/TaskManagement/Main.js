@@ -14,8 +14,10 @@ const Main = () => {
     const [selectedTask, setSelectedTask] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
     const [userID, setUserID] = useState("user2");
+    const id = localStorage.getItem("id");
 
     useEffect(() => {
+        setUserID(id);
         fetchEvents();
     }, [userID]);
 
