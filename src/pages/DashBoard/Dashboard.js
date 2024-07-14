@@ -198,11 +198,9 @@ function Dashboard() {
                                     className="ct-chart ct-perfect-fourth"
                                     id="chartPreferences"
                                 >
-                                    <Container>
-                                        <PieChart
-                                            key="pieChart" // Đảm bảo key là duy nhất cho PieChart
-                                        />
-                                    </Container>
+                                    <PieChart
+                                        key="pieChart" // Đảm bảo key là duy nhất cho PieChart
+                                    />
                                 </div>
                                 <div className="stats">
                                     <i className="far fa-clock">Yesterday</i>
