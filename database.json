@@ -431,51 +431,6 @@
     ],
     "GoalTracking": [
         {
-            "id": "1",
-            "userID": "1",
-            "startdate": "2024-04-01",
-            "enddate": "2024-07-01",
-            "activity": "Tập Thể Dục Buổi Sáng",
-            "description": "Đạt được mức độ thể chất tốt hơn sau 3 tháng.",
-            "progress": true
-        },
-        {
-            "id": "2",
-            "userID": "1",
-            "startdate": "2024-05-01",
-            "enddate": "2024-07-01",
-            "activity": "Dọn Dẹp Nhà Cửa ",
-            "description": "Duy trì sự sạch sẽ và gọn gàng trong nhà.",
-            "progress": true
-        },
-        {
-            "id": "cfc9",
-            "userID": "1",
-            "startdate": "2024-07-03",
-            "enddate": "2024-07-06",
-            "activity": "Đọc Sách",
-            "description": "Đọc hoàn thành 3 quyển sách trong 1 tháng.",
-            "progress": true
-        },
-        {
-            "id": "5b4c",
-            "userID": "1",
-            "startdate": "2024-07-09",
-            "enddate": "2024-07-10",
-            "activity": "Thư Từ Email",
-            "description": "Đã Trả Lời Hết Các Email Của 2 Ngày Trước",
-            "progress": true
-        },
-        {
-            "id": "d4ac",
-            "userID": "1",
-            "startdate": "2024-06-01",
-            "enddate": "2024-07-01",
-            "activity": "Ăn Sáng",
-            "description": "Duy Trì Hoạt Động Ăn Sáng Trong 1 Tháng",
-            "progress": true
-        },
-        {
             "id": "0d3e",
             "userID": "1",
             "startdate": "2024-05-10",
@@ -500,6 +455,170 @@
             "enddate": "2024-07-20",
             "activity": "Ăn Sáng",
             "description": "Ngủ 8 tiếng",
+            "progress": false
+        },
+        {
+            "id": "a47d",
+            "startdate": "2024-07-09",
+            "enddate": "2024-07-17",
+            "activity": "Xem EURO",
+            "description": "Xem Hết Các Trận Euro",
+            "progress": true
+        },
+        {
+            "id": "c026",
+            "userID": "id",
+            "startdate": "2024-07-19",
+            "enddate": "2024-07-16",
+            "activity": "Đọc Sách",
+            "description": "Đọc hoàn thành 3 quyển sách trong 1 tháng.",
+            "progress": true
+        },
+        {
+            "id": "cb1f",
+            "startdate": "2024-07-10",
+            "enddate": "2024-07-16",
+            "activity": "Ăn Sáng",
+            "description": "Duy Trì Hoạt Động Ăn Sáng Hằng Ngày",
+            "progress": false
+        },
+        {
+            "id": "b4f0",
+            "startdate": "2024-06-10",
+            "enddate": "2024-07-09",
+            "activity": "Thư Từ Email",
+            "description": "Đã Trả Lời Hết Các Email Của 2 Ngày Trước",
+            "progress": true
+        },
+        {
+            "id": "7432",
+            "userID": "id",
+            "startdate": "2024-06-15",
+            "enddate": "2024-07-15",
+            "activity": "Xem EURO",
+            "description": "Xem Hết Các Trận Euro Không Bỏ Lỡ 1 Trận Nào",
+            "progress": false
+        },
+        {
+            "id": "0e47",
+            "startdate": "2024-06-14",
+            "enddate": "2024-07-30",
+            "activity": "Dự Án Công Việc",
+            "description": "Hoàn Thành 100% Dự Án Công Việc ",
+            "progress": false
+        },
+        {
+            "id": "dfd1",
+            "startdate": "2024-07-10",
+            "enddate": "2024-07-17",
+            "activity": "Thư Từ Email",
+            "description": "Đã Trả Lời Hết Các Email Của 2 Ngày Trước",
+            "progress": true
+        },
+        {
+            "id": "d7c8",
+            "userID": "",
+            "startdate": "2024-07-19",
+            "enddate": "2024-07-03",
+            "activity": "Đọc Sách",
+            "description": "Đọc hoàn thành 3 quyển sách trong 1 tháng.",
+            "progress": true
+        },
+        {
+            "id": "37b2",
+            "userID": "",
+            "startdate": "2024-07-03",
+            "enddate": "2024-07-02",
+            "activity": "Ăn Sáng",
+            "description": "Duy Trì Hoạt Động Ăn Sáng Trong 1 Tháng",
+            "progress": true
+        },
+        {
+            "id": "78d3",
+            "userID": "",
+            "startdate": "2024-07-05",
+            "enddate": "2024-07-05",
+            "activity": "Đọc Sách",
+            "description": "Đọc hoàn thành 3 quyển sách trong 1 tháng.",
+            "progress": true
+        },
+        {
+            "id": "480f",
+            "startdate": "2024-07-04",
+            "enddate": "2024-07-18",
+            "activity": "Thư Từ Email",
+            "description": "Đã Trả Lời Hết Các Email Của 2 Ngày Trước",
+            "progress": true
+        },
+        {
+            "id": "91cd",
+            "userID": "",
+            "startdate": "2024-07-17",
+            "enddate": "2024-07-18",
+            "activity": "Dự Án Công Việc",
+            "description": "Hoàn Thành 50% Dự Án Công Việc ",
+            "progress": false
+        },
+        {
+            "id": "415c",
+            "startdate": "2024-07-10",
+            "enddate": "2024-07-12",
+            "activity": "Thư Từ Email",
+            "description": "Đã Trả Lời Hết Các Email Của 2 Ngày Trước",
+            "progress": true
+        },
+        {
+            "id": "6a1e",
+            "userID": "user2",
+            "startdate": "2024-07-06",
+            "enddate": "2024-07-02",
+            "activity": "Thư Từ Email",
+            "description": "Đã Trả Lời Hết Các Email Của 2 Ngày Trước",
+            "progress": true
+        },
+        {
+            "id": "d527",
+            "userID": "user2",
+            "startdate": "2024-07-02",
+            "enddate": "2024-07-10",
+            "activity": "Ăn Sáng",
+            "description": "Duy Trì Hoạt Động Ăn Sáng Trong 8 Tháng",
+            "progress": true
+        },
+        {
+            "id": "6cfa",
+            "userID": "4",
+            "startdate": "2024-07-10",
+            "enddate": "2024-07-16",
+            "activity": "Xem EURO",
+            "description": "Xem Hết Các Trận Euro",
+            "progress": true
+        },
+        {
+            "id": "ba8e",
+            "userID": "3",
+            "startdate": "2024-07-11",
+            "enddate": "2024-07-19",
+            "activity": "Kiếm Người Yêu",
+            "description": "Đã Có 10 Cô Người Yêu, Co Nao Cung Xinh",
+            "progress": false
+        },
+        {
+            "id": "73a5",
+            "userID": "4",
+            "startdate": "2024-07-04",
+            "enddate": "2024-07-03",
+            "activity": "Da bong",
+            "description": "Da duoc 2 qua bong",
+            "progress": true
+        },
+        {
+            "id": "fd53",
+            "userID": "3",
+            "startdate": "2024-07-09",
+            "enddate": "2024-07-10",
+            "activity": "Xem Phim",
+            "description": "Xem duoc 2 bo phim trong 1 ngay ",
             "progress": false
         }
     ],
