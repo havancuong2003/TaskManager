@@ -18,6 +18,8 @@ import {
     InputLabel,
 } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
+import UpdateTemplateModal from "./UpdateTemplateModal ";
+import { Button } from "react-bootstrap";
 
 const Main = () => {
     const [data, setData] = useState([]);
@@ -29,6 +31,7 @@ const Main = () => {
     const [currentTime, setCurrentTime] = useState(new Date());
     const [tasksCreated, setTasksCreated] = useState(false); // State to track if tasks are created for the current date
     const [userID, setUserID] = useState("user1");
+    const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
 
     const fetchData = async () => {
         try {
@@ -39,6 +42,7 @@ const Main = () => {
                 throw new Error("Network response was not ok");
             }
             const jsonData = await response.json();
+
             const uniqueDates = [...new Set(jsonData.map((task) => task.date))];
             const currentDate = new Date().toISOString().slice(0, 10);
 
@@ -48,9 +52,18 @@ const Main = () => {
             }
 
             setDates(uniqueDates);
+
             const filteredData = jsonData.filter(
                 (task) => task.date === selectedDate
             );
+
+            // Sắp xếp filteredData theo thời gian (start)
+            filteredData.sort((a, b) => {
+                const timeA = new Date(`1970/01/01 ${a.start}`);
+                const timeB = new Date(`1970/01/01 ${b.start}`);
+                return timeA - timeB;
+            });
+
             setData(filteredData);
         } catch (error) {
             console.error("Error fetching data: ", error);
@@ -66,6 +79,7 @@ const Main = () => {
                 throw new Error("Network response was not ok");
             }
             const jsonData = await response.json();
+
             setTemplate(jsonData);
         } catch (error) {
             console.error("Error fetching template: ", error);
@@ -107,11 +121,14 @@ const Main = () => {
         return () => clearInterval(interval);
     }, []);
 
-    const isTaskDisabled = (endTime) => {
-        const taskEndTime = new Date(currentTime);
-        const [hours, minutes] = endTime.split(":");
-        taskEndTime.setHours(hours, minutes, 0, 0);
-        return taskEndTime < currentTime;
+    const isTaskDisabled = (taskDate, endTime) => {
+        const currentDate = new Date().toISOString().slice(0, 10);
+        const currentTime = new Date();
+
+        const taskEndDateTime = new Date(`${taskDate}T${endTime}`);
+
+        // Compare both date and time
+        return taskEndDateTime <= currentTime && taskDate <= currentDate;
     };
 
     useEffect(() => {
@@ -126,11 +143,17 @@ const Main = () => {
 
                 // Check if there are tasks for today in the schedule
                 const response = await fetch(
-                    `http://localhost:9999/schedule?date=${currentDate}&userId=${userID}`
+                    `http://localhost:9999/schedule?date=${currentDate}`
                 );
                 if (response.ok) {
                     const jsonData = await response.json();
-                    if (jsonData.length > 0) {
+
+                    // Lọc theo userID
+                    const userTasks = jsonData.filter(
+                        (task) => task.userId === userID
+                    );
+
+                    if (userTasks.length > 0) {
                         // Tasks for today already exist, mark as created
                         setTasksCreated(true);
                         fetchData(); // Fetch data for the selected date
@@ -203,11 +226,26 @@ const Main = () => {
         }
     };
 
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
     return (
         <div>
             <AppBar position="static">
-                <Toolbar>
+                <Toolbar className="d-flex justify-between">
                     <Typography variant="h6">Daily Task Manager</Typography>
+                    <Button
+                        color="white"
+                        variant="primary"
+                        onClick={handleOpenModal}
+                    >
+                        Update Template
+                    </Button>
                 </Toolbar>
             </AppBar>
             <Box m={2}>
@@ -216,7 +254,6 @@ const Main = () => {
                     <Select
                         labelId="date-select-label"
                         value={selectedDate}
-                        label="Select Date"
                         onChange={handleDateChange}
                     >
                         {dates.map((date) => (
@@ -253,13 +290,23 @@ const Main = () => {
                                         onChange={() =>
                                             handleTaskComplete(row.id, row.date)
                                         }
-                                        disabled={isTaskDisabled(row.end)} // Disable checkbox if task end time is in the past
+                                        disabled={isTaskDisabled(
+                                            row.date,
+                                            row.end
+                                        )}
                                     />
                                 </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
+                <UpdateTemplateModal
+                    open={isModalOpen}
+                    handleClose={handleCloseModal}
+                    templateData={template}
+                    updateTemplate={fetchTemplate} // Pass function to update template data after saving changes
+                    userID={userID}
+                />
             </TableContainer>
         </div>
     );
