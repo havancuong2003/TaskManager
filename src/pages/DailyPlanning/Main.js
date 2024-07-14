@@ -20,19 +20,25 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import UpdateTemplateModal from "./UpdateTemplateModal ";
 import { Button } from "react-bootstrap";
+import { format } from "date-fns";
 
 const Main = () => {
+    const currentDate = format(new Date(), "yyyy-MM-dd");
     const [data, setData] = useState([]);
     const [template, setTemplate] = useState([]);
-    const [selectedDate, setSelectedDate] = useState(
-        new Date().toISOString().slice(0, 10)
-    );
+    const [selectedDate, setSelectedDate] = useState(currentDate);
+
     const [dates, setDates] = useState([]);
     const [currentTime, setCurrentTime] = useState(new Date());
     const [tasksCreated, setTasksCreated] = useState(false); // State to track if tasks are created for the current date
-    const [userID, setUserID] = useState("user1");
+    const [userID, setUserID] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
 
+    const id = localStorage.getItem("id");
+
+    useEffect(() => {
+        fetchData();
+    }, [userID]);
     const fetchData = async () => {
         try {
             const response = await fetch(
@@ -44,7 +50,7 @@ const Main = () => {
             const jsonData = await response.json();
 
             const uniqueDates = [...new Set(jsonData.map((task) => task.date))];
-            const currentDate = new Date().toISOString().slice(0, 10);
+            //  const currentDate = new Date().toISOString().slice(0, 10);
 
             // Thêm ngày hiện tại vào mảng uniqueDates nếu chưa có
             if (!uniqueDates.includes(currentDate)) {
@@ -87,7 +93,7 @@ const Main = () => {
     };
 
     const createTasksFromTemplate = async () => {
-        const currentDate = new Date().toISOString().slice(0, 10);
+        //  const currentDate = new Date().toISOString().slice(0, 10);
         const tasksForToday = template.map((task) => ({
             ...task,
             id: uuidv4(),
@@ -114,6 +120,8 @@ const Main = () => {
     };
 
     useEffect(() => {
+        setSelectedDate(currentDate);
+        setUserID(id);
         const interval = setInterval(() => {
             setCurrentTime(new Date());
         }, 1000);
@@ -122,7 +130,7 @@ const Main = () => {
     }, []);
 
     const isTaskDisabled = (taskDate, endTime) => {
-        const currentDate = new Date().toISOString().slice(0, 10);
+        //  const currentDate = new Date().toISOString().slice(0, 10);
         const currentTime = new Date();
 
         const taskEndDateTime = new Date(`${taskDate}T${endTime}`);
@@ -139,7 +147,7 @@ const Main = () => {
     useEffect(() => {
         const fetchInitialData = async () => {
             try {
-                const currentDate = new Date().toISOString().slice(0, 10);
+                //  const currentDate = new Date().toISOString().slice(0, 10);
 
                 // Check if there are tasks for today in the schedule
                 const response = await fetch(
@@ -152,7 +160,7 @@ const Main = () => {
                     const userTasks = jsonData.filter(
                         (task) => task.userId === userID
                     );
-
+                    console.log("User tasks:", userTasks);
                     if (userTasks.length > 0) {
                         // Tasks for today already exist, mark as created
                         setTasksCreated(true);

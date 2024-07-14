@@ -249,6 +249,149 @@
       "description": "Cuộc họp với khách hàng để thảo luận dự án mới",
       "date": "2024-07-14",
       "completed": true
+    },
+    {
+      "id": "1d609d4b-f093-48dc-a8cb-ace43ff66621",
+      "userId": "user1",
+      "start": "07:00",
+      "end": "08:00",
+      "activity": "Tập Thể Dục Buổi Sáng",
+      "location": "Công Viên",
+      "description": "Yoga và thiền để bắt đầu ngày mới năng độnggggg vaio",
+      "date": "2024-07-14",
+      "completed": false
+    },
+    {
+      "id": "5dfb2472-d156-465a-a7df-3ac6dafc71dc",
+      "userId": "user1",
+      "start": "12:00",
+      "end": "13:00",
+      "activity": "Ăn trưa",
+      "location": "Nhà hàng",
+      "description": "Ăn trưa cùng đồng nghiệp",
+      "date": "2024-07-14",
+      "completed": false
+    },
+    {
+      "id": "fd0ff2b2-77e3-456e-82ee-df7d90eec981",
+      "userId": "user1",
+      "start": "15:00",
+      "end": "16:00",
+      "activity": "Gặp khách hàng",
+      "location": "Văn phòng",
+      "description": "Cuộc họp với khách hàng để thảo luận dự án mới",
+      "date": "2024-07-14",
+      "completed": false
+    },
+    {
+      "id": "d6b20d2c-bfac-4017-b905-91da6207f3de",
+      "start": "08:30",
+      "end": "08:45",
+      "activity": "di tan gai",
+      "location": "dinh thon",
+      "description": "toan nguoi mau",
+      "userId": "user1",
+      "date": "2024-07-14",
+      "completed": false
+    },
+    {
+      "id": "9682a1fc-2afb-4d58-9aec-40780954938c",
+      "start": "08:50",
+      "end": "08:55",
+      "activity": "Chay",
+      "location": "Cho duoi",
+      "description": "150km/h",
+      "userId": "user1",
+      "date": "2024-07-14",
+      "completed": false
+    },
+    {
+      "id": "34e91832-c638-4845-a9aa-0fb80ba528df",
+      "userId": "user1",
+      "start": "07:00",
+      "end": "08:00",
+      "activity": "Tập Thể Dục Buổi Sáng",
+      "location": "Công Viên",
+      "description": "Yoga và thiền để bắt đầu ngày mới năng độnggggg vaio",
+      "date": "2024-07-15",
+      "completed": false
+    },
+    {
+      "id": "4750a96d-ffec-4964-abec-62c67a7734de",
+      "userId": "user1",
+      "start": "12:00",
+      "end": "13:00",
+      "activity": "Ăn trưa",
+      "location": "Nhà hàng",
+      "description": "Ăn trưa cùng đồng nghiệp",
+      "date": "2024-07-15",
+      "completed": false
+    },
+    {
+      "id": "f4d1b875-b083-436f-8efd-8a977ba577bf",
+      "userId": "user1",
+      "start": "15:00",
+      "end": "16:00",
+      "activity": "Gặp khách hàng",
+      "location": "Văn phòng",
+      "description": "Cuộc họp với khách hàng để thảo luận dự án mới",
+      "date": "2024-07-15",
+      "completed": false
+    },
+    {
+      "id": "efb7277a-50bc-459b-9ef6-5f1d3bab9fdd",
+      "start": "08:30",
+      "end": "08:45",
+      "activity": "di tan gai",
+      "location": "dinh thon",
+      "description": "toan nguoi mau",
+      "userId": "user1",
+      "date": "2024-07-15",
+      "completed": false
+    },
+    {
+      "id": "c81d384f-968a-45cc-8111-00ce51ec4599",
+      "start": "08:50",
+      "end": "08:55",
+      "activity": "Chay",
+      "location": "Cho duoi",
+      "description": "150km/h",
+      "userId": "user1",
+      "date": "2024-07-15",
+      "completed": false
+    },
+    {
+      "id": "52ad750b-a828-4057-974d-52d45750298f",
+      "userId": "user2",
+      "start": "07:30",
+      "end": "08:30",
+      "activity": "Chạy bộ",
+      "location": "Sân chơi",
+      "description": "Chạy bộ để giữ sức khỏe",
+      "date": "2024-07-15",
+      "completed": false
+    },
+    {
+      "id": "34d11c2d-b451-4c4c-a0ad-367ce4418cc6",
+      "userId": "user2",
+      "start": "12:30",
+      "end": "13:30",
+      "activity": "Học tập",
+      "location": "Thư viện",
+      "description": "Đọc sách và học bài tập",
+      "date": "2024-07-15",
+      "completed": false
+    },
+    {
+      "id": "977b90bb-ec01-4773-81f8-8f70cc12b454",
+      "userId": "user2",
+      "start": "14:00",
+      "end": "15:00",
+      "activity": "Nghỉ trưa",
+      "location": "Nhà",
+      "description": "Nghỉ trưa và chuẩn bị cho buổi học tiếp theo",
+      "date": "2024-07-15",
+      "completed": false
     }
   ],
   "tasks": [
